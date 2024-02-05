@@ -17,6 +17,14 @@ class DepositController extends Controller
         ]);
     }
 
+    public function riwayatDeposit()
+    {
+        return view('components.riwayat-deposit', ['data' => Deposit::where('username', Auth::user()->username)->orderBy('created_at', 'desc')->paginate(10),
+        'logoheader' => Berita::where('tipe', 'logoheader')->latest()->first(),
+          'logofooter' => Berita::where('tipe', 'logofooter')->latest()->first()
+        ]);
+    }
+
     public function store(Request $request)
     {
         $request->validate([

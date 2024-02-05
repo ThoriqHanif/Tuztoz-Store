@@ -1,6 +1,6 @@
-@extends('main')
+@extends('layouts.master-order')
 
-@section('css')
+{{-- @section('css')
     <style>
         .css-16pvxfk {
             background: linear-gradient(270deg, rgb(211 211 211) -1.95%, var(--warna_5) 50.95%) !important;
@@ -66,12 +66,12 @@
             text-decoration: inherit;
         }
     </style>
-@endsection
+@endsection --}}
 
 @section('content')
-    @include('../navbar')
+    {{-- @include('../navbar') --}}
 
-    <style data-emotion="css 1nl4j3i2">
+    {{-- <style data-emotion="css 1nl4j3i2">
         .css-1nl4j3i2 {
             ;
         }
@@ -81,8 +81,8 @@
                 width: 350px;
             }
         }
-    </style>
-    <div class="mx-auto max-w-7xl pb-24 grid grid-cols-12 gap-6 lg:gap-x-16 lg:py-8 lg:px-12 mb-10 md:px-4 px-4 ">
+    </style> --}}
+    {{-- <div class="mx-auto max-w-7xl pb-24 grid grid-cols-12 gap-6 lg:gap-x-16 lg:py-8 lg:px-12 mb-10 md:px-4 px-4 ">
         <div class="hidden md:block lg:block xl:block col-span-1 lg:col-span-3">
             <aside class="py-6 lg:col-span-3 lg:p-0 sticky top-20">
                 <nav class="h-full content-start lg:grid lg:content-between">
@@ -148,12 +148,12 @@
                                         d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z">
                                     </path>
                                 </svg><span class="hidden lg:block xl:block">Keluar</span></button></div>
-                        {{-- <form action="{{ route('logout') }}" method="POST" id='logout'>
+                        <form action="{{ route('logout') }}" method="POST" id='logout'>
             @csrf        
                                                                
             <button type='submit' class="group flex gap-3 items-center rounded-3xl px-3 py-2 text-sm font-medium css-138rpjnn" id="headlessui-menu-item-:r4:" role="menuitem" tabindex="-1" data-headlessui-state="">Keluar
             </button>
-          </form> --}}
+          </form>
                 </nav>
             </aside>
         </div>
@@ -243,7 +243,7 @@
                             background: linear-gradient(270deg, #707feb -1.95%, #14279a 50.95%) !important;
                         }
                     </style>
-                    {{-- <div class="col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-4 flex justify-center rounded-2xl css-16pvxfk">
+                    <div class="col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-4 flex justify-center rounded-2xl css-16pvxfk">
                     <div class="membership-banner flex">
                       <div class="p-6 flex flex-col justify-between items-center gap-6">
                         <p class="leading-normal text-sm">Dapatkan harga lebih murah dengan Upgrade Membership!
@@ -283,7 +283,7 @@
                         </div>
                       </div>
                     </div>
-                  </div> --}}
+                  </div>
                     <div
                         class="col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-4 flex justify-center rounded-2xl css-16pvxfk">
                         <div class="membership-banner flex">
@@ -409,7 +409,7 @@
 
 
             </div>
-            {{-- <div class="col-span-12 md:col-span-11 lg:col-span-9 mt-6 sm:mt-6 lg:mt-0 md:mt-6 " bis_skin_checked="1">
+            <div class="col-span-12 md:col-span-11 lg:col-span-9 mt-6 sm:mt-6 lg:mt-0 md:mt-6 " bis_skin_checked="1">
                 <div class="flex justify-start items-center gap-5 undefined" bis_skin_checked="1">
                     <h4 class="text-lg font-medium">Riwayat Transaksi</h4>
                 </div>
@@ -500,55 +500,228 @@
                         </table>
                     </div>
                 </div>
-            </div> --}}
-        </div>
-    </div>
-    </main>
-    </div>
-
-
-    @include('../footer')
-@section('js')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.table').DataTable();
-        });
-
-        function modal(name, link) {
-            // var myModal = new bootstrap.Modal($('#modal-detail'))
-            $.ajax({
-                type: "GET",
-                url: link,
-                beforeSend: function() {
-                    $('#modal-detail-title').html(name);
-                    $('#modal-detail-body').html('Loading...');
-                },
-                success: function(result) {
-                    $('#modal-detail-title').html(name);
-                    $('#modal-detail-body').html(result);
-                },
-                error: function() {
-                    $('#modal-detail-title').html(name);
-                    $('#modal-detail-body').html('There is an error...');
-                }
-            });
-            $("#modal-detail").modal("show");
-        }
-    </script>
-
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="modal-detail"
-        style="border-radius:7%">
-        <div class="modal-dialog modal-lg">
-            <div class="p-3 border-none rounded-2xl css-6qw8qzz">
-                <div class="modal-content css-6qw8qzz">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="modal-detail-title"></h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" id="modal-detail-body"></div>
-                </div>
             </div>
         </div>
     </div>
-@endsection
+    </main>
+    </div> --}}
+
+    <body>
+        <nav class="navbar active">
+            <div class="container">
+                <div class="navLeft">
+                    <img src="{{ asset('assets/logo/20240123_060438.png') }}"
+                        onclick="window.location.href={{ route('home') }}" alt="">
+                    <div class="logoName">Tuztoz</div>
+                </div>
+                <div class="navRight">
+
+                    @if (Auth::check())
+                        <a href="{{ route('dashboard') }}" class="btnYellowPrimary login">Dashboard</a>
+                    @else
+                        <a href="{{ url('login') }}" class="btnYellowPrimary login">Masuk</a>
+                        <a href="{{ route('register') }}" class="btnYellowSecond login">Daftar</a>
+                    @endif
+                    <div class="containerMenu">
+                        <div class="dropdown">
+                            <button class="dropdownMenu shadow">
+                                <i class="bi bi-grid-fill"></i>
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="{{ route('home') }}">
+                                    <div class="containers">
+                                        <i class="bi bi-house-door-fill"></i>
+                                        <div class="name">Beranda</div>
+                                    </div>
+                                    <i class="bi bi-arrow-right-short"></i>
+                                </a>
+                                <a href="{{ url('daftar-harga') }}">
+                                    <div class="containers">
+                                        <i class="bi bi-tags-fill"></i>
+                                        <div class="name">Daftar Harga</div>
+                                    </div>
+                                    <i class="bi bi-arrow-right-short"></i>
+                                </a>
+                                <a href="{{ route('cari') }}">
+                                    <div class="containers">
+                                        <i class="bi bi-receipt-cutoff"></i>
+                                        <div class="name">Lacak Pesanan</div>
+                                    </div>
+                                    <i class="bi bi-arrow-right-short"></i>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <label class="theme-switch shadow">
+                        <input class='toggle-checkbox' id="checkbox" type='checkbox'></input>
+                        <div class="switch-icon">
+                            <i class="bi bi-brightness-high yellowprim"></i>
+                        </div>
+                    </label>
+
+                </div>
+            </div>
+        </nav>
+        <div class="mobileNav">
+            <a href="{{ route('home') }}" class="containers ">
+                <i class="bi bi-house-door-fill"></i>
+                <div class="text">Beranda</div>
+            </a>
+
+            <a href="{{ url('daftar-harga') }}" class="containers ">
+                <i class="bi bi-tags-fill"></i>
+                <div class="text">Daftar Harga</div>
+            </a>
+            <a href="{{ route('cari') }}" class="containers ">
+                <i class="bi bi-receipt-cutoff"></i>
+                <div class="text">Lacak Pesanan</div>
+            </a>
+            <a href="{{ route('login') }}" class="containers ">
+                <i class="bi bi-person-fill-lock"></i>
+                <div class="text">Login</div>
+            </a>
+            @if (Auth::check())
+                <a href="{{ url('account') }}" class="containers ">
+                    <i class="bi bi-person-fill-lock"></i>
+                    <div class="text">Dashboard</div>
+                </a>
+            @else
+                <a href="{{ route('login') }}" class="containers ">
+                    <i class="bi bi-person-fill-lock"></i>
+                    <div class="text">Login</div>
+                </a>
+            @endif
+        </div>
+
+        <section class="history">
+            <div class="containerHead">
+                <img src="{{asset('assets/logo/logo-user.png')}}" alt="" class="user">
+                <div class="identity">
+                    <div class="name">Hi, {{ Auth()->user()->name }} <img src="https://vanvanstore.com/assets/images/icon/greet.svg"
+                            alt=""></div>
+                    <div class="desc">{{Auth()->user()->role}} - Sejak {{ \Carbon\Carbon::parse(Auth()->user()->created_at)->format('j F Y') }}
+</div>
+                </div>
+            </div>
+            <div class="cards-saldo mt-4">
+                <div class="containerSaldo">
+                    <div class="icon">
+                        <img src="https://vanvanstore.com/assets/images/icon/dompet.svg" alt="">
+                    </div>
+                    <div class="desc">Saldo Kamu</div>
+                    <div class="price">Rp. {{ number_format(Auth::user()->balance, 0,',', '.') }}</div>
+                </div>
+                <ul class="nav hisTabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="btnHisTabs "
+                            onclick="window.location.href='{{url('account/deposit')}}'">
+                            <i class="bi bi-wallet2"></i>
+                            <div class="text">Isi Saldo</div>
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation" hidden>
+                        <button class="btnHisTabs" onclick="window.location.href='https://vanvanstore.com/#produk'">
+                            <i class="bi bi-gem"></i>
+                            <div class="text">Top Up</div>
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="btnHisTabs "
+                            onclick="window.location.href='https://vanvanstore.com/account/transaksi'">
+                            <i class="bi bi-clock-history"></i>
+                            <div class="text">Transaksi</div>
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="btnHisTabs "
+                            onclick="window.location.href='https://vanvanstore.com/account/settings'">
+                            <i class="bi bi-person-fill-gear"></i>
+                            <div class="text">Setting</div>
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="btnHisTabs"
+                            onclick="window.location.href='https://vanvanstore.com/account/logout'">
+                            <i class="bi bi-box-arrow-left"></i>
+                            <div class="text">Keluar</div>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            {{-- <section class="mt-5">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-12">
+                            <div class="cards shadow mb-4 mt-4">
+                                <div class="title-head text-left mb-3">Pesanan Saya</div>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <tr class="text-dark">
+                                            <th nowrap="">Belum Bayar</th>
+                                            <th nowrap="">Pending</th>
+                                            <th nowrap="">Success</th>
+                                            <th nowrap="">Expired</th>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" class="text-center text-dark">Kamu belum melakukan
+                                                transaksi.</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section> --}}
+
+        </section>
+
+        {{-- @include('../footer') --}}
+    @section('js')
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('.table').DataTable();
+            });
+
+            function modal(name, link) {
+                // var myModal = new bootstrap.Modal($('#modal-detail'))
+                $.ajax({
+                    type: "GET",
+                    url: link,
+                    beforeSend: function() {
+                        $('#modal-detail-title').html(name);
+                        $('#modal-detail-body').html('Loading...');
+                    },
+                    success: function(result) {
+                        $('#modal-detail-title').html(name);
+                        $('#modal-detail-body').html(result);
+                    },
+                    error: function() {
+                        $('#modal-detail-title').html(name);
+                        $('#modal-detail-body').html('There is an error...');
+                    }
+                });
+                $("#modal-detail").modal("show");
+            }
+        </script>
+
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="modal-detail"
+            style="border-radius:7%">
+            <div class="modal-dialog modal-lg">
+                <div class="p-3 border-none rounded-2xl css-6qw8qzz">
+                    <div class="modal-content css-6qw8qzz">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="modal-detail-title"></h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="modal-detail-body"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endsection
 @endsection

@@ -12,8 +12,12 @@
                 </div>
                 <div class="navRight">
 
-                    <a href="{{ route('login') }}" class="btnYellowPrimary login">Masuk</a>
-                    <a href="{{ route('register') }}" class="btnYellowSecond login">Daftar</a>
+                    @if (Auth::check())
+                        <a href="{{ route('dashboard') }}" class="btnYellowPrimary login">Dashboard</a>
+                    @else
+                        <a href="{{ url('login') }}" class="btnYellowPrimary login">Masuk</a>
+                        <a href="{{ route('register') }}" class="btnYellowSecond login">Daftar</a>
+                    @endif
                     <div class="containerMenu">
                         <div class="dropdown">
                             <button class="dropdownMenu shadow">
@@ -74,6 +78,17 @@
                 <i class="bi bi-person-fill-lock"></i>
                 <div class="text">Login</div>
             </a>
+            @if (Auth::check())
+                <a href="{{ url('account') }}" class="containers ">
+                    <i class="bi bi-person-fill-lock"></i>
+                    <div class="text">Dashboard</div>
+                </a>
+            @else
+                <a href="{{ route('login') }}" class="containers ">
+                    <i class="bi bi-person-fill-lock"></i>
+                    <div class="text">Login</div>
+                </a>
+            @endif
         </div>
 
         <section>
@@ -116,27 +131,28 @@
                                         @foreach ($nominal as $nom)
                                             @if ($nom->sub_category_id == $subkat['id'])
                                                 <div class="col-md-4 col-6">
-                                                    <input type="radio" name="product" id="product-52"
-                                                        onchange="select_product('52', 'MOBILE LEGENDS Weekly Diamond Pass', 'Rp 27.599');"
-                                                        class="nom-radio" value="{{ $nom->id }}" data-type="diamond"
-                                                        {{ Request::get('fs') == $nom->id ? 'checked' : '' }}/>
-                                                    <label for="product-52" class="containerChoice">
+                                                    <input type="radio" name="product" id="{{ $nom->id }}"
+                                                        value="{{ $nom->id }}" data-type="diamond" class="nom-radio"
+                                                        {{ Request::get('fs') == $nom->id ? 'checked' : '' }} />
+                                                    <label for="{{ $nom->id }}" class="containerChoice">
                                                         <div class="containerIcon" hidden>
                                                             <i class="bi bi-check-lg"></i>
                                                         </div>
                                                         <div class="mx-auto">
-                                                            <img src="https://vanvanstore.com/assets/images/product/1700183356_0da8ac3fd4a645d81365.webp"
-                                                                width="30" alt=""
-                                                                class="justify-center mx-auto mb-2" />
+                                                            <img src="{{ $nom->product_logo }}" width="30"
+                                                                alt="" class="justify-center mx-auto mb-2" />
                                                             <div class="text">
                                                                 <div class="desc">{{ $nom->layanan }}</div>
-                                                                {{-- @if ($nom->is_flash_sale == 1 && $nom->expired_flash_sale >= date('Y-m-d')) --}}
-
-                                                                {{-- <div class="count flash-sale" > Rp  {{ number_format($nom->harga_flash_sale) }} </div> --}}
-                                                                {{-- <div class="count reguler"> Rp {{ number_format($nom->harga) }} </div> --}}
-                                                                <div class="count sale"> Rp {{ number_format($nom->harga) }} </div>
-
-                                                                {{-- @endif --}}
+                                                                @if ($nom->is_flash_sale == 1 && $nom->expired_flash_sale >= date('Y-m-d'))
+                                                                    <div class="count flash-sale"> Rp
+                                                                        {{ number_format($nom->harga_flash_sale) }} </div>
+                                                                    <div class="count reguler"> Rp
+                                                                        {{ number_format($nom->harga) }} </div>
+                                                                @else
+                                                                    <div class="count sale"
+                                                                        style="color: #FD812D; font-weight: bold"> Rp
+                                                                        {{ number_format($nom->harga) }} </div>
+                                                                @endif
                                                             </div>
                                                         </div>
                                                     </label>
@@ -151,627 +167,699 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="accordion">
-                                    @if (
-                                        $kategori->server_id &&
-                                            $kategori->kode != 'life-after' &&
-                                            $kategori->kode != 'joki' &&
-                                            $kategori->kode != 'genshin-impact' &&
-                                            $kategori->kode != 'ragnarok-m' &&
-                                            $kategori->kode != 'tof')
-                                        <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
+                                    <div class="userData">
 
-                                            <div class="title-card text-left">Masukkan Data Akun</div>
+                                        @if (
+                                            $kategori->server_id &&
+                                                $kategori->kode != 'life-after' &&
+                                                $kategori->kode != 'joki' &&
+                                                $kategori->kode != 'genshin-impact' &&
+                                                $kategori->kode != 'ragnarok-m' &&
+                                                $kategori->kode != 'tof')
+                                            <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
 
-                                            <div class="floating-label-content">
-                                                <input type="number" class="form-control games-input floating-input"
-                                                    name="ID ML" type="text" id="user_id" value=""
-                                                    fdprocessedid="81xg1" />
-                                                <label class="floating-label" for="ID ML">User ID</label>
+                                                <div class="title-card text-left">Masukkan Data Akun</div>
+
+                                                <div class="floating-label-content">
+                                                    <input type="number" class="form-control games-input floating-input"
+                                                        name="ID ML" type="text" id="user_id" value=""
+                                                        fdprocessedid="81xg1" />
+                                                    <label class="floating-label"
+                                                        for="ID ML">{{ $kategori->placeholder_1 }}</label>
+                                                </div>
+
+
+                                                <div class="floating-label-content">
+                                                    <input type="number" class="form-control games-input floating-input"
+                                                        name="zone" placeholder="" type="text" id="zone"
+                                                        value="" fdprocessedid="81xg1" />
+                                                    <label class="floating-label"
+                                                        for="zone">{{ $kategori->placeholder_2 }}</label>
+                                                </div>
+
+
+                                                <div class="note"></div>
                                             </div>
+                                        @elseif($kategori->kode == 'life-after')
+                                            <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
+
+                                                <div class="title-card text-left">Masukkan Data Akun</div>
+
+                                                <div class="floating-label-content">
+                                                    <input type="number" class="form-control games-input floating-input"
+                                                        name="ID ML" type="text" id="user_id" value=""
+                                                        fdprocessedid="81xg1" />
+                                                    <label class="floating-label"
+                                                        for="ID ML">{{ $kategori->placeholder_1 }}</label>
+                                                </div>
 
 
-                                            <div class="floating-label-content">
-                                                <input type="number" class="form-control games-input floating-input"
-                                                    name="zone" placeholder="{{ $kategori->placeholder_2 }}"
-                                                    type="text" id="zone" value=""
-                                                    fdprocessedid="81xg1" />
-                                                <label class="floating-label" for="zone">Server ID</label>
+                                                <div class="floating-label-content">
+                                                    <select
+                                                        class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
+                                                        name="zoneId" id="zone" placeholder="Pilih Server"
+                                                        fdprocessedid="n3x76">
+                                                        <option value="">Pilih Server</option>
+                                                        <option value="miskatown">Miska Town</option>
+                                                        <option value="sandcastle">Sand Castle</option>
+                                                        <option value="mouthswamp">Mouth Swamp</option>
+                                                        <option value="redwoodtown">Red Wood Town</option>
+                                                        <option value="obelisk">Oblisk</option>
+                                                        <option value="fallforest">Fall Forest</option>
+                                                        <option value="mountsnow">Mount Snow</option>
+                                                        <option value="nancycity">Nancy City</option>
+                                                        <option value="charlestown">Charles Town</option>
+                                                        <option value="snowhighlands">Snow High Lands</option>
+                                                        <option value="santopany">Santopany</option>
+                                                        <option value="levincity">Levin City</option>
+                                                        <option value="newland">New Land</option>
+                                                        <option value="milestone">Mile Stone</option>
+                                                    </select>
+                                                </div>
+
+
+                                                <div class="note"></div>
                                             </div>
+                                        @elseif($kategori->kode == 'tof')
+                                            <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
+
+                                                <div class="title-card text-left">Masukkan Data Akun</div>
+
+                                                <div class="floating-label-content">
+                                                    <input type="number" class="form-control games-input floating-input"
+                                                        name="ID ML" placeholder="" type="text" id="user_id"
+                                                        value="" fdprocessedid="81xg1" />
+                                                    <label class="floating-label"
+                                                        for="ID ML">{{ $kategori->placeholder_1 }}</label>
+                                                </div>
 
 
-                                            <div class="note"></div>
-                                        </div>
-                                    @elseif($kategori->kode == 'life-after')
-                                        <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
+                                                <div class="floating-label-content">
+                                                    <select
+                                                        class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
+                                                        name="zoneId" id="zone" placeholder="Pilih Server"
+                                                        fdprocessedid="n3x76">
+                                                        <option value="">Pilih Server</option>
+                                                        <option value="Southeast Asia-Osillron">Southeast
+                                                            Asia-Osillron</option>
+                                                        <option value="Southeast Asia-Mistilteinn">Southeast
+                                                            Asia-Mistilteinn</option>
+                                                        <option value="Southeast Asia-Illyrians">Southeast
+                                                            Asia-Illyrians</option>
+                                                        <option value="Southeast Asia-Florione">Southeast
+                                                            Asia-Florione</option>
+                                                        <option value="Southeast Asia-Animus">Southeast
+                                                            Asia-Animus</option>
+                                                        <option value="Southeast Asia-Gumi Gumi">Southeast
+                                                            Asia-Gumi Gumi</option>
+                                                        <option value="Southeast Asia-Oryza">Southeast
+                                                            Asia-Oryza</option>
+                                                        <option value="Southeast Asia-Saeri">Southeast
+                                                            Asia-Saeri</option>
+                                                        <option value="Southeast Asia-Phantasia">Southeast
+                                                            Asia-Phantasia</option>
+                                                        <option value="Southeast Asia-Mechafield">Southeast
+                                                            Asia-Mechafield</option>
+                                                        <option value="Southeast Asia-Ethereal Dream">Southeast
+                                                            Asia-Ethereal Dream</option>
+                                                        <option value="Southeast Asia-Odyssey">Southeast
+                                                            Asia-Odyssey</option>
+                                                        <option value="Southeast Asia-Aestral-Noa">Southeast
+                                                            Asia-Aestral-Noa</option>
+                                                        <option value="Southeast Asia-Chandra">Southeast
+                                                            Asia-Chandra</option>
+                                                        <option value="Southeast Asia-Aeria">Southeast
+                                                            Asia-Aeria</option>
+                                                        <option value="Southeast Asia-Scarlet">Southeast
+                                                            Asia-Scarlet</option>
+                                                        <option value="Southeast Asia-Fantasia">Southeast
+                                                            Asia-Fantasia</option>
+                                                        <option value="Southeast Asia-Stardust">Southeast
+                                                            Asia-Stardust</option>
+                                                        <option value="Southeast Asia-Arcania">Southeast
+                                                            Asia-Arcania</option>
+                                                        <option value="Southeast Asia-Valhalla">Southeast
+                                                            Asia-Valhalla</option>
+                                                        <option value="North America-Lunalite">North
+                                                            America-Lunalite</option>
+                                                        <option value="North America-Sol-III">North
+                                                            America-Sol-III</option>
+                                                        <option value="North America-Lighthouse">North
+                                                            America-Lighthouse</option>
+                                                        <option value="North America-Silver Bridge">North
+                                                            America-Silver Bridge</option>
+                                                        <option value="North America-The Glades">North
+                                                            America-The Glades</option>
+                                                        <option value="North America-Nightfall">North
+                                                            America-Nightfall</option>
+                                                        <option value="North America-Frontier">North
+                                                            America-Frontier</option>
+                                                        <option value="North America-Libera">North
+                                                            America-Libera</option>
+                                                        <option value="North America-Solaris">North
+                                                            America-Solaris</option>
+                                                        <option value="North America-Freedom-Oasis">North
+                                                            America-Freedom-Oasis</option>
+                                                        <option value="North America-The Worlds Between">North
+                                                            America-The Worlds Between</option>
+                                                        <option value="North America-Radiant">North
+                                                            America-Radiant</option>
+                                                        <option value="North America-Tempest">North
+                                                            America-Tempest</option>
+                                                        <option value="North America-New Era">North America-New
+                                                            Era</option>
+                                                        <option value="North America-Observer">North
+                                                            America-Observer</option>
+                                                        <option value="North America-Starlight">North
+                                                            America-Starlight</option>
+                                                        <option value="North America-Myriad">North
+                                                            America-Myriad</option>
+                                                        <option value="North America-Oumuamua">North
+                                                            America-Oumuamua</option>
+                                                        <option value="North America-Eternium Phantasy">North
+                                                            America-Eternium Phantasy</option>
+                                                        <option value="North America-Azure Plane">North
+                                                            America-Azure Plane</option>
+                                                        <option value="North America-Nirvana">North
+                                                            America-Nirvana</option>
+                                                        <option value="Europe-Magia Przygoda Aida">Europe-Magia
+                                                            Przygoda Aida</option>
+                                                        <option value="Europe-Transport Hub">Europe-Transport
+                                                            Hub</option>
+                                                        <option value="Europe-The Lumina">Europe-The Lumina
+                                                        </option>
+                                                        <option value="Europe-Lycoris">Europe-Lycoris</option>
+                                                        <option value="Europe-Ether">Europe-Ether</option>
+                                                        <option value="Europe-Olivine">Europe-Olivine</option>
+                                                        <option value="Europe-Iter">Europe-Iter</option>
+                                                        <option value="Europe-Aimanium">Europe-Aimanium
+                                                        </option>
+                                                        <option value="Europe-Alintheus">Europe-Alintheus
+                                                        </option>
+                                                        <option value="Europe-Andoes">Europe-Andoes</option>
+                                                        <option value="Europe-Anomora">Europe-Anomora</option>
+                                                        <option value="Europe-Astora">Europe-Astora</option>
+                                                        <option value="Europe-Valstamm">Europe-Valstamm
+                                                        </option>
+                                                        <option value="Europe-Blumous">Europe-Blumous</option>
+                                                        <option value="Europe-Celestialrise">
+                                                            Europe-Celestialrise</option>
+                                                        <option value="Europe-Cosmos">Europe-Cosmos</option>
+                                                        <option value="Europe-Dyrnwyn">Europe-Dyrnwyn</option>
+                                                        <option value="Europe-Elypium">Europe-Elypium</option>
+                                                        <option value="Europe-Excalibur">Europe-Excalibur
+                                                        </option>
+                                                        <option value="Europe-Espoir IV">Europe-Espoir IV
+                                                        </option>
+                                                        <option value="Europe-Estrela">Europe-Estrela</option>
+                                                        <option value="Europe-Ex Nihilor">Europe-Ex Nihilor
+                                                        </option>
+                                                        <option value="Europe-Futuria">Europe-Futuria</option>
+                                                        <option value="Europe-Hephaestus">Europe-Hephaestus
+                                                        </option>
+                                                        <option value="Europe-Midgard">Europe-Midgard</option>
+                                                        <option value="Europe-Kuura">Europe-Kuura</option>
+                                                        <option value="Europe-Lyramiel">Europe-Lyramiel
+                                                        </option>
+                                                        <option value="Europe-Magenta">Europe-Magenta</option>
+                                                        <option value="Europe-Omnium Prime">Europe-Omnium Prime
+                                                        </option>
+                                                        <option value="Europe-Turmus">Europe-Turmus</option>
+                                                        <option value="South America-Corvus">South
+                                                            America-Corvus</option>
+                                                        <option value="South America-Calodesma Seven">South
+                                                            America-Calodesma Seven</option>
+                                                        <option value="South America-Columba">South
+                                                            America-Columba</option>
+                                                        <option value="South America-Tiamat">South
+                                                            America-Tiamat</option>
+                                                        <option value="South America-Orion">South America-Orion
+                                                        </option>
+                                                        <option value="South America-Luna Azul">South
+                                                            America-Luna Azul</option>
+                                                        <option value="South America-Hope">South America-Hope
+                                                        </option>
+                                                        <option value="South America-Tanzanite">South
+                                                            America-Tanzanite</option>
+                                                        <option value="South America-Antlia">South
+                                                            America-Antlia</option>
+                                                        <option value="South America-Pegasus">South
+                                                            America-Pegasus</option>
+                                                        <option value="South America-Phoenix">South
+                                                            America-Phoenix</option>
+                                                        <option value="South America-Centaurus">South
+                                                            America-Centaurus</option>
+                                                        <option value="South America-Cepheu">South
+                                                            America-Cepheu</option>
+                                                        <option value="South America-Cygnus">South
+                                                            America-Cygnus</option>
+                                                        <option value="South America-Grus">South America-Grus
+                                                        </option>
+                                                        <option value="South America-Hydra">South America-Hydra
+                                                        </option>
+                                                        <option value="South America-Lyra">South America-Lyra
+                                                        </option>
+                                                        <option value="South America-Ophiuchus">South
+                                                            America-Ophiuchus</option>
+                                                        <option value="Asia-Pacific-Cocoaiteruyo">
+                                                            Asia-Pacific-Cocoaiteruyo</option>
+                                                        <option value="Asia-Pacific-Food Fighter">
+                                                            Asia-Pacific-Food Fighter</option>
+                                                        <option value="Asia-Pacific-Gomap">Asia-Pacific-Gomap
+                                                        </option>
+                                                        <option value="Asia-Pacific-Yggdrasil">
+                                                            Asia-Pacific-Yggdrasil</option>
+                                                        <option value="Asia-Pacific-Daybreak">
+                                                            Asia-Pacific-Daybreak</option>
+                                                        <option value="Asia-Pacific-Adventure">
+                                                            Asia-Pacific-Adventure</option>
+                                                        <option value="Asia-Pacific-Eden">Asia-Pacific-Eden
+                                                        </option>
+                                                        <option value="Asia-Pacific-Fate">Asia-Pacific-Fate
+                                                        </option>
+                                                        <option value="Asia-Pacific-Nova">Asia-Pacific-Nova
+                                                        </option>
+                                                        <option value="Asia-Pacific-Ruby">Asia-Pacific-Ruby
+                                                        </option>
+                                                        <option value="Asia-Pacific-Babel">Asia-Pacific-Babel
+                                                        </option>
+                                                        <option value="Asia-Pacific-Pluto">Asia-Pacific-Pluto
+                                                        </option>
+                                                        <option value="Asia-Pacific-Sushi">Asia-Pacific-Sushi
+                                                        </option>
+                                                        <option value="Asia-Pacific-Venus">Asia-Pacific-Venus
+                                                        </option>
+                                                        <option value="Asia-Pacific-Galaxy">Asia-Pacific-Galaxy
+                                                        </option>
+                                                        <option value="Asia-Pacific-Memory">Asia-Pacific-Memory
+                                                        </option>
+                                                        <option value="Asia-Pacific-Oxygen">Asia-Pacific-Oxygen
+                                                        </option>
+                                                        <option value="Asia-Pacific-Sakura">Asia-Pacific-Sakura
+                                                        </option>
+                                                        <option value="Asia-Pacific-Seeker">Asia-Pacific-Seeker
+                                                        </option>
+                                                        <option value="Asia-Pacific-Shinya">Asia-Pacific-Shinya
+                                                        </option>
+                                                        <option value="Asia-Pacific-Stella">Asia-Pacific-Stella
+                                                        </option>
+                                                        <option value="Asia-Pacific-Uranus">Asia-Pacific-Uranus
+                                                        </option>
+                                                        <option value="Asia-Pacific-Utopia">Asia-Pacific-Utopia
+                                                        </option>
+                                                        <option value="Asia-Pacific-Jupiter">
+                                                            Asia-Pacific-Jupiter</option>
+                                                        <option value="Asia-Pacific-Sweetie">
+                                                            Asia-Pacific-Sweetie</option>
+                                                        <option value="Asia-Pacific-Atlantis">
+                                                            Asia-Pacific-Atlantis</option>
+                                                        <option value="Asia-Pacific-Takoyaki">
+                                                            Asia-Pacific-Takoyaki</option>
+                                                        <option value="Asia-Pacific-Mars">Asia-Pacific-Mars
+                                                        </option>
+                                                    </select>
+                                                </div>
 
-                                            <div class="title-card text-left">Masukkan Data Akun</div>
 
-                                            <div class="floating-label-content">
-                                                <input type="number" class="form-control games-input floating-input"
-                                                    name="ID ML" type="text" id="user_id" value=""
-                                                    fdprocessedid="81xg1" />
-                                                <label class="floating-label" for="ID ML">User ID</label>
+                                                <div class="note"></div>
                                             </div>
+                                        @elseif($kategori->kode == 'genshin-impact')
+                                            <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
+
+                                                <div class="title-card text-left">Masukkan Data Akun</div>
+
+                                                <div class="floating-label-content">
+                                                    <input type="number" class="form-control games-input floating-input"
+                                                        name="ID ML" placeholder="" type="text" id="user_id"
+                                                        value="" fdprocessedid="81xg1" />
+                                                    <label class="floating-label"
+                                                        for="ID ML">{{ $kategori->placeholder_1 }}</label>
+                                                </div>
 
 
-                                            <div class="floating-label-content">
-                                                <select
-                                                    class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
-                                                    name="zoneId" id="zone" placeholder="Pilih Server"
-                                                    fdprocessedid="n3x76">
-                                                    <option value="">Pilih Server</option>
-                                                    <option value="miskatown">Miska Town</option>
-                                                    <option value="sandcastle">Sand Castle</option>
-                                                    <option value="mouthswamp">Mouth Swamp</option>
-                                                    <option value="redwoodtown">Red Wood Town</option>
-                                                    <option value="obelisk">Oblisk</option>
-                                                    <option value="fallforest">Fall Forest</option>
-                                                    <option value="mountsnow">Mount Snow</option>
-                                                    <option value="nancycity">Nancy City</option>
-                                                    <option value="charlestown">Charles Town</option>
-                                                    <option value="snowhighlands">Snow High Lands</option>
-                                                    <option value="santopany">Santopany</option>
-                                                    <option value="levincity">Levin City</option>
-                                                    <option value="newland">New Land</option>
-                                                    <option value="milestone">Mile Stone</option>
-                                                </select>
+                                                <div class="floating-label-content">
+                                                    <select
+                                                        class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
+                                                        name="zoneId" id="zone" placeholder="Pilih Server"
+                                                        fdprocessedid="n3x76">
+                                                        <option value="">Pilih Server</option>
+                                                        <option value="os_usa">America</option>
+                                                        <option value="os_euro">Europa</option>
+                                                        <option value="asia">Asia</option>
+                                                        <option value="os_cht">TW_HK_MO</option>
+                                                    </select>
+                                                </div>
+
+
+                                                <div class="note"></div>
                                             </div>
+                                        @elseif($kategori->kode == 'honkai-starrail')
+                                            <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
+
+                                                <div class="title-card text-left">Masukkan Data Akun</div>
+
+                                                <div class="floating-label-content">
+                                                    <input type="number" class="form-control games-input floating-input"
+                                                        name="ID ML" placeholder="" type="text" id="user_id"
+                                                        value="" fdprocessedid="81xg1" />
+                                                    <label class="floating-label"
+                                                        for="ID ML">{{ $kategori->placeholder_1 }}/label>
+                                                </div>
 
 
-                                            <div class="note"></div>
-                                        </div>
-                                    @elseif($kategori->kode == 'tof')
-                                        <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
+                                                <div class="floating-label-content">
+                                                    <select
+                                                        class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
+                                                        name="zoneId" id="zone" placeholder="Pilih Server"
+                                                        fdprocessedid="n3x76">
+                                                        <option value="">Pilih Server</option>
+                                                        <option value="os_usa">America</option>
+                                                        <option value="os_euro">Europa</option>
+                                                        <option value="asia">Asia</option>
+                                                        <option value="os_cht">TW_HK_MO</option>
+                                                    </select>
+                                                </div>
 
-                                            <div class="title-card text-left">Masukkan Data Akun</div>
 
-                                            <div class="floating-label-content">
-                                                <input type="number" class="form-control games-input floating-input"
-                                                    name="ID ML" placeholder="{{ $kategori->placeholder_1 }}"
-                                                    type="text" id="user_id" value=""
-                                                    fdprocessedid="81xg1" />
-                                                <label class="floating-label" for="ID ML">User ID</label>
+                                                <div class="note"></div>
                                             </div>
+                                        @elseif($kategori->kode == 'heroes-evolved')
+                                            <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
+
+                                                <div class="title-card text-left">Masukkan Data Akun</div>
+
+                                                <div class="floating-label-content">
+                                                    <input type="number" class="form-control games-input floating-input"
+                                                        name="ID ML" type="text" id="user_id" value=""
+                                                        fdprocessedid="81xg1" />
+                                                    <label class="floating-label"
+                                                        for="ID ML">{{ $kategori->placeholder_1 }}</label>
+                                                </div>
 
 
-                                            <div class="floating-label-content">
-                                                <select
-                                                    class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
-                                                    name="zoneId" id="zone" placeholder="Pilih Server"
-                                                    fdprocessedid="n3x76">
-                                                    <option value="">Pilih Server</option>
-                                                    <option value="Southeast Asia-Osillron">Southeast
-                                                        Asia-Osillron</option>
-                                                    <option value="Southeast Asia-Mistilteinn">Southeast
-                                                        Asia-Mistilteinn</option>
-                                                    <option value="Southeast Asia-Illyrians">Southeast
-                                                        Asia-Illyrians</option>
-                                                    <option value="Southeast Asia-Florione">Southeast
-                                                        Asia-Florione</option>
-                                                    <option value="Southeast Asia-Animus">Southeast
-                                                        Asia-Animus</option>
-                                                    <option value="Southeast Asia-Gumi Gumi">Southeast
-                                                        Asia-Gumi Gumi</option>
-                                                    <option value="Southeast Asia-Oryza">Southeast
-                                                        Asia-Oryza</option>
-                                                    <option value="Southeast Asia-Saeri">Southeast
-                                                        Asia-Saeri</option>
-                                                    <option value="Southeast Asia-Phantasia">Southeast
-                                                        Asia-Phantasia</option>
-                                                    <option value="Southeast Asia-Mechafield">Southeast
-                                                        Asia-Mechafield</option>
-                                                    <option value="Southeast Asia-Ethereal Dream">Southeast
-                                                        Asia-Ethereal Dream</option>
-                                                    <option value="Southeast Asia-Odyssey">Southeast
-                                                        Asia-Odyssey</option>
-                                                    <option value="Southeast Asia-Aestral-Noa">Southeast
-                                                        Asia-Aestral-Noa</option>
-                                                    <option value="Southeast Asia-Chandra">Southeast
-                                                        Asia-Chandra</option>
-                                                    <option value="Southeast Asia-Aeria">Southeast
-                                                        Asia-Aeria</option>
-                                                    <option value="Southeast Asia-Scarlet">Southeast
-                                                        Asia-Scarlet</option>
-                                                    <option value="Southeast Asia-Fantasia">Southeast
-                                                        Asia-Fantasia</option>
-                                                    <option value="Southeast Asia-Stardust">Southeast
-                                                        Asia-Stardust</option>
-                                                    <option value="Southeast Asia-Arcania">Southeast
-                                                        Asia-Arcania</option>
-                                                    <option value="Southeast Asia-Valhalla">Southeast
-                                                        Asia-Valhalla</option>
-                                                    <option value="North America-Lunalite">North
-                                                        America-Lunalite</option>
-                                                    <option value="North America-Sol-III">North
-                                                        America-Sol-III</option>
-                                                    <option value="North America-Lighthouse">North
-                                                        America-Lighthouse</option>
-                                                    <option value="North America-Silver Bridge">North
-                                                        America-Silver Bridge</option>
-                                                    <option value="North America-The Glades">North
-                                                        America-The Glades</option>
-                                                    <option value="North America-Nightfall">North
-                                                        America-Nightfall</option>
-                                                    <option value="North America-Frontier">North
-                                                        America-Frontier</option>
-                                                    <option value="North America-Libera">North
-                                                        America-Libera</option>
-                                                    <option value="North America-Solaris">North
-                                                        America-Solaris</option>
-                                                    <option value="North America-Freedom-Oasis">North
-                                                        America-Freedom-Oasis</option>
-                                                    <option value="North America-The Worlds Between">North
-                                                        America-The Worlds Between</option>
-                                                    <option value="North America-Radiant">North
-                                                        America-Radiant</option>
-                                                    <option value="North America-Tempest">North
-                                                        America-Tempest</option>
-                                                    <option value="North America-New Era">North America-New
-                                                        Era</option>
-                                                    <option value="North America-Observer">North
-                                                        America-Observer</option>
-                                                    <option value="North America-Starlight">North
-                                                        America-Starlight</option>
-                                                    <option value="North America-Myriad">North
-                                                        America-Myriad</option>
-                                                    <option value="North America-Oumuamua">North
-                                                        America-Oumuamua</option>
-                                                    <option value="North America-Eternium Phantasy">North
-                                                        America-Eternium Phantasy</option>
-                                                    <option value="North America-Azure Plane">North
-                                                        America-Azure Plane</option>
-                                                    <option value="North America-Nirvana">North
-                                                        America-Nirvana</option>
-                                                    <option value="Europe-Magia Przygoda Aida">Europe-Magia
-                                                        Przygoda Aida</option>
-                                                    <option value="Europe-Transport Hub">Europe-Transport
-                                                        Hub</option>
-                                                    <option value="Europe-The Lumina">Europe-The Lumina
-                                                    </option>
-                                                    <option value="Europe-Lycoris">Europe-Lycoris</option>
-                                                    <option value="Europe-Ether">Europe-Ether</option>
-                                                    <option value="Europe-Olivine">Europe-Olivine</option>
-                                                    <option value="Europe-Iter">Europe-Iter</option>
-                                                    <option value="Europe-Aimanium">Europe-Aimanium
-                                                    </option>
-                                                    <option value="Europe-Alintheus">Europe-Alintheus
-                                                    </option>
-                                                    <option value="Europe-Andoes">Europe-Andoes</option>
-                                                    <option value="Europe-Anomora">Europe-Anomora</option>
-                                                    <option value="Europe-Astora">Europe-Astora</option>
-                                                    <option value="Europe-Valstamm">Europe-Valstamm
-                                                    </option>
-                                                    <option value="Europe-Blumous">Europe-Blumous</option>
-                                                    <option value="Europe-Celestialrise">
-                                                        Europe-Celestialrise</option>
-                                                    <option value="Europe-Cosmos">Europe-Cosmos</option>
-                                                    <option value="Europe-Dyrnwyn">Europe-Dyrnwyn</option>
-                                                    <option value="Europe-Elypium">Europe-Elypium</option>
-                                                    <option value="Europe-Excalibur">Europe-Excalibur
-                                                    </option>
-                                                    <option value="Europe-Espoir IV">Europe-Espoir IV
-                                                    </option>
-                                                    <option value="Europe-Estrela">Europe-Estrela</option>
-                                                    <option value="Europe-Ex Nihilor">Europe-Ex Nihilor
-                                                    </option>
-                                                    <option value="Europe-Futuria">Europe-Futuria</option>
-                                                    <option value="Europe-Hephaestus">Europe-Hephaestus
-                                                    </option>
-                                                    <option value="Europe-Midgard">Europe-Midgard</option>
-                                                    <option value="Europe-Kuura">Europe-Kuura</option>
-                                                    <option value="Europe-Lyramiel">Europe-Lyramiel
-                                                    </option>
-                                                    <option value="Europe-Magenta">Europe-Magenta</option>
-                                                    <option value="Europe-Omnium Prime">Europe-Omnium Prime
-                                                    </option>
-                                                    <option value="Europe-Turmus">Europe-Turmus</option>
-                                                    <option value="South America-Corvus">South
-                                                        America-Corvus</option>
-                                                    <option value="South America-Calodesma Seven">South
-                                                        America-Calodesma Seven</option>
-                                                    <option value="South America-Columba">South
-                                                        America-Columba</option>
-                                                    <option value="South America-Tiamat">South
-                                                        America-Tiamat</option>
-                                                    <option value="South America-Orion">South America-Orion
-                                                    </option>
-                                                    <option value="South America-Luna Azul">South
-                                                        America-Luna Azul</option>
-                                                    <option value="South America-Hope">South America-Hope
-                                                    </option>
-                                                    <option value="South America-Tanzanite">South
-                                                        America-Tanzanite</option>
-                                                    <option value="South America-Antlia">South
-                                                        America-Antlia</option>
-                                                    <option value="South America-Pegasus">South
-                                                        America-Pegasus</option>
-                                                    <option value="South America-Phoenix">South
-                                                        America-Phoenix</option>
-                                                    <option value="South America-Centaurus">South
-                                                        America-Centaurus</option>
-                                                    <option value="South America-Cepheu">South
-                                                        America-Cepheu</option>
-                                                    <option value="South America-Cygnus">South
-                                                        America-Cygnus</option>
-                                                    <option value="South America-Grus">South America-Grus
-                                                    </option>
-                                                    <option value="South America-Hydra">South America-Hydra
-                                                    </option>
-                                                    <option value="South America-Lyra">South America-Lyra
-                                                    </option>
-                                                    <option value="South America-Ophiuchus">South
-                                                        America-Ophiuchus</option>
-                                                    <option value="Asia-Pacific-Cocoaiteruyo">
-                                                        Asia-Pacific-Cocoaiteruyo</option>
-                                                    <option value="Asia-Pacific-Food Fighter">
-                                                        Asia-Pacific-Food Fighter</option>
-                                                    <option value="Asia-Pacific-Gomap">Asia-Pacific-Gomap
-                                                    </option>
-                                                    <option value="Asia-Pacific-Yggdrasil">
-                                                        Asia-Pacific-Yggdrasil</option>
-                                                    <option value="Asia-Pacific-Daybreak">
-                                                        Asia-Pacific-Daybreak</option>
-                                                    <option value="Asia-Pacific-Adventure">
-                                                        Asia-Pacific-Adventure</option>
-                                                    <option value="Asia-Pacific-Eden">Asia-Pacific-Eden
-                                                    </option>
-                                                    <option value="Asia-Pacific-Fate">Asia-Pacific-Fate
-                                                    </option>
-                                                    <option value="Asia-Pacific-Nova">Asia-Pacific-Nova
-                                                    </option>
-                                                    <option value="Asia-Pacific-Ruby">Asia-Pacific-Ruby
-                                                    </option>
-                                                    <option value="Asia-Pacific-Babel">Asia-Pacific-Babel
-                                                    </option>
-                                                    <option value="Asia-Pacific-Pluto">Asia-Pacific-Pluto
-                                                    </option>
-                                                    <option value="Asia-Pacific-Sushi">Asia-Pacific-Sushi
-                                                    </option>
-                                                    <option value="Asia-Pacific-Venus">Asia-Pacific-Venus
-                                                    </option>
-                                                    <option value="Asia-Pacific-Galaxy">Asia-Pacific-Galaxy
-                                                    </option>
-                                                    <option value="Asia-Pacific-Memory">Asia-Pacific-Memory
-                                                    </option>
-                                                    <option value="Asia-Pacific-Oxygen">Asia-Pacific-Oxygen
-                                                    </option>
-                                                    <option value="Asia-Pacific-Sakura">Asia-Pacific-Sakura
-                                                    </option>
-                                                    <option value="Asia-Pacific-Seeker">Asia-Pacific-Seeker
-                                                    </option>
-                                                    <option value="Asia-Pacific-Shinya">Asia-Pacific-Shinya
-                                                    </option>
-                                                    <option value="Asia-Pacific-Stella">Asia-Pacific-Stella
-                                                    </option>
-                                                    <option value="Asia-Pacific-Uranus">Asia-Pacific-Uranus
-                                                    </option>
-                                                    <option value="Asia-Pacific-Utopia">Asia-Pacific-Utopia
-                                                    </option>
-                                                    <option value="Asia-Pacific-Jupiter">
-                                                        Asia-Pacific-Jupiter</option>
-                                                    <option value="Asia-Pacific-Sweetie">
-                                                        Asia-Pacific-Sweetie</option>
-                                                    <option value="Asia-Pacific-Atlantis">
-                                                        Asia-Pacific-Atlantis</option>
-                                                    <option value="Asia-Pacific-Takoyaki">
-                                                        Asia-Pacific-Takoyaki</option>
-                                                    <option value="Asia-Pacific-Mars">Asia-Pacific-Mars
-                                                    </option>
-                                                </select>
+                                                <div class="floating-label-content">
+                                                    <select
+                                                        class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
+                                                        name="zoneId" id="zone" placeholder="Pilih Server"
+                                                        fdprocessedid="n3x76">
+                                                        <option value="-">List Server</option>
+                                                        <option value="North America - LOST TEMPLE [NA]"> North
+                                                            America - LOST TEMPLE [NA]</option>
+                                                        <option value="North America - NEW ORDER"> North
+                                                            America - NEW ORDER</option>
+                                                        <option value="Europe - ASGARD [EU]"> Europe - ASGARD
+                                                            [EU]</option>
+                                                        <option value="Europe - OLYMPUS [EU]"> Europe - OLYMPUS
+                                                            [EU]</option>
+                                                        <option value="South America - AMAZON [SA]"> South
+                                                            America - AMAZON [SA]</option>
+                                                        <option value="South America - EL DORADO [SA]"> South
+                                                            America - EL DORADO [SA]</option>
+                                                        <option value="Asia - SHANGRI-LA [AS]"> Asia -
+                                                            SHANGRI-LA [AS]</option>
+                                                        <option value="Asia - S1.ANGKOR [AS]"> Asia - S1.ANGKOR
+                                                            [AS]</option>
+                                                        <option value="Asia - S2.EL NIDO [AS]"> Asia - S2.EL
+                                                            NIDO [AS]</option>
+                                                        <option value="Asia - ไทย[TH]"> Asia - ไทย[TH]</option>
+                                                        <option value="Asia - ไทยแลนด์[TH]"> Asia -
+                                                            ไทยแลนด์[TH]</option>
+                                                    </select>
+                                                </div>
+
+
+                                                <div class="note"></div>
                                             </div>
+                                        @elseif($kategori->kode == 'ragnarok-m')
+                                            <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
+
+                                                <div class="title-card text-left">Masukkan Data Akun</div>
+
+                                                <div class="floating-label-content">
+                                                    <input type="number" class="form-control games-input floating-input"
+                                                        name="ID ML" type="text" id="user_id" value=""
+                                                        fdprocessedid="81xg1" />
+                                                    <label class="floating-label"
+                                                        for="ID ML">{{ $kategori->placeholder_1 }}</label>
+                                                </div>
 
 
-                                            <div class="note"></div>
-                                        </div>
-                                    @elseif($kategori->kode == 'heroes-evolved')
-                                        <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
+                                                <div class="floating-label-content">
+                                                    <select
+                                                        class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
+                                                        name="zoneId" id="zone" placeholder="Pilih Server"
+                                                        fdprocessedid="n3x76">
+                                                        <option value="">Pilih Server</option>
+                                                        <option value="90001">Eternal Love</option>
+                                                        <option value="90002">Midnight Party</option>
+                                                        <option value="90002003">Memory Of Faith</option>
+                                                    </select>
+                                                </div>
 
-                                            <div class="title-card text-left">Masukkan Data Akun</div>
 
-                                            <div class="floating-label-content">
-                                                <input type="number" class="form-control games-input floating-input"
-                                                    name="ID ML" placeholder="{{ $kategori->placeholder_1 }}"
-                                                    type="text" id="user_id" value=""
-                                                    fdprocessedid="81xg1" />
-                                                <label class="floating-label" for="ID ML">User ID</label>
+                                                <div class="note"></div>
                                             </div>
+                                        @elseif($kategori->kode == 'shell-fire')
+                                            <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
+
+                                                <div class="title-card text-left">Masukkan Data Akun</div>
+
+                                                <div class="floating-label-content">
+                                                    <input type="number" class="form-control games-input floating-input"
+                                                        name="ID ML" type="text" id="user_id" value=""
+                                                        fdprocessedid="81xg1" />
+                                                    <label class="floating-label"
+                                                        for="ID ML">{{ $kategori->placeholder_1 }}</label>
+                                                </div>
 
 
-                                            <div class="floating-label-content">
-                                                <select
-                                                    class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
-                                                    name="zoneId" id="zone" placeholder="Pilih Server"
-                                                    fdprocessedid="n3x76">
-                                                    <option value="-">List Server</option>
-                                                    <option value="North America - LOST TEMPLE [NA]"> North
-                                                        America - LOST TEMPLE [NA]</option>
-                                                    <option value="North America - NEW ORDER"> North
-                                                        America - NEW ORDER</option>
-                                                    <option value="Europe - ASGARD [EU]"> Europe - ASGARD
-                                                        [EU]</option>
-                                                    <option value="Europe - OLYMPUS [EU]"> Europe - OLYMPUS
-                                                        [EU]</option>
-                                                    <option value="South America - AMAZON [SA]"> South
-                                                        America - AMAZON [SA]</option>
-                                                    <option value="South America - EL DORADO [SA]"> South
-                                                        America - EL DORADO [SA]</option>
-                                                    <option value="Asia - SHANGRI-LA [AS]"> Asia -
-                                                        SHANGRI-LA [AS]</option>
-                                                    <option value="Asia - S1.ANGKOR [AS]"> Asia - S1.ANGKOR
-                                                        [AS]</option>
-                                                    <option value="Asia - S2.EL NIDO [AS]"> Asia - S2.EL
-                                                        NIDO [AS]</option>
-                                                    <option value="Asia - ไทย[TH]"> Asia - ไทย[TH]</option>
-                                                    <option value="Asia - ไทยแลนด์[TH]"> Asia -
-                                                        ไทยแลนด์[TH]</option>
-                                                </select>
+                                                <div class="floating-label-content">
+                                                    <select
+                                                        class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
+                                                        name="zoneId" id="zone" placeholder="Pilih Server"
+                                                        fdprocessedid="n3x76">
+                                                        <option value="">Pilih Tipe</option>
+                                                        <option value="android">Android</option>
+                                                        <option value="ios">IOS</option>
+                                                    </select>
+                                                </div>
+
+
+                                                <div class="note"></div>
                                             </div>
+                                        @elseif($kategori->kode == 'ragnarok-forever-love')
+                                            <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
+
+                                                <div class="title-card text-left">Masukkan Data Akun</div>
+
+                                                <div class="floating-label-content">
+                                                    <input type="number" class="form-control games-input floating-input"
+                                                        name="ID ML" type="text" id="user_id" value=""
+                                                        fdprocessedid="81xg1" />
+                                                    <label class="floating-label"
+                                                        for="ID ML">{{ $kategori->placeholder_1 }}</label>
+                                                </div>
 
 
-                                            <div class="note"></div>
-                                        </div>
-                                    @elseif($kategori->kode == 'ragnarok-m')
-                                        <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
+                                                <div class="floating-label-content">
+                                                    <select
+                                                        class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
+                                                        name="zoneId" id="zone" placeholder="Pilih Server"
+                                                        fdprocessedid="n3x76">
+                                                        <option value="">Pilih Server
+                                                        </option>
+                                                        <option value="allserver">ALL SERVER
+                                                        </option>
+                                                    </select>
+                                                </div>
 
-                                            <div class="title-card text-left">Masukkan Data Akun</div>
 
-                                            <div class="floating-label-content">
-                                                <input type="number" class="form-control games-input floating-input"
-                                                    name="ID ML" placeholder="{{ $kategori->placeholder_1 }}"
-                                                    type="text" id="user_id" value=""
-                                                    fdprocessedid="81xg1" />
-                                                <label class="floating-label" for="ID ML">User ID</label>
+                                                <div class="note"></div>
                                             </div>
+                                        @elseif($kategori->kode == 'perfect-world')
+                                            <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
+
+                                                <div class="title-card text-left">Masukkan Data Akun</div>
+
+                                                <div class="floating-label-content">
+                                                    <input type="number" class="form-control games-input floating-input"
+                                                        name="ID ML" type="text" id="user_id" value=""
+                                                        fdprocessedid="81xg1" />
+                                                    <label class="floating-label"
+                                                        for="ID ML">{{ $kategori->placeholder_1 }}</label>
+                                                </div>
 
 
-                                            <div class="floating-label-content">
-                                                <select
-                                                    class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
-                                                    name="zoneId" id="zone" placeholder="Pilih Server"
-                                                    fdprocessedid="n3x76">
-                                                    <option value="">Pilih Server</option>
-                                                    <option value="90001">Eternal Love</option>
-                                                    <option value="90002">Midnight Party</option>
-                                                    <option value="90002003">Memory Of Faith</option>
-                                                </select>
+                                                <div class="floating-label-content">
+                                                    <select
+                                                        class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
+                                                        name="zoneId" id="zone" placeholder="Pilih Server"
+                                                        fdprocessedid="n3x76">
+                                                        <option value="">Pilih Server
+                                                        </option>
+                                                        <option value="moonlight">Moonlight
+                                                        </option>
+                                                        <option value="lotus">Lotus</option>
+                                                        <option value="crimson">Crimson
+                                                        </option>
+                                                        <option value="kirin">Kirin</option>
+                                                        <option value="moral">Moral</option>
+                                                    </select>
+                                                </div>
+
+
+                                                <div class="note"></div>
                                             </div>
+                                        @elseif($kategori->kode == 'asphalt-9-legends')
+                                            <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
+
+                                                <div class="title-card text-left">Masukkan Data Akun</div>
+
+                                                <div class="floating-label-content">
+                                                    <input type="number" class="form-control games-input floating-input"
+                                                        name="ID ML" type="text" id="user_id" value=""
+                                                        fdprocessedid="81xg1" />
+                                                    <label class="floating-label"
+                                                        for="ID ML">{{ $kategori->placeholder_1 }}</label>
+                                                </div>
 
 
-                                            <div class="note"></div>
-                                        </div>
-                                    @elseif($kategori->kode == 'shell-fire')
-                                        <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
+                                                <div class="floating-label-content">
+                                                    <select
+                                                        class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
+                                                        name="zoneId" id="zone" placeholder="Pilih Server"
+                                                        fdprocessedid="n3x76">
+                                                        <option value="">Pilih OS
+                                                        </option>
+                                                        <option value="ios">IOS</option>
+                                                        <option value="android">Android
+                                                        </option>
+                                                        <option value="Windows">Windows
+                                                        </option>
+                                                    </select>
+                                                </div>
 
-                                            <div class="title-card text-left">Masukkan Data Akun</div>
 
-                                            <div class="floating-label-content">
-                                                <input type="number" class="form-control games-input floating-input"
-                                                    name="ID ML" placeholder="{{ $kategori->placeholder_1 }}"
-                                                    type="text" id="user_id" value=""
-                                                    fdprocessedid="81xg1" />
-                                                <label class="floating-label" for="ID ML">User ID</label>
+                                                <div class="note"></div>
                                             </div>
+                                        @elseif(in_array($kategori->tipe, ['populer', 'akun_premium', 'game', 'voucher', 'pulsa', 'e-money', 'pln', 'liveapp']))
+                                            <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
+
+                                                <div class="title-card text-left">Masukkan Data Akun</div>
+
+                                                <div class="floating-label-content">
+                                                    <input type="number" class="form-control games-input floating-input"
+                                                        name="userId" type="text" id="user_id" value=""
+                                                        fdprocessedid="8qd1hx" placeholder="" />
+                                                    <label class="floating-label"
+                                                        for="userId">{{ $kategori->placeholder_1 }}</label>
+                                                </div>
 
 
-                                            <div class="floating-label-content">
-                                                <select
-                                                    class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
-                                                    name="zoneId" id="zone" placeholder="Pilih Server"
-                                                    fdprocessedid="n3x76">
-                                                    <option value="">Pilih Tipe</option>
-                                                    <option value="android">Android</option>
-                                                    <option value="ios">IOS</option>
-                                                </select>
+                                                <div class="note"></div>
                                             </div>
+                                        @elseif($kategori->tipe == 'joki')
+                                            <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
 
+                                                <div class="title-card text-left">Masukkan Data Akun</div>
 
-                                            <div class="note"></div>
-                                        </div>
-                                    @elseif($kategori->kode == 'ragnarok-forever-love')
-                                        <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
+                                                <div class="floating-label-content">
+                                                    <input class="form-control games-input floating-input" type="email"
+                                                        id="email_joki" name="email_joki" />
+                                                    <label class="floating-label" for="email_joki">Email</label>
+                                                </div>
+                                                <div class="floating-label-content">
+                                                    <input class="form-control games-input floating-input"
+                                                        type="password"id="password_joki" name="password_joki" />
+                                                    <label class="floating-label" for="password_joki">Password</label>
+                                                </div>
+                                                <div class="floating-label-content">
+                                                    <input class="form-control games-input floating-input" type="text"
+                                                        id="request_joki" name="request_joki" />
+                                                    <label class="floating-label" for="request_joki">Request Hero</label>
+                                                </div>
+                                                <div class="floating-label-content">
+                                                    <input class="form-control games-input floating-input" type="text"
+                                                        id="catatan_joki" name="catatan_joki" />
+                                                    <label class="floating-label" for="request_joki">Catatan</label>
+                                                </div>
+                                                <div class="floating-label-content">
+                                                    <input class="form-control games-input floating-input" type="text"
+                                                        id="nickname_joki" name="nickname_joki" />
+                                                    <label class="floating-label" for="request_joki">Nickname</label>
+                                                </div>
+                                                <div class="floating-label-content">
+                                                    <select
+                                                        class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
+                                                        id="loginvia_joki" name="loginvia_joki"
+                                                        placeholder="Pilih Server">
+                                                        <option value="">
+                                                            Login Via</option>
+                                                        <option value="moonton">
+                                                            Moonton (Rekomendasi)
+                                                        </option <option value="vk">VK
+                                                        </option>
+                                                        <option value="tiktok">
+                                                            Tiktok</option>
+                                                        <option value="facebook">
+                                                            Facebook</option>
+                                                    </select>
+                                                    <label class="floating-label" for="loginvia_joki">Login Via</label>
+                                                </div>
 
-                                            <div class="title-card text-left">Masukkan Data Akun</div>
-
-                                            <div class="floating-label-content">
-                                                <input type="number" class="form-control games-input floating-input"
-                                                    name="ID ML" type="text" id="user_id" value=""
-                                                    fdprocessedid="81xg1" />
-                                                <label class="floating-label" for="ID ML">User ID</label>
+                                                <div class="note"></div>
                                             </div>
+                                        @elseif($kategori->tipe == 'dm_vilog')
+                                            <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
 
+                                                <div class="title-card text-left">Masukkan Data Akun</div>
 
-                                            <div class="floating-label-content">
-                                                <select
-                                                    class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
-                                                    name="zoneId" id="zone" placeholder="Pilih Server"
-                                                    fdprocessedid="n3x76">
-                                                    <option value="">Pilih Server
-                                                    </option>
-                                                    <option value="allserver">ALL SERVER
-                                                    </option>
-                                                </select>
+                                                <div class="floating-label-content">
+                                                    <input class="form-control games-input floating-input" type="email"
+                                                        id="email_vilog" name="email_vilog" />
+                                                    <label class="floating-label" for="email_vilog">Email</label>
+                                                </div>
+                                                <div class="floating-label-content">
+                                                    <input class="form-control games-input floating-input" type="password"
+                                                        id="password_vilog" name="password_vilog" />
+                                                    <label class="floating-label" for="password_vilog">Password</label>
+                                                </div>
+                                                <div class="floating-label-content">
+                                                    <select id="loginvia_vilog" name="loginvia_vilog"
+                                                        class="form-select">
+                                                        <option value="">
+                                                            Login Via</option>
+                                                        <option value="moonton">
+                                                            Moonton (Rekomendasi)
+                                                        </option <option value="vk">VK
+                                                        </option>
+                                                        <option value="tiktok">
+                                                            Tiktok</option>
+                                                        <option value="facebook">
+                                                            Facebook</option>
+                                                    </select>
+                                                    <label class="floating-label" for="loginvia_vilog">Login Via</label>
+                                                </div>
+
+                                                <div class="note"></div>
                                             </div>
+                                        @else
+                                            <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
 
+                                                <div class="title-card text-left">Masukkan Data Akun</div>
 
-                                            <div class="note"></div>
-                                        </div>
-                                    @elseif($kategori->kode == 'perfect-world')
-                                        <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
-
-                                            <div class="title-card text-left">Masukkan Data Akun</div>
-
-                                            <div class="floating-label-content">
-                                                <input type="number" class="form-control games-input floating-input"
-                                                    name="ID ML" placeholder="{{ $kategori->placeholder_1 }}"
-                                                    type="text" id="user_id" value=""
-                                                    fdprocessedid="81xg1" />
-                                                <label class="floating-label" for="ID ML">User ID</label>
+                                                <div class="floating-label-content">
+                                                    <input type="number" class="form-control games-input floating-input"
+                                                        name="userId" type="text" id="user_id" value=""
+                                                        fdprocessedid="8qd1hx" />
+                                                    <label class="floating-label"
+                                                        for="userId">{{ $kategori->placeholder_1 }}</label>
+                                                </div>
                                             </div>
+                                        @endif
+                                        <p class="mt-2 text-sm ket-data">{!! $kategori->ket_id !!}</p>
+                                    </div>
 
-
-                                            <div class="floating-label-content">
-                                                <select
-                                                    class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
-                                                    name="zoneId" id="zone" placeholder="Pilih Server"
-                                                    fdprocessedid="n3x76">
-                                                    <option value="">Pilih Server
-                                                    </option>
-                                                    <option value="moonlight">Moonlight
-                                                    </option>
-                                                    <option value="lotus">Lotus</option>
-                                                    <option value="crimson">Crimson
-                                                    </option>
-                                                    <option value="kirin">Kirin</option>
-                                                    <option value="moral">Moral</option>
-                                                </select>
-                                            </div>
-
-
-                                            <div class="note"></div>
-                                        </div>
-                                    @elseif($kategori->kode == 'asphalt-9-legends')
-                                        <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
-
-                                            <div class="title-card text-left">Masukkan Data Akun</div>
-
-                                            <div class="floating-label-content">
-                                                <input type="number" class="form-control games-input floating-input"
-                                                    name="ID ML" placeholder="{{ $kategori->placeholder_1 }}"
-                                                    type="text" id="user_id" value=""
-                                                    fdprocessedid="81xg1" />
-                                                <label class="floating-label" for="ID ML">User ID</label>
-                                            </div>
-
-
-                                            <div class="floating-label-content">
-                                                <select
-                                                    class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
-                                                    name="zoneId" id="zone" placeholder="Pilih Server"
-                                                    fdprocessedid="n3x76">
-                                                    <option value="">Pilih OS
-                                                    </option>
-                                                    <option value="ios">IOS</option>
-                                                    <option value="android">Android
-                                                    </option>
-                                                    <option value="Windows">Windows
-                                                    </option>
-                                                </select>
-                                            </div>
-
-
-                                            <div class="note"></div>
-                                        </div>
-                                    @elseif(in_array($kategori->tipe, ['populer', 'akun_premium', 'game', 'voucher', 'pulsa', 'e-money', 'pln', 'liveapp']))
-                                        <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
-
-                                            <div class="title-card text-left">Masukkan Data Akun</div>
-
-                                            <div class="floating-label-content">
-                                                <input type="number" class="form-control games-input floating-input"
-                                                    name="ID ML" type="text" id="user_id" value=""
-                                                    fdprocessedid="8qd1hx" placeholder="" />
-                                                <label class="floating-label" for="ID ML">User ID</label>
-                                            </div>
-
-
-                                            <div class="note"></div>
-                                        </div>
-                                    @elseif($kategori->tipe == 'joki')
-                                        <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
-
-                                            <div class="title-card text-left">Masukkan Data Akun</div>
-
-                                            <div class="floating-label-content">
-                                                <input class="form-control games-input floating-input" type="email"
-                                                    id="email_joki" name="email_joki" />
-                                                <label class="floating-label" for="email_joki">Email</label>
-                                            </div>
-                                            <div class="floating-label-content">
-                                                <input class="form-control games-input floating-input"
-                                                    type="password"id="password_joki" name="password_joki" />
-                                                <label class="floating-label" for="password_joki">Password</label>
-                                            </div>
-                                            <div class="floating-label-content">
-                                                <input class="form-control games-input floating-input" type="text"
-                                                    id="request_joki" name="request_joki" />
-                                                <label class="floating-label" for="request_joki">Request Hero</label>
-                                            </div>
-                                            <div class="floating-label-content">
-                                                <input class="form-control games-input floating-input" type="text"
-                                                    id="catatan_joki" name="catatan_joki" />
-                                                <label class="floating-label" for="request_joki">Catatan</label>
-                                            </div>
-                                            <div class="floating-label-content">
-                                                <input class="form-control games-input floating-input" type="text"
-                                                    id="nickname_joki" name="nickname_joki" />
-                                                <label class="floating-label" for="request_joki">Nickname</label>
-                                            </div>
-                                            <div class="floating-label-content">
-                                                <select
-                                                    class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
-                                                    id="loginvia_joki" name="loginvia_joki" placeholder="Pilih Server">
-                                                    <option value="">
-                                                        Login Via</option>
-                                                    <option value="moonton">
-                                                        Moonton (Rekomendasi)
-                                                    </option <option value="vk">VK
-                                                    </option>
-                                                    <option value="tiktok">
-                                                        Tiktok</option>
-                                                    <option value="facebook">
-                                                        Facebook</option>
-                                                </select>
-                                                <label class="floating-label" for="loginvia_joki">Login Via</label>
-                                            </div>
-
-                                            <div class="note"></div>
-                                        </div>
-                                    @elseif($kategori->tipe == 'dm_vilog')
-                                        <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
-
-                                            <div class="title-card text-left">Masukkan Data Akun</div>
-
-                                            <div class="floating-label-content">
-                                                <input class="form-control games-input floating-input" type="email"
-                                                    id="email_vilog" name="email_vilog" />
-                                                <label class="floating-label" for="email_vilog">Email</label>
-                                            </div>
-                                            <div class="floating-label-content">
-                                                <input class="form-control games-input floating-input" type="password"
-                                                    id="password_vilog" name="password_vilog" />
-                                                <label class="floating-label" for="password_vilog">Password</label>
-                                            </div>
-                                            <div class="floating-label-content">
-                                                <select id="loginvia_vilog" name="loginvia_vilog" class="form-select">
-                                                    <option value="">
-                                                        Login Via</option>
-                                                    <option value="moonton">
-                                                        Moonton (Rekomendasi)
-                                                    </option <option value="vk">VK
-                                                    </option>
-                                                    <option value="tiktok">
-                                                        Tiktok</option>
-                                                    <option value="facebook">
-                                                        Facebook</option>
-                                                </select>
-                                                <label class="floating-label" for="loginvia_vilog">Login Via</label>
-                                            </div>
-
-                                            <div class="note"></div>
-                                        </div>
-                                    @else
-                                        <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
-
-                                            <div class="title-card text-left">Masukkan Data Akun</div>
-
-                                            <div class="floating-label-content">
-                                                <input type="number" class="form-control games-input floating-input"
-                                                    name="ID ML" type="text" id="user_id" value=""
-                                                    fdprocessedid="8qd1hx" />
-                                                <label class="floating-label" for="ID ML">User ID</label>
-                                            </div>
-                                        </div>
-                                    @endif
                                     <div class="cards my-4">
                                         <div class="title-card text-left">Promo Kode</div>
                                         {{-- <div class=" text-sm " id="meltih" 
@@ -823,11 +911,14 @@
                                         <div class="accordionBodyPay">
                                             <div class="accordionContent">
                                                 <div class="row">
+                                                    @foreach ($pay_method->take(1) as $p)
+                                                        <div class="right GOPAY"></div>
+                                                    @endforeach
                                                     @foreach ($pay_method as $p)
                                                         @if ($p->tipe == 'e-walet')
                                                             <div class="col-sm-12">
                                                                 <input type="radio" name="method" class="pay-radio"
-                                                                    id="method-12"
+                                                                    id="{{ $p->code }}" value="{{ $p->code }}"
                                                                     onchange="select_method('12', 'QRIS');" />
                                                                 <label for="method-12" class="choicePay">
                                                                     <div class="containers">
@@ -1150,6 +1241,7 @@
             }
         </script>
 
+
         <script>
             var modal_confirm = new bootstrap.Modal(document.getElementById('modal-confirm'));
 
@@ -1183,6 +1275,7 @@
             function select_method(id, name) {
 
                 var product = $("input[name=product]").val();
+                console.log(product);
 
                 if (!product) {
                     toastr.warning('Silahkan pilih produk dahulu');
@@ -1196,6 +1289,54 @@
                     $("#total_bayar").text($("#method-" + id + "price").text());
                 }
             }
+
+            $("#check").on("click", function() {
+                var voucher = $("#voucher").val();
+                var service = $("input[name='nominal']:checked").val();
+                $.ajax({
+                    url: "<?php echo route('check.voucher'); ?>",
+                    dataType: "JSON",
+                    type: "POST",
+                    data: {
+                        "_token": "<?php echo csrf_token(); ?>",
+                        "voucher": voucher,
+                        "service": service
+                    },
+                    beforeSend: function() {
+                        Swal.fire({
+                            icon: "info",
+                            title: "Mohon Tunggu",
+                            background: 'var(--warna_4)',
+                            color: '#fff',
+                            showConfirmButton: false,
+                            allowOutsideClick: false,
+                        });
+                    },
+                    success: function(res) {
+                        Swal.fire({
+                            icon: "info",
+                            title: res.message,
+                            background: 'var(--warna_4)',
+                            color: '#fff',
+                            showConfirmButton: true,
+                            allowOutsideClick: true,
+                        });
+
+                        if (res.harga) {
+                            changeHarga(res.harga);
+                        }
+                    },
+                    error: function(e) {
+                        Swal.fire({
+                            title: 'Oops...',
+                            text: "Voucher tidak ditemukan",
+                            icon: 'error',
+                            background: 'var(--warna_4)',
+                            color: '#fff'
+                        });
+                    }
+                })
+            });
 
 
             function cekVoucher() {

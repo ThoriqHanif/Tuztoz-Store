@@ -112,52 +112,51 @@
                 </div>
                 <ul class="nav hisTabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="btnHisTabs "
-                            onclick="window.location.href='{{url('/account/deposit')}}">
+                        <a class="btnHisTabs active" href="{{url('/account/deposit')}}" >
                             <i class="bi bi-wallet2 "></i>
                             <div class="text">Isi Saldo</div>
-                        </button>
+                        </a>
                     </li>
                     <li class="nav-item" role="presentation" hidden>
-                        <button class="btnHisTabs" onclick="window.location.href='https://vanvanstore.com/#produk'">
+                        <a class="btnHisTabs" href="" >
                             <i class="bi bi-gem"></i>
                             <div class="text">Top Up</div>
-                        </button>
+                        </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="btnHisTabs active"
-                            onclick="window.location.href='{{route('riwayat')}}'">
+                        <a class="btnHisTabs " href="{{route('riwayat')}}" >
                             <i class="bi bi-clock-history"></i>
                             <div class="text">Transaksi</div>
-                        </button>
+                        </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="btnHisTabs "
-                            onclick="window.location.href='{{url('/account/setting')}}'">
+                        <a class="btnHisTabs" href="{{ url('/account/setting') }}" >
                             <i class="bi bi-person-fill-gear"></i>
                             <div class="text">Setting</div>
-                        </button>
+                        </a>
                     </li>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
                     <li class="nav-item" role="presentation">
-                        <button class="btnHisTabs"
-                            onclick="window.location.href='https://vanvanstore.com/account/logout'">
+                        <button class="btnHisTabs" type="submit">
                             <i class="bi bi-box-arrow-left"></i>
                             <div class="text">Keluar</div>
                         </button>
                     </li>
+                    </form>
                 </ul>
             </div>
             <div class="cards shadow mt-10">
                 <div class="contents">
                     <div class="containerHis">
                         <div class="head">
-                            <div class="title-head">Riwayat Transaksi</div>
+                            <div class="title-head">Riwayat Isi Saldo</div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table" id="riwayatTransaksi">
+                            <table class="table" id="riwayatDeposit">
                                 <thead>
                                     <tr class="text-dark">
-                                        <th nowrap="">Semua</th>
+                                        <th nowrap="">ID</th>
                                         <th nowrap="">Jumlah</th>
                                         <th nowrap="">Metode</th>
                                         <th nowrap="">No Pembayaran</th>
@@ -167,11 +166,11 @@
                                 </thead>
                                 <tbody>
 
-                                    @foreach ($data as $pesanan)
+                                    @forelse($data as $pesanan)
                                         @php
                                             $zone = $pesanan->zone != null ? '-' . $pesanan->zone : '';
                                             $label_pesanan = '';
-                                            if ($pesanan->status == 'Pending' || $pesanan->status == 'Menunggu Pembayaran' || $pesanan->status == 'Waiting') {
+                                            if ($pesanan->status == 'Pending' || $pesanan->status == 'Batal') {
                                                 $label_pesanan = 'warning';
                                             } elseif ($pesanan->status == 'Processing') {
                                                 $label_pesanan = 'info';
@@ -181,26 +180,28 @@
                                                 $label_pesanan = 'danger';
                                             }
                                         @endphp
-                                        <tr class="border-b border-gray-700 hover:cursor-pointer hover:bg-slate-50/5">
-                                            <td class="py-4 px-6 font-medium whitespace-nowrap flex flex-col gap-2">
-                                                <p class="font-medium">{{ $pesanan->order_id }}</p>
-                                                <p class="font-normal text-[12px]">{{ $pesanan->created_at }}</p>
+                                        <tr>
+                                            <td>{{ $pesanan->id }}
                                             </td>
-                                            <td class="py-4 px-6">
-                                                {{ $pesanan->layanan }}<br>
+                                            <td>Rp {{ number_format($pesanan->jumlah, 0, ',', '.') }}
                                             </td>
-                                            <td>{{ $pesanan->user_id }}{{ $zone }}</td>
-                                            <td class="py-4 px-6 font-medium">Rp.
-                                                {{ number_format($pesanan->harga, 0, ',', '.') }}</td>
-                                            <td class="py-4 px-6"><span
-                                                    class="bg-{{ $label_pesanan }} inline-block rounded-full px-2 text-[12px] font-semibold leading-5 text-black text-center">{{ $pesanan->status }}</span>
+                                            <td>{{ $pesanan->metode }}
                                             </td>
-                                            <td class="py-4 px-6 font-medium whitespace-nowrap flex flex-col gap-2"><a
-                                                    href="javascript:;"
-                                                    onclick="modal('Order Details', '{{ route('riwayat.detail', [$pesanan->order_id]) }}')"
-                                                    class="btn btn-info"><i class="fa fa-qrcode"></i></a></td>
+                                            <td>{{ $pesanan->no_pembayaran }}
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-{{ $label_pesanan }}">{{ $pesanan->status }}
+                                                </span>
+                                            </td>
+                                            <td>{{ $pesanan->created_at }}
+                                            </td>
                                         </tr>
-                                    @endforeach
+                                    @empty
+                                        <tr>
+                                            <td align="center" colspan="6" class="text-dark">Tidak ada riwayat
+                                            </td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
 
                             </table>
@@ -212,33 +213,48 @@
 
         </section>
 
-    @section('js')
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $('#riwayatTransaksi').DataTable();
-            });
-        </script>
-        <script type="text/javascript">
-            function modal(name, link) {
-                var myModal = new bootstrap.Modal($('#modal-detail'))
-                $.ajax({
-                    type: "GET",
-                    url: link,
-                    beforeSend: function() {
-                        $('#modal-detail-title').html(name);
-                        $('#modal-detail-body').html('Loading...');
-                    },
-                    success: function(result) {
-                        $('#modal-detail-title').html(name);
-                        $('#modal-detail-body').html(result);
-                    },
-                    error: function() {
-                        $('#modal-detail-title').html(name);
-                        $('#modal-detail-body').html('There is an error...');
-                    }
+        @section('js')
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#riwayatDeposit').DataTable();
                 });
-                myModal.show();
-            }
-        </script>
+
+                function modal(name, link) {
+                    // var myModal = new bootstrap.Modal($('#modal-detail'))
+                    $.ajax({
+                        type: "GET",
+                        url: link,
+                        beforeSend: function() {
+                            $('#modal-detail-title').html(name);
+                            $('#modal-detail-body').html('Loading...');
+                        },
+                        success: function(result) {
+                            $('#modal-detail-title').html(name);
+                            $('#modal-detail-body').html(result);
+                        },
+                        error: function() {
+                            $('#modal-detail-title').html(name);
+                            $('#modal-detail-body').html('There is an error...');
+                        }
+                    });
+                    $("#modal-detail").modal("show");
+                }
+            </script>
+
+            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="modal-detail"
+                style="border-radius:7%">
+                <div class="modal-dialog modal-lg">
+                    <div class="p-3 border-none rounded-2xl css-6qw8qzz">
+                        <div class="modal-content css-6qw8qzz">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="modal-detail-title"></h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="modal-detail-body"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endsection
     @endsection
-@endsection

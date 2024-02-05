@@ -1282,7 +1282,10 @@
                                                     <div class="grid gap-2 grid-cols-2 sm:grid-cols-2 lg:grid-cols-2">
                                                         <div class="w-full">
                                                             <div class="relative rounded-md text-black shadow-sm">
-                                                                <input
+                                                                <input type="text"
+                                                                id="zone"
+                                                                value=""
+                                                                fdprocessedid="81xg1"
                                                                     class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-[#2D2EAD] focus:ring-2 focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem]"
                                                                     name="ID ML"
                                                                     placeholder="{{ $kategori->placeholder_1 }}"
@@ -1297,7 +1300,7 @@
                                                                     name="zone"
                                                                     placeholder="{{ $kategori->placeholder_2 }}"
                                                                     type="text" id="zone" value=""
-                                                                    fdprocessedid="81xg1" />
+                                                                    fdprocessedid="81xg1"  />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1992,7 +1995,7 @@
                                                                                 </div>
                                                                             </div>
                                                 @endif
-                                                <p class="mt-2 text-sm" style="color: var(--warna_5);">
+                                                <p class="mt-1 text-sm" style="color: var(--warna_5);">
                                                     {!! $kategori->ket_id !!}</p>
                                             </div>
                                         </div>

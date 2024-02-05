@@ -110,35 +110,35 @@ Route::post('/account/setting', [DsController::class, 'saveEditProfile'])->middl
 Route::get('/user/edit/profile', [DsController::class, 'editProfile'])->middleware('auth');
 Route::post('/user/edit/profile', [DsController::class, 'saveEditProfile'])->middleware('auth');
 Route::post('/cari/index', [IndexController::class, 'cariIndex']);
-Route::get('/',                                             [indexController::class, 'create'])->name('home');
-Route::get('/all',                                             [allGameController::class, 'create'])->name('allgame');
-Route::get('/about-us',                                             [aboutUsController::class, 'create'])->name('aboutus');
-Route::get('/order/{kategori:kode}',                         [OrderController::class, 'create']);
-Route::post('/order/harga',                                  [OrderController::class, 'price'])->name('ajax.price');
-Route::post('/order/konfirmasi-data',                        [OrderController::class, 'confirm'])->name('ajax.confirm-data');
-Route::post('/order/pembelian',                              [OrderController::class, 'store'])->name('order');
-Route::get('/pembelian/invoice/{order}',                    [InvoiceController::class, 'create'])->name('pembelian');
-Route::post('/pembelian/invoice/{order}',                    [InvoiceController::class, 'ratingCustomer'])->name('pembelian');
-Route::post('/check-voucher',                               [VoucherController::class, 'confirm'])->name('check.voucher');
+Route::get('/', [indexController::class, 'create'])->name('home');
+Route::get('/all', [allGameController::class, 'create'])->name('allgame');
+Route::get('/about-us', [aboutUsController::class, 'create'])->name('aboutus');
+Route::get('/order/{kategori:kode}', [OrderController::class, 'create']);
+Route::post('/order/harga', [OrderController::class, 'price'])->name('ajax.price');
+Route::post('/order/konfirmasi-data', [OrderController::class, 'confirm'])->name('ajax.confirm-data');
+Route::post('/order/pembelian', [OrderController::class, 'store'])->name('order');
+Route::get('/pembelian/invoice/{order}', [InvoiceController::class, 'create'])->name('pembelian');
+Route::post('/pembelian/invoice/{order}', [InvoiceController::class, 'ratingCustomer'])->name('pembelian');
+Route::post('/check-voucher', [VoucherController::class, 'confirm'])->name('check.voucher');
 
-Route::get('/cari',                                         [CariController::class, 'create'])->name('cari');
-Route::post('/cari',                                        [CariController::class, 'store'])->name('cari.post');
+Route::get('/cari', [CariController::class, 'create'])->name('cari');
+Route::post('/cari', [CariController::class, 'store'])->name('cari.post');
 
 
-Route::get('/ppob/{kategori:kode}',                         [IsiUlangController::class, 'create'])->name('ppob');
-Route::post('/ppob/layanan',                                [IsiUlangController::class, 'layanan'])->name('ajax.layanan.ppob');
-Route::post('/ppob/harga',                                  [IsiUlangController::class, 'price'])->name('ajax.price.ppob');
-Route::post('/ppob/konfirmasi-data',                        [IsiUlangController::class, 'confirm'])->name('ajax.confirm-data.ppob');
-Route::post('/ppob/pembelian',                              [IsiUlangController::class, 'store'])->name('pembelian.ppob');
+Route::get('/ppob/{kategori:kode}', [IsiUlangController::class, 'create'])->name('ppob');
+Route::post('/ppob/layanan', [IsiUlangController::class, 'layanan'])->name('ajax.layanan.ppob');
+Route::post('/ppob/harga', [IsiUlangController::class, 'price'])->name('ajax.price.ppob');
+Route::post('/ppob/konfirmasi-data', [IsiUlangController::class, 'confirm'])->name('ajax.confirm-data.ppob');
+Route::post('/ppob/pembelian', [IsiUlangController::class, 'store'])->name('pembelian.ppob');
 
-Route::get('/daftar-harga',                                 [PricelistController::class, 'create'])->name('price');
-Route::get('/magicwheel',                                [HitungpointmwController::class, 'create'])->name('hitungpointmw');
-Route::get('/zodiac',                            [HitungpointzodiacController::class, 'create'])->name('hitungpointzodiac');
-Route::get('/winrate',                                     [HitungwrController::class, 'create'])->name('hitungwr');
-Route::get('/page/terms',                         [TermsandconditionsController::class, 'create'])->name('Terms-and-conditions');
+Route::get('/daftar-harga', [PricelistController::class, 'create'])->name('price');
+Route::get('/magicwheel', [HitungpointmwController::class, 'create'])->name('hitungpointmw');
+Route::get('/zodiac', [HitungpointzodiacController::class, 'create'])->name('hitungpointzodiac');
+Route::get('/winrate', [HitungwrController::class, 'create'])->name('hitungwr');
+Route::get('/page/terms', [TermsandconditionsController::class, 'create'])->name('Terms-and-conditions');
 // Route::get('/privacy-policy',                               [privacypolicyController::class, 'create'])->name('privacy-policy');
 // Route::get('/contact',                                      [contactController::class, 'create'])->name('contact');
-Route::get('/topten',                                       [ToptenController::class, 'create'])->name('topten');
+Route::get('/topten', [ToptenController::class, 'create'])->name('topten');
 // Route::get('/productbj',                                    [getProductbjController::class, 'getProductData'])->name('productbj');
 // Route::get('/orderbj',                                      [orderBjController::class, 'orderBjf'])->name('orderbj');
 // Route::get('/userbj',                                      [getUserbjController::class, 'getUserbj'])->name('userbj');
@@ -146,140 +146,141 @@ Route::get('/topten',                                       [ToptenController::c
 
 
 Route::middleware(['guest'])->group(function () {
-    Route::get('/login',                                            [LoginController::class, 'create'])->name('login');
-    Route::post('/login',                                           [LoginController::class, 'store'])->name('post.login');
-    Route::get('/register',                                         [RegisterController::class, 'create'])->name('register');
-    Route::post('/register',                                         [RegisterController::class, 'store'])->name('post.register');
+    Route::get('/login', [LoginController::class, 'create'])->name('login');
+    Route::post('/login', [LoginController::class, 'store'])->name('post.login');
+    Route::get('/register', [RegisterController::class, 'create'])->name('register');
+    Route::post('/register', [RegisterController::class, 'store'])->name('post.register');
 });
-Route::post('/callback',                                    [\App\Http\Controllers\DuitkuController::class, 'handle']);
+Route::post('/callback', [\App\Http\Controllers\DuitkuController::class, 'handle']);
 
 Route::middleware(['auth'])->group(function () {
-    Route::post('/logout',                                  [LoginController::class, 'destroy'])->name('logout');
+    Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 
-    Route::get('/account/deposit',                                  [DepositController::class, 'create'])->name('deposit');
-    Route::post('/account/deposit',                                 [DepositController::class, 'store'])->name('deposit.post');
+    Route::get('/account/deposit', [DepositController::class, 'create'])->name('deposit');
+    Route::get('/account/deposit/history', [DepositController::class, 'riwayatDeposit'])->name('deposit.history');
+    Route::post('/account/deposit', [DepositController::class, 'store'])->name('deposit.post');
 
-    Route::get('/account/membership',                                  [MembershipController::class, 'create'])->name('membership');
+    Route::get('/account/membership', [MembershipController::class, 'create'])->name('membership');
 
-    Route::get('/account/transaction',                        [RiwayatPembelian::class, 'create'])->name('riwayat');
-    Route::get('/account/transaction/{id}/detail',            [RiwayatPembelian::class, 'show'])->name('riwayat.detail');
+    Route::get('/account/transaction', [RiwayatPembelian::class, 'create'])->name('riwayat');
+    Route::get('/account/transaction/{id}/detail', [RiwayatPembelian::class, 'show'])->name('riwayat.detail');
 
 
-    Route::get('/api-documentation',    [\App\Http\Controllers\ApiDocController::class, 'create'])->name('api');
-    Route::get('/reset-key',    [\App\Http\Controllers\ApiDocController::class, 'reset'])->name('reset-key');
+    Route::get('/api-documentation', [\App\Http\Controllers\ApiDocController::class, 'create'])->name('api');
+    Route::get('/reset-key', [\App\Http\Controllers\ApiDocController::class, 'reset'])->name('reset-key');
 });
 
 Route::middleware(['auth', 'check.role'])->group(function () {
-    Route::get('/dashboard',                                [DashboardController::class, 'create'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'create'])->name('dashboard');
 
     //History Transaksi
-    Route::get('/pesanan',                                  [AdminOrder::class, 'create'])->name('pesanan');
-    Route::get('/order-status/{order_id}/{status}',         [AdminOrder::class, 'update']);
+    Route::get('/pesanan', [AdminOrder::class, 'create'])->name('pesanan');
+    Route::get('/order-status/{order_id}/{status}', [AdminOrder::class, 'update']);
 
     //Mutasi Ovo
-    Route::get('/ovo',                                      [OvoController::class, 'create'])->name('ovo');
-    Route::post('/ovo',                                     [OvoController::class, 'store'])->name('ovo.post');
-    Route::get('/ovo/Get-OTP/{no}',                         [OvoController::class, 'GetOTP']);
-    Route::post('/ovo/Validasi-OTP',                        [OvoController::class, 'VerifOTP']);
-    Route::post('/ovo/Validasi-PIN',                        [OvoController::class, 'VerifPIN']);
-    Route::get('/Ovo-Transaksi',                            [OvoController::class, 'getTransaction']);
+    Route::get('/ovo', [OvoController::class, 'create'])->name('ovo');
+    Route::post('/ovo', [OvoController::class, 'store'])->name('ovo.post');
+    Route::get('/ovo/Get-OTP/{no}', [OvoController::class, 'GetOTP']);
+    Route::post('/ovo/Validasi-OTP', [OvoController::class, 'VerifOTP']);
+    Route::post('/ovo/Validasi-PIN', [OvoController::class, 'VerifPIN']);
+    Route::get('/Ovo-Transaksi', [OvoController::class, 'getTransaction']);
 
     //Mutasi Gopay
-    Route::get('/gopay',                                    [GojekController::class, 'create'])->name('gopay');
-    Route::post('/gopay',                                   [GojekController::class, 'store'])->name('gopay.post');
-    Route::get('/gopay/Gojek-OTP/{no}',                     [GojekController::class, 'GetOTP']);
-    Route::post('/gopay/Gojek-validasi',                    [GojekController::class, 'VerifOTP']);
-    Route::get('/Gopay-Transaksi',                          [GojekController::class, 'getTransaction'])->name('gopay.transaction');
+    Route::get('/gopay', [GojekController::class, 'create'])->name('gopay');
+    Route::post('/gopay', [GojekController::class, 'store'])->name('gopay.post');
+    Route::get('/gopay/Gojek-OTP/{no}', [GojekController::class, 'GetOTP']);
+    Route::post('/gopay/Gojek-validasi', [GojekController::class, 'VerifOTP']);
+    Route::get('/Gopay-Transaksi', [GojekController::class, 'getTransaction'])->name('gopay.transaction');
 
     //Berita
-    Route::get('/berita',                                   [Berita::class, 'create'])->name('berita');
-    Route::post('/berita',                                  [Berita::class, 'post'])->name('berita.post');
-    Route::get('/berita/hapus/{id}',                        [Berita::class, 'delete'])->name('berita.delete');
+    Route::get('/berita', [Berita::class, 'create'])->name('berita');
+    Route::post('/berita', [Berita::class, 'post'])->name('berita.post');
+    Route::get('/berita/hapus/{id}', [Berita::class, 'delete'])->name('berita.delete');
 
     //Kategori
-    Route::get('/kategori',                                 [KategoriController::class, 'create'])->name('kategori');
-    Route::post('/kategori',                                [KategoriController::class, 'store'])->name('kategori.post');
-    Route::get('/kategori/hapus/{id}',                      [KategoriController::class, 'delete'])->name('kategori.delete');
-    Route::get('/kategori-status/{id}/{status}',             [KategoriController::class, 'update'])->name('kategori.update');
-    Route::post('/kategori/update',                           [KategoriController::class, 'patch'])->name('kategori.detail.update');
+    Route::get('/kategori', [KategoriController::class, 'create'])->name('kategori');
+    Route::post('/kategori', [KategoriController::class, 'store'])->name('kategori.post');
+    Route::get('/kategori/hapus/{id}', [KategoriController::class, 'delete'])->name('kategori.delete');
+    Route::get('/kategori-status/{id}/{status}', [KategoriController::class, 'update'])->name('kategori.update');
+    Route::post('/kategori/update', [KategoriController::class, 'patch'])->name('kategori.detail.update');
 
-    Route::get('/kategori/{id}/detail',                     [KategoriController::class, 'detail'])->name('kategori.detail');
-    Route::post('/kategori/{id}/detail',                     [KategoriController::class, 'patch'])->name('kategori.detail.update');
+    Route::get('/kategori/{id}/detail', [KategoriController::class, 'detail'])->name('kategori.detail');
+    Route::post('/kategori/{id}/detail', [KategoriController::class, 'patch'])->name('kategori.detail.update');
 
     //sub category
-    Route::get('/subkategori',                              [\App\Http\Controllers\Admin\SubCategories::class, 'create'])->name('subkategori');
-    Route::post('/subkategori',                              [\App\Http\Controllers\Admin\SubCategories::class, 'store'])->name('subkategori.post');
-    Route::get('/subkategori/hapus/{id}',                              [\App\Http\Controllers\Admin\SubCategories::class, 'destroy']);
+    Route::get('/subkategori', [\App\Http\Controllers\Admin\SubCategories::class, 'create'])->name('subkategori');
+    Route::post('/subkategori', [\App\Http\Controllers\Admin\SubCategories::class, 'store'])->name('subkategori.post');
+    Route::get('/subkategori/hapus/{id}', [\App\Http\Controllers\Admin\SubCategories::class, 'destroy']);
     //Layanan
-    Route::get('/layanan',                                  [LayananController::class, 'create'])->name('layanan');
-    Route::get('/ajax/getsubkat',   [LayananController::class, 'getSubCategories'])->name('ajax.getsub');
-    Route::post('/layanan',                                 [LayananController::class, 'store'])->name('layanan.post');
-    Route::get('/layanan/hapus/{id}',                       [LayananController::class, 'delete'])->name('layanan.delete');
-    Route::get('/layanan-status/{id}/{status}',             [LayananController::class, 'update'])->name('layanan.update');
+    Route::get('/layanan', [LayananController::class, 'create'])->name('layanan');
+    Route::get('/ajax/getsubkat', [LayananController::class, 'getSubCategories'])->name('ajax.getsub');
+    Route::post('/layanan', [LayananController::class, 'store'])->name('layanan.post');
+    Route::get('/layanan/hapus/{id}', [LayananController::class, 'delete'])->name('layanan.delete');
+    Route::get('/layanan-status/{id}/{status}', [LayananController::class, 'update'])->name('layanan.update');
 
-    Route::get('/layanan/{id}/detail',                      [LayananController::class, 'detail'])->name('layanan.detail');
-    Route::post('/layanan/{id}/detail',                     [LayananController::class, 'patch'])->name('layanan.detail.update');
+    Route::get('/layanan/{id}/detail', [LayananController::class, 'detail'])->name('layanan.detail');
+    Route::post('/layanan/{id}/detail', [LayananController::class, 'patch'])->name('layanan.detail.update');
 
     // PAKET
     Route::resources(['paket' => PaketController::class, 'paket-layanan' => PaketLayananController::class]);
     Route::post('paket-layanan-get-layanan', [PaketLayananController::class, 'get_layanan'])->name('paket-layanan.get-layanan');
 
     //Method
-    Route::get('/method',                                 [MethodController::class, 'create'])->name('method');
-    Route::post('/method',                                [MethodController::class, 'store'])->name('method.post');
-    Route::get('/method/hapus/{id}',                      [MethodController::class, 'delete'])->name('method.delete');
-    Route::post('/method/update',                           [MethodController::class, 'patch'])->name('method.detail.update');
+    Route::get('/method', [MethodController::class, 'create'])->name('method');
+    Route::post('/method', [MethodController::class, 'store'])->name('method.post');
+    Route::get('/method/hapus/{id}', [MethodController::class, 'delete'])->name('method.delete');
+    Route::post('/method/update', [MethodController::class, 'patch'])->name('method.detail.update');
 
-    Route::get('/method/{id}/detail',                     [MethodController::class, 'detail'])->name('method.detail');
-    Route::post('/method/{id}/detail',                     [MethodController::class, 'patch'])->name('method.detail.update');
+    Route::get('/method/{id}/detail', [MethodController::class, 'detail'])->name('method.detail');
+    Route::post('/method/{id}/detail', [MethodController::class, 'patch'])->name('method.detail.update');
 
     //Seting
-    Route::get('/seting',                                 [SetingController::class, 'create'])->name('seting');
-    Route::post('/seting',                                [SetingController::class, 'store'])->name('seting.post');
-    Route::get('/seting/hapus/{id}',                      [SetingController::class, 'delete'])->name('seting.delete');
-    Route::post('/seting/update',                           [SetingController::class, 'patch'])->name('seting.detail.update');
-    Route::get('/seting/{id}/detail',                     [SetingController::class, 'detail'])->name('seting.detail');
-    Route::post('/seting/{id}/detail',                     [SetingController::class, 'patch'])->name('seting.detail.update');
+    Route::get('/seting', [SetingController::class, 'create'])->name('seting');
+    Route::post('/seting', [SetingController::class, 'store'])->name('seting.post');
+    Route::get('/seting/hapus/{id}', [SetingController::class, 'delete'])->name('seting.delete');
+    Route::post('/seting/update', [SetingController::class, 'patch'])->name('seting.detail.update');
+    Route::get('/seting/{id}/detail', [SetingController::class, 'detail'])->name('seting.detail');
+    Route::post('/seting/{id}/detail', [SetingController::class, 'patch'])->name('seting.detail.update');
 
     //Member
-    Route::get('/member',                                   [MemberController::class, 'create'])->name('member');
-    Route::get('/member/{id}/delete',                       [MemberController::class, 'delete'])->name('member.delete');
-    Route::post('/member',                                  [MemberController::class, 'store'])->name('member.post');
-    Route::post('/send-balance',                            [MemberController::class, 'send'])->name('saldo.post');
-    Route::get('/member/{id}/detail',                       [MemberController::class, 'show'])->name('member.detail');
-    Route::post('/member/update',                           [MemberController::class, 'patch'])->name('member.detail.update');
+    Route::get('/member', [MemberController::class, 'create'])->name('member');
+    Route::get('/member/{id}/delete', [MemberController::class, 'delete'])->name('member.delete');
+    Route::post('/member', [MemberController::class, 'store'])->name('member.post');
+    Route::post('/send-balance', [MemberController::class, 'send'])->name('saldo.post');
+    Route::get('/member/{id}/detail', [MemberController::class, 'show'])->name('member.detail');
+    Route::post('/member/update', [MemberController::class, 'patch'])->name('member.detail.update');
 
     //Deposit
-    Route::get('/user-deposit',                             [UserDepositController::class, 'create'])->name('user.deposit');
-    Route::get('/user-deposit/{id}/{status}',               [UserDepositController::class, 'patch'])->name('confirm.deposit');
+    Route::get('/user-deposit', [UserDepositController::class, 'create'])->name('user.deposit');
+    Route::get('/user-deposit/{id}/{status}', [UserDepositController::class, 'patch'])->name('confirm.deposit');
 
     //Whatsapp
-    Route::get('/whatsapp',                                 [WhatsappController::class, 'create'])->name('whatsapp');
+    Route::get('/whatsapp', [WhatsappController::class, 'create'])->name('whatsapp');
 
     //Smile One
-    Route::get('/smile-one',                                [SmileOneController::class, 'create'])->name('smileone');
-    Route::post('/smile-one',                               [SmileOneController::class, 'store'])->name('smileone.post');
+    Route::get('/smile-one', [SmileOneController::class, 'create'])->name('smileone');
+    Route::post('/smile-one', [SmileOneController::class, 'store'])->name('smileone.post');
 
-    Route::get('/license',                                  [LicenseController::class, 'create'])->name('license');
-    Route::post('/license',                                 [LicenseController::class, 'store'])->name('license.post');
-    Route::get('/license/{id}',                             [LicenseController::class, 'destroy'])->name('license.delete');
+    Route::get('/license', [LicenseController::class, 'create'])->name('license');
+    Route::post('/license', [LicenseController::class, 'store'])->name('license.post');
+    Route::get('/license/{id}', [LicenseController::class, 'destroy'])->name('license.delete');
 
 
     //Promo
 
-    Route::get('/promo',                                    [Berita::class, 'create'])->name('promo');
-    Route::post('/promo',                                  [Berita::class, 'post'])->name('promo.post');
-    Route::get('/promo/hapus/{id}',                        [Berita::class, 'delete'])->name('promo.delete');
+    Route::get('/promo', [Berita::class, 'create'])->name('promo');
+    Route::post('/promo', [Berita::class, 'post'])->name('promo.post');
+    Route::get('/promo/hapus/{id}', [Berita::class, 'delete'])->name('promo.delete');
 
 
 
 
     //Voucher
-    Route::get('/voucher',                                  [VoucherController::class, 'create'])->name('voucher');
-    Route::post('/voucher',                                 [VoucherController::class, 'store'])->name('voucher.post');
-    Route::get('/voucher/{id}/delete',                      [VoucherController::class, 'destroy'])->name('voucher.delete');
-    Route::get('/voucher/{id}/detail',                      [VoucherController::class, 'show'])->name('voucher.detail');
-    Route::post('/voucher/{id}/update',                      [VoucherController::class, 'patch'])->name('voucher.detail.update');
+    Route::get('/voucher', [VoucherController::class, 'create'])->name('voucher');
+    Route::post('/voucher', [VoucherController::class, 'store'])->name('voucher.post');
+    Route::get('/voucher/{id}/delete', [VoucherController::class, 'destroy'])->name('voucher.delete');
+    Route::get('/voucher/{id}/detail', [VoucherController::class, 'show'])->name('voucher.detail');
+    Route::post('/voucher/{id}/update', [VoucherController::class, 'patch'])->name('voucher.detail.update');
 
     //SETTING WEB
     Route::get('/setting/web', [SettingWebController::class, 'settingWeb']);
@@ -323,9 +324,9 @@ Route::middleware(['auth', 'check.role'])->group(function () {
     Route::post('/footer', [FooterController::class, 'footerChild']);
     Route::get('/footer/delete/{id}', [FooterController::class, 'footerDelete']);
 
-    Route::get('/rating',                                       [ratingController::class, 'create'])->name('rating');
-    Route::get('/ratingcust',                                [ratingCustomerController::class, 'create'])->name('ratingcust');
-    Route::get('/rating-customer',                                 [ratingAdminController::class, 'create'])->name('rating-customer');
+    Route::get('/rating', [ratingController::class, 'create'])->name('rating');
+    Route::get('/ratingcust', [ratingCustomerController::class, 'create'])->name('ratingcust');
+    Route::get('/rating-customer', [ratingAdminController::class, 'create'])->name('rating-customer');
     Route::delete('/rating-customer/{id}', [ratingAdminController::class, 'destroy'])->name('rating-customer.destroy');
 });
 
@@ -333,4 +334,4 @@ Route::middleware(['auth', 'check.role'])->group(function () {
 //     return view('components/admin/dashboard');
 // });
 
-Route::get('/test-template',                                [TestController::class, 'create'])->name('test');
+Route::get('/test-template', [TestController::class, 'create'])->name('test');
