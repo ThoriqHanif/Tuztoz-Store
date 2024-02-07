@@ -114,37 +114,37 @@
                 </div>
                 <ul class="nav hisTabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <a class="btnHisTabs " href="{{url('/account/deposit')}}" >
+                        <a class="btnHisTabs " href="{{ url('/account/deposit') }}">
                             <i class="bi bi-wallet2 "></i>
                             <div class="text">Isi Saldo</div>
                         </a>
                     </li>
                     <li class="nav-item" role="presentation" hidden>
-                        <a class="btnHisTabs" href="" >
+                        <a class="btnHisTabs" href="">
                             <i class="bi bi-gem"></i>
                             <div class="text">Top Up</div>
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="btnHisTabs " href="{{route('riwayat')}}" >
-                            <i class="bi bi-clock-history"></i>
-                            <div class="text">Transaksi</div>
+                        <a class="btnHisTabs " href="{{ route('membership') }}">
+                            <i class="bi bi-award-fill"></i>
+                            <div class="text">Membership</div>
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="btnHisTabs active" href="{{ url('/account/setting') }}" >
+                        <a class="btnHisTabs active" href="{{ url('/account/setting') }}">
                             <i class="bi bi-person-fill-gear"></i>
                             <div class="text">Setting</div>
                         </a>
                     </li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                    <li class="nav-item" role="presentation">
-                        <button class="btnHisTabs" type="submit">
-                            <i class="bi bi-box-arrow-left"></i>
-                            <div class="text">Keluar</div>
-                        </button>
-                    </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="btnHisTabs" type="submit">
+                                <i class="bi bi-box-arrow-left"></i>
+                                <div class="text">Keluar</div>
+                            </button>
+                        </li>
                     </form>
                 </ul>
             </div>

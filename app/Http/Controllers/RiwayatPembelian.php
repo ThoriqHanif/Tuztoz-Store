@@ -37,7 +37,7 @@ class RiwayatPembelian extends Controller
         }
 
         $send = '<div class="table-responsive">
-                    <table class="table table-bordered text-light">
+                    <table class="table table-bordered text-dark">
                         <tbody>
                             <tr>
                                 <th>Id Trx</th>

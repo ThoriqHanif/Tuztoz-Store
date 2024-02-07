@@ -125,11 +125,11 @@ Route::get('/cari', [CariController::class, 'create'])->name('cari');
 Route::post('/cari', [CariController::class, 'store'])->name('cari.post');
 
 
-Route::get('/ppob/{kategori:kode}', [IsiUlangController::class, 'create'])->name('ppob');
-Route::post('/ppob/layanan', [IsiUlangController::class, 'layanan'])->name('ajax.layanan.ppob');
-Route::post('/ppob/harga', [IsiUlangController::class, 'price'])->name('ajax.price.ppob');
-Route::post('/ppob/konfirmasi-data', [IsiUlangController::class, 'confirm'])->name('ajax.confirm-data.ppob');
-Route::post('/ppob/pembelian', [IsiUlangController::class, 'store'])->name('pembelian.ppob');
+// Route::get('/ppob/{kategori:kode}', [IsiUlangController::class, 'create'])->name('ppob');
+// Route::post('/ppob/layanan', [IsiUlangController::class, 'layanan'])->name('ajax.layanan.ppob');
+// Route::post('/ppob/harga', [IsiUlangController::class, 'price'])->name('ajax.price.ppob');
+// Route::post('/ppob/konfirmasi-data', [IsiUlangController::class, 'confirm'])->name('ajax.confirm-data.ppob');
+// Route::post('/ppob/pembelian', [IsiUlangController::class, 'store'])->name('pembelian.ppob');
 
 Route::get('/daftar-harga', [PricelistController::class, 'create'])->name('price');
 Route::get('/magicwheel', [HitungpointmwController::class, 'create'])->name('hitungpointmw');
@@ -222,8 +222,8 @@ Route::middleware(['auth', 'check.role'])->group(function () {
     Route::post('/layanan/{id}/detail', [LayananController::class, 'patch'])->name('layanan.detail.update');
 
     // PAKET
-    Route::resources(['paket' => PaketController::class, 'paket-layanan' => PaketLayananController::class]);
-    Route::post('paket-layanan-get-layanan', [PaketLayananController::class, 'get_layanan'])->name('paket-layanan.get-layanan');
+    // Route::resources(['paket' => PaketController::class, 'paket-layanan' => PaketLayananController::class]);
+    // Route::post('paket-layanan-get-layanan', [PaketLayananController::class, 'get_layanan'])->name('paket-layanan.get-layanan');
 
     //Method
     Route::get('/method', [MethodController::class, 'create'])->name('method');
@@ -235,12 +235,12 @@ Route::middleware(['auth', 'check.role'])->group(function () {
     Route::post('/method/{id}/detail', [MethodController::class, 'patch'])->name('method.detail.update');
 
     //Seting
-    Route::get('/seting', [SetingController::class, 'create'])->name('seting');
-    Route::post('/seting', [SetingController::class, 'store'])->name('seting.post');
-    Route::get('/seting/hapus/{id}', [SetingController::class, 'delete'])->name('seting.delete');
-    Route::post('/seting/update', [SetingController::class, 'patch'])->name('seting.detail.update');
-    Route::get('/seting/{id}/detail', [SetingController::class, 'detail'])->name('seting.detail');
-    Route::post('/seting/{id}/detail', [SetingController::class, 'patch'])->name('seting.detail.update');
+    // Route::get('/seting', [SetingController::class, 'create'])->name('seting');
+    // Route::post('/seting', [SetingController::class, 'store'])->name('seting.post');
+    // Route::get('/seting/hapus/{id}', [SetingController::class, 'delete'])->name('seting.delete');
+    // Route::post('/seting/update', [SetingController::class, 'patch'])->name('seting.detail.update');
+    // Route::get('/seting/{id}/detail', [SetingController::class, 'detail'])->name('seting.detail');
+    // Route::post('/seting/{id}/detail', [SetingController::class, 'patch'])->name('seting.detail.update');
 
     //Member
     Route::get('/member', [MemberController::class, 'create'])->name('member');
@@ -258,8 +258,8 @@ Route::middleware(['auth', 'check.role'])->group(function () {
     Route::get('/whatsapp', [WhatsappController::class, 'create'])->name('whatsapp');
 
     //Smile One
-    Route::get('/smile-one', [SmileOneController::class, 'create'])->name('smileone');
-    Route::post('/smile-one', [SmileOneController::class, 'store'])->name('smileone.post');
+    // Route::get('/smile-one', [SmileOneController::class, 'create'])->name('smileone');
+    // Route::post('/smile-one', [SmileOneController::class, 'store'])->name('smileone.post');
 
     Route::get('/license', [LicenseController::class, 'create'])->name('license');
     Route::post('/license', [LicenseController::class, 'store'])->name('license.post');
@@ -324,7 +324,7 @@ Route::middleware(['auth', 'check.role'])->group(function () {
     Route::post('/footer', [FooterController::class, 'footerChild']);
     Route::get('/footer/delete/{id}', [FooterController::class, 'footerDelete']);
 
-    Route::get('/rating', [ratingController::class, 'create'])->name('rating');
+    // Route::get('/rating', [ratingController::class, 'create'])->name('rating');
     Route::get('/ratingcust', [ratingCustomerController::class, 'create'])->name('ratingcust');
     Route::get('/rating-customer', [ratingAdminController::class, 'create'])->name('rating-customer');
     Route::delete('/rating-customer/{id}', [ratingAdminController::class, 'destroy'])->name('rating-customer.destroy');

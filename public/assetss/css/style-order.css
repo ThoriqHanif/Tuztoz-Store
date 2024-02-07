@@ -3067,7 +3067,7 @@ section.history {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 80px;
+  width: 120px;
   height: 80px;
   border-radius: 12px;
   border: 1px solid var(--dark-grey);
@@ -3685,6 +3685,9 @@ section.history {
   color: #fff !important;
 }
 .text-dark {
+  color: var(--black-text) !important;
+}
+.btn-dark {
   color: var(--black-text) !important;
 }
 .text-grey {

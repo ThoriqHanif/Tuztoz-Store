@@ -124,9 +124,9 @@
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="btnHisTabs " href="{{ route('riwayat') }}">
-                            <i class="bi bi-clock-history"></i>
-                            <div class="text">Transaksi</div>
+                        <a class="btnHisTabs " href="{{ route('membership') }}">
+                            <i class="bi bi-award-fill"></i>
+                            <div class="text">Membership</div>
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
@@ -212,7 +212,12 @@
 
         <script>
             $(document).ready(function() {
-                $('#riwayatDeposit').DataTable();
+                $('#riwayatDeposit').DataTable({
+                    "dom": '<"row"<"col text-dark"l><"col text-dark"f>><"row"<"col text-dark"rt>><"row justify-content-between"<"col text-dark"i><"col-auto text-dark"p>>',
+                    "language": {
+                        "emptyTable": "<span class='text-dark'>No data available in table</span>"
+                    }
+                });
             });
 
             function modal(name, link) {
@@ -252,4 +257,4 @@
                 </div>
             </div>
         </div>
-@endsection
+    @endsection
