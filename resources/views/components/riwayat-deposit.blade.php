@@ -95,8 +95,8 @@
             <div class="containerHead">
                 <img src="{{ asset('assets/logo/logo-user.png') }}" alt="" class="user">
                 <div class="identity">
-                    <div class="name">Hi, {{ Auth()->user()->name }} <img
-                            src="https://vanvanstore.com/assets/images/icon/greet.svg" alt=""></div>
+                    <div class="name">Hi, {{ Auth()->user()->name }} <img src="{{ asset('assets/icons/greet.svg') }}"
+                            alt=""></div>
                     <div class="desc">{{ Auth()->user()->role }} - Sejak
                         {{ \Carbon\Carbon::parse(Auth()->user()->created_at)->format('j F Y') }}
                     </div>
@@ -105,44 +105,44 @@
             <div class="cards-saldo mt-4">
                 <div class="containerSaldo">
                     <div class="icon">
-                        <img src="https://vanvanstore.com/assets/images/icon/dompet.svg" alt="">
+                        <img src="{{ asset('assets/icons/dompet.svg') }}" alt="">
                     </div>
                     <div class="desc">Saldo Kamu</div>
                     <div class="price">Rp. {{ number_format(Auth::user()->balance, 0, ',', '.') }}</div>
                 </div>
                 <ul class="nav hisTabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <a class="btnHisTabs active" href="{{url('/account/deposit')}}" >
+                        <a class="btnHisTabs active" href="{{ url('/account/deposit') }}">
                             <i class="bi bi-wallet2 "></i>
                             <div class="text">Isi Saldo</div>
                         </a>
                     </li>
                     <li class="nav-item" role="presentation" hidden>
-                        <a class="btnHisTabs" href="" >
+                        <a class="btnHisTabs" href="">
                             <i class="bi bi-gem"></i>
                             <div class="text">Top Up</div>
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="btnHisTabs " href="{{route('riwayat')}}" >
+                        <a class="btnHisTabs " href="{{ route('riwayat') }}">
                             <i class="bi bi-clock-history"></i>
                             <div class="text">Transaksi</div>
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="btnHisTabs" href="{{ url('/account/setting') }}" >
+                        <a class="btnHisTabs" href="{{ url('/account/setting') }}">
                             <i class="bi bi-person-fill-gear"></i>
                             <div class="text">Setting</div>
                         </a>
                     </li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                    <li class="nav-item" role="presentation">
-                        <button class="btnHisTabs" type="submit">
-                            <i class="bi bi-box-arrow-left"></i>
-                            <div class="text">Keluar</div>
-                        </button>
-                    </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="btnHisTabs" type="submit">
+                                <i class="bi bi-box-arrow-left"></i>
+                                <div class="text">Keluar</div>
+                            </button>
+                        </li>
                     </form>
                 </ul>
             </div>
@@ -152,60 +152,57 @@
                         <div class="head">
                             <div class="title-head">Riwayat Isi Saldo</div>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table" id="riwayatDeposit">
-                                <thead>
-                                    <tr class="text-dark">
-                                        <th nowrap="">ID</th>
-                                        <th nowrap="">Jumlah</th>
-                                        <th nowrap="">Metode</th>
-                                        <th nowrap="">No Pembayaran</th>
-                                        <th width="10">Status</th>
-                                        <th width="10">Tanggal</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    @forelse($data as $pesanan)
-                                        @php
-                                            $zone = $pesanan->zone != null ? '-' . $pesanan->zone : '';
-                                            $label_pesanan = '';
-                                            if ($pesanan->status == 'Pending' || $pesanan->status == 'Batal') {
-                                                $label_pesanan = 'warning';
-                                            } elseif ($pesanan->status == 'Processing') {
-                                                $label_pesanan = 'info';
-                                            } elseif ($pesanan->status == 'Success') {
-                                                $label_pesanan = 'success';
-                                            } else {
-                                                $label_pesanan = 'danger';
-                                            }
-                                        @endphp
-                                        <tr>
-                                            <td>{{ $pesanan->id }}
-                                            </td>
-                                            <td>Rp {{ number_format($pesanan->jumlah, 0, ',', '.') }}
-                                            </td>
-                                            <td>{{ $pesanan->metode }}
-                                            </td>
-                                            <td>{{ $pesanan->no_pembayaran }}
-                                            </td>
-                                            <td>
-                                                <span class="badge bg-{{ $label_pesanan }}">{{ $pesanan->status }}
-                                                </span>
-                                            </td>
-                                            <td>{{ $pesanan->created_at }}
-                                            </td>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="riwayatDeposit">
+                                    <thead>
+                                        <tr class="text-dark">
+                                            <th nowrap="">ID</th>
+                                            <th nowrap="">Jumlah</th>
+                                            <th nowrap="">Metode</th>
+                                            <th nowrap="">No Pembayaran</th>
+                                            <th width="10">Status</th>
+                                            <th width="">Tanggal</th>
                                         </tr>
-                                    @empty
-                                        <tr>
-                                            <td align="center" colspan="6" class="text-dark">Tidak ada riwayat
-                                            </td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($data as $pesanan)
+                                            @php
+                                                $zone = $pesanan->zone != null ? '-' . $pesanan->zone : '';
+                                                $label_pesanan = '';
+                                                if ($pesanan->status == 'Pending' || $pesanan->status == 'Batal') {
+                                                    $label_pesanan = 'warning';
+                                                } elseif ($pesanan->status == 'Processing') {
+                                                    $label_pesanan = 'info';
+                                                } elseif ($pesanan->status == 'Success') {
+                                                    $label_pesanan = 'success';
+                                                } else {
+                                                    $label_pesanan = 'danger';
+                                                }
+                                            @endphp
+                                            <tr class="text-dark">
+                                                <td>{{ $pesanan->id }}
+                                                </td>
+                                                <td>Rp {{ number_format($pesanan->jumlah, 0, ',', '.') }}
+                                                </td>
+                                                <td>{{ $pesanan->metode }}
+                                                </td>
+                                                <td>{{ $pesanan->no_pembayaran }}
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-{{ $label_pesanan }}">{{ $pesanan->status }}
+                                                    </span>
+                                                </td>
+                                                <td class="table-fit">{{ $pesanan->created_at }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
 
-                            </table>
+                                </table>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -213,48 +210,46 @@
 
         </section>
 
-        @section('js')
-            <script type="text/javascript">
-                $(document).ready(function() {
-                    $('#riwayatDeposit').DataTable();
+        <script>
+            $(document).ready(function() {
+                $('#riwayatDeposit').DataTable();
+            });
+
+            function modal(name, link) {
+                // var myModal = new bootstrap.Modal($('#modal-detail'))
+                $.ajax({
+                    type: "GET",
+                    url: link,
+                    beforeSend: function() {
+                        $('#modal-detail-title').html(name);
+                        $('#modal-detail-body').html('Loading...');
+                    },
+                    success: function(result) {
+                        $('#modal-detail-title').html(name);
+                        $('#modal-detail-body').html(result);
+                    },
+                    error: function() {
+                        $('#modal-detail-title').html(name);
+                        $('#modal-detail-body').html('There is an error...');
+                    }
                 });
+                $("#modal-detail").modal("show");
+            }
+        </script>
 
-                function modal(name, link) {
-                    // var myModal = new bootstrap.Modal($('#modal-detail'))
-                    $.ajax({
-                        type: "GET",
-                        url: link,
-                        beforeSend: function() {
-                            $('#modal-detail-title').html(name);
-                            $('#modal-detail-body').html('Loading...');
-                        },
-                        success: function(result) {
-                            $('#modal-detail-title').html(name);
-                            $('#modal-detail-body').html(result);
-                        },
-                        error: function() {
-                            $('#modal-detail-title').html(name);
-                            $('#modal-detail-body').html('There is an error...');
-                        }
-                    });
-                    $("#modal-detail").modal("show");
-                }
-            </script>
-
-            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="modal-detail"
-                style="border-radius:7%">
-                <div class="modal-dialog modal-lg">
-                    <div class="p-3 border-none rounded-2xl css-6qw8qzz">
-                        <div class="modal-content css-6qw8qzz">
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="modal-detail-title"></h4>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body" id="modal-detail-body"></div>
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="modal-detail"
+            style="border-radius:7%">
+            <div class="modal-dialog modal-lg">
+                <div class="p-3 border-none rounded-2xl css-6qw8qzz">
+                    <div class="modal-content css-6qw8qzz">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="modal-detail-title"></h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
+                        <div class="modal-body" id="modal-detail-body"></div>
                     </div>
                 </div>
             </div>
-        @endsection
-    @endsection
+        </div>
+@endsection
