@@ -329,57 +329,6 @@
                                 </div>
                             </div>
 
-                            {{-- <div class="accordion mb-2">
-                                <div class="accordionHeadPay">
-                                    <div class="title">Convenience Store</div>
-                                    <div class="containers">
-                                        <img src="https://vanvanstore.com/assets/images/method/alfamart.svg"
-                                            alt="">
-                                        <img src="https://vanvanstore.com/assets/images/method/indomaret.svg"
-                                            alt="">
-                                    </div>
-                                    <i class="bi bi-caret-right-fill"></i>
-                                </div>
-                                <div class="accordionBodyPay shadow">
-                                    <div class="accordionContent">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <input type="radio" name="payment" value="A" class="pay-radio"
-                                                    id="method-4" onclick="select_method('4');">
-                                                <label for="method-4" class="choicePay">
-                                                    <div class="containers">
-                                                        <div class="icon">
-                                                            <i class="bi bi-check-lg"></i>
-                                                        </div>
-                                                        <div class="text">
-                                                            <div class="name">Alfamart</div>
-                                                        </div>
-                                                    </div>
-                                                    <img src="https://vanvanstore.com/assets/images/method/alfamart.svg"
-                                                        width="50" alt="">
-                                                </label>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <input type="radio" name="payment" value="A" class="pay-radio"
-                                                    id="method-2" onclick="select_method('2');">
-                                                <label for="method-2" class="choicePay">
-                                                    <div class="containers">
-                                                        <div class="icon">
-                                                            <i class="bi bi-check-lg"></i>
-                                                        </div>
-                                                        <div class="text">
-                                                            <div class="name">Indomaret</div>
-                                                        </div>
-                                                    </div>
-                                                    <img src="https://vanvanstore.com/assets/images/method/indomaret.svg"
-                                                        width="50" alt="">
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
-
 
                             <button type="submit" id="btn-topup" class="btnYellowPrimary w-100 my-3">Konfirmasi</button>
                         </form>

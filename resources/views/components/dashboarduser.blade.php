@@ -96,7 +96,7 @@
                 <img src="{{ asset('assets/logo/logo-user.png') }}" alt="" class="user">
                 <div class="identity">
                     <div class="name">Hi, {{ Auth()->user()->name }} <img
-                            src="https://vanvanstore.com/assets/images/icon/greet.svg" alt=""></div>
+                            src="{{ asset('assets/icons/greet.svg') }}" alt=""></div>
                     <div class="desc">{{ Auth()->user()->role }} - Sejak
                         {{ \Carbon\Carbon::parse(Auth()->user()->created_at)->format('j F Y') }}
                     </div>
@@ -105,7 +105,7 @@
             <div class="cards-saldo mt-4">
                 <div class="containerSaldo">
                     <div class="icon">
-                        <img src="https://vanvanstore.com/assets/images/icon/dompet.svg" alt="">
+                        <img src="{{ asset('assets/icons/dompet.svg') }}" alt="">
                     </div>
                     <div class="desc">Saldo Kamu</div>
                     <div class="price">Rp. {{ number_format(Auth::user()->balance, 0, ',', '.') }}</div>
