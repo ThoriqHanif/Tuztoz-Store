@@ -183,7 +183,7 @@
                                                 <div class="floating-label-content">
                                                     <input type="number" class="form-control games-input floating-input"
                                                         name="ID ML" type="text" id="user_id" value=""
-                                                        fdprocessedid="81xg1" />
+                                                        fdprocessedid="81xg1" placeholder=""/>
                                                     <label class="floating-label"
                                                         for="ID ML">{{ $kategori->placeholder_1 }}</label>
                                                 </div>
@@ -742,7 +742,7 @@
 
                                                 <div class="note"></div>
                                             </div>
-                                        @elseif(in_array($kategori->tipe, ['populer', 'akun_premium', 'game', 'voucher', 'pulsa', 'e-money', 'pln', 'liveapp']))
+                                        @elseif(in_array($kategori->tipe->name, ['populer', 'akun_premium', 'game', 'voucher', 'pulsa', 'e-money', 'pln', 'liveapp']))
                                             <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
 
                                                 <div class="title-card text-left">Masukkan Data Akun</div>
@@ -758,7 +758,7 @@
 
                                                 <div class="note"></div>
                                             </div>
-                                        @elseif($kategori->tipe == 'joki')
+                                        @elseif($kategori->tipe->name == 'joki')
                                             <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
 
                                                 <div class="title-card text-left">Masukkan Data Akun</div>
@@ -809,7 +809,7 @@
 
                                                 <div class="note"></div>
                                             </div>
-                                        @elseif($kategori->tipe == 'dm_vilog')
+                                        @elseif($kategori->tipe->name == 'dm_vilog')
                                             <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
 
                                                 <div class="title-card text-left">Masukkan Data Akun</div>

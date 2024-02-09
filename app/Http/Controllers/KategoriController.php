@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kategori;
+use App\Models\Tipe;
 use Illuminate\Support\Str;
 
 class KategoriController extends Controller
 {
     public function create()
     {
-        return view('components.admin.kategori', ['data' => Kategori::orderBy('nama', 'asc')->get()]);
+        $data = Kategori::with('tipe')->get();
+        $tipes = Tipe::all();
+
+        return view('components.admin.kategori', compact('data', 'tipes'));
     }
 
     public function store(Request $request)
@@ -21,43 +25,45 @@ class KategoriController extends Controller
             'nama' => 'required',
             'sub_nama' => 'required',
             'brand' => 'required',
-            'ket_layanan' => 'required',
-            'ket_id' => 'required',
+            // 'ket_layanan' => 'required',
+            // 'ket_id' => 'required',
             'placeholder_1' => 'required',
             'placeholder_2' => 'required',
             'kode' => 'required|unique:kategoris,kode',
             'serverOption' => 'required',
-            'tipe' => 'required'
+            'tipe_id' => 'required',
+            'populer' => 'required'
         ]);
 
         $file = $request->file('thumbnail');
         $folder = 'assets/thumbnail';
-        $file->move($folder, $file->getClientOriginalName());   
-        
+        $file->move($folder, $file->getClientOriginalName());
+
         $img2 = $request->file('bannerlayanan');
         $filenamebn = Str::random('15') . '.' . $img2->extension();
         $img2->move('assets/bannerlayanan', $filenamebn);
-        
-        if($request->file('petunjuk')){
+
+        if ($request->file('petunjuk')) {
             $img = $request->file('petunjuk');
             $filename = Str::random('15') . '.' . $img->extension();
-            $img->move('assets/petunjuk', $filename);   
-        }    
-        
+            $img->move('assets/petunjuk', $filename);
+        }
+
         $kategori = new Kategori();
         $kategori->nama = $request->nama;
         $kategori->sub_nama = $request->sub_nama;
         $kategori->brand = $request->brand;
         $kategori->kode = $request->kode;
-        $kategori->ket_layanan = str_replace("\r\n","<br>",$request->ket_layanan);
-        $kategori->ket_id = str_replace("\r\n","<br>",$request->ket_id);
+        $kategori->ket_layanan = str_replace("\r\n", "<br>", $request->ket_layanan);
+        $kategori->ket_id = str_replace("\r\n", "<br>", $request->ket_id);
         $kategori->placeholder_1 = $request->placeholder_1;
         $kategori->placeholder_2 = $request->placeholder_2;
         $kategori->server_id = $request->serverOption == 'ya' ? 1 : 0;
-        $kategori->tipe = $request->tipe;
-        $kategori->thumbnail = "/".$folder."/".$file->getClientOriginalName();
-        $kategori->bannerlayanan = '/assets/bannerlayanan/'.$filenamebn;
-        $kategori->petunjuk = ($request->file('petunjuk') ?  '/assets/petunjuk/'.$filename : '');
+        $kategori->tipe_id = $request->tipe_id;
+        $kategori->populer = $request->populer;
+        $kategori->thumbnail = "/" . $folder . "/" . $file->getClientOriginalName();
+        $kategori->bannerlayanan = '/assets/bannerlayanan/' . $filenamebn;
+        $kategori->petunjuk = ($request->file('petunjuk') ? '/assets/petunjuk/' . $filename : '');
         $kategori->save();
 
         return back()->with('success', 'Berhasil menambahkan kategori');
@@ -65,14 +71,14 @@ class KategoriController extends Controller
 
     public function delete($id)
     {
-        try{
+        try {
             $data = Kategori::where('id', $id)->select('thumbnail')->first();
             unlink(public_path($data->thumbnail));
             unlink(public_path($data->bannerlayanan));
             unlink(public_path($data->petunjuk));
             Kategori::where('id', $id)->delete();
             return back()->with('success', 'Berhasil hapus!');
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             Kategori::where('id', $id)->delete();
             return back()->with('success', 'Berhasil hapus!');
         }
@@ -87,43 +93,56 @@ class KategoriController extends Controller
         return back()->with('success', 'Berhasil update!');
     }
 
-public function detail($id)
+    public function detail($id)
     {
-        $data = Kategori::where('id', $id)->first();
-        
+        $data = Kategori::where('id', $id)->with('tipe')->first();
+        $tipes = Tipe::all();
+
+        $options = '';
+        $populerOptions = [
+            0 => 'Tidak',
+            1 => 'Ya'
+        ];
+
+        foreach ($tipes as $tipe) {
+            $selected = $data->tipe_id == $tipe->id ? 'selected' : '';
+            $options .= "<option value='{$tipe->id}' {$selected}>{$tipe->name}</option>";
+        }
+
+        $populerSelect = '';
+        foreach ($populerOptions as $value => $label) {
+            $selected = $data->populer == $value ? 'selected' : '';
+            $populerSelect .= "<option value='{$value}' {$selected}>{$label}</option>";
+        }
+
         $send = "
-                <form action='".route("kategori.detail.update", [$id])."' method='POST' enctype='multipart/form-data'>
-                    <input type='hidden' name='_token' value='".csrf_token()."'>
+                <form action='" . route("kategori.detail.update", [$id]) . "' method='POST' enctype='multipart/form-data'>
+                    <input type='hidden' name='_token' value='" . csrf_token() . "'>
                     <div class='mb-3 row'>
                         <label class='col-lg-2 col-form-label' for='example-fileinput'>Nama</label>
                         <div class='col-lg-10'>
-                            <input type='text' class='form-control' value='".$data->nama. "' name='kategori'>
+                            <input type='text' class='form-control' value='" . $data->nama . "' name='kategori'>
                         </div>
                     </div>  
                     <div class='mb-3 row'>
                         <label class='col-lg-2 col-form-label' for='example-fileinput'>Sub Nama</label>
                         <div class='col-lg-10'>
-                            <input type='text' class='form-control' value='".$data->sub_nama. "' name='sub_nama'>
+                            <input type='text' class='form-control' value='" . $data->sub_nama . "' name='sub_nama'>
                         </div>
                     </div>  
                     <div class='mb-3 row'>
                         <label class='col-lg-2 col-form-label' for='example-fileinput'>Brand</label>
                         <div class='col-lg-10'>
-                            <input type='text' class='form-control' value='".$data->brand. "' name='brand'>
+                            <input type='text' class='form-control' value='" . $data->brand . "' name='brand'>
                         </div>
                     </div>    
                          <div class='mb-3 row'>
                 <label class='col-lg-2 col-form-label'>Tipe</label>
                 <div class='col-lg-10'>
-                    <select class='form-select' name='tipe'>
-                        <option value='populer'>Populer</option>
-                        <option value='gamelainnya'>Game Lainnya</option>
-                        <option value='dm_vilog'>Via Login</option>
-                        <option value='pulsa'>Pulsa</option>
-                        <option value='liveapp'>Live App</option>
-                    </select>
+                <select class='form-select' name='tipe_id'>
+                    {$options}
+                </select>
                 </div>
-                <small style='color:red;'>*Selalu Perhatikan! Jika Tipe Produk yang kamu gunakan bukan Populer maka <strong>Harus</strong> diganti</small>
             </div>    
                     <div class='mb-3 row'>
                         <label class='col-lg-2 col-form-label' for='example-fileinput'>Kode</label>
@@ -146,13 +165,13 @@ public function detail($id)
                     <div class='mb-3 row'>
                         <label class='col-lg-2 col-form-label' for='example-fileinput'>Placeholder 1</label>
                         <div class='col-lg-10'>
-                            <textarea class='form-control' name='placeholder_1'>".$data->placeholder_1."</textarea>
+                            <textarea class='form-control' name='placeholder_1'>" . $data->placeholder_1 . "</textarea>
                         </div>
                     </div>
                     <div class='mb-3 row'>
                         <label class='col-lg-2 col-form-label' for='example-fileinput'>Placeholder 2</label>
                         <div class='col-lg-10'>
-                            <textarea class='form-control' name='placeholder_2'>".$data->placeholder_2."</textarea>
+                            <textarea class='form-control' name='placeholder_2'>" . $data->placeholder_2 . "</textarea>
                         </div>
                     </div>
                     <div class='mb-3 row'>
@@ -192,7 +211,15 @@ public function detail($id)
                                 <option value='unactive'>Unactive</option>
                             </select>
                         </div>
-                    </div>                    
+                    </div>      
+                    <div class='mb-3 row'>
+                        <label class='col-lg-2 col-form-label' for='example-fileinput'>Populer</label>
+                        <div class='col-lg-10'>
+                            <select class='form-control' name='populer'>
+                            {$populerSelect}
+                            </select>
+                        </div>
+                    </div>              
                     <div class='modal-footer'>
                         <button type='button' class='btn btn-danger' data-bs-dismiss='modal'>Close</button>
                         <button type='submit' class='btn btn-primary'>Simpan</button>
@@ -200,34 +227,34 @@ public function detail($id)
                 </form>
         ";
 
-        return $send;        
-    }  
-    
+        return $send;
+    }
+
     public function patch(Request $request, $id)
     {
-        if($request->file('thumbnail')){
+        if ($request->file('thumbnail')) {
             $file = $request->file('thumbnail');
             $folder = 'assets/thumbnail';
-            $file->move($folder, $file->getClientOriginalName());      
+            $file->move($folder, $file->getClientOriginalName());
             Kategori::where('id', $id)->update([
-                'thumbnail' => "/".$folder."/".$file->getClientOriginalName()
+                'thumbnail' => "/" . $folder . "/" . $file->getClientOriginalName()
             ]);
         }
-        
-        if($request->file('bannerlayanan')){
+
+        if ($request->file('bannerlayanan')) {
             $img = $request->file('bannerlayanan');
             $filenamebn = Str::random('15') . '.' . $img->extension();
             $img->move('assets/bannerlayanan', $filenamebn);
         }
-        
-        if($request->file('petunjuk')){
+
+        if ($request->file('petunjuk')) {
             $img = $request->file('petunjuk');
             $filename = Str::random('15') . '.' . $img->extension();
             $img->move('assets/petunjuk', $filename);
         }
-        
+
         $cek = Kategori::where('id', $id)->first();
-        
+
         $pembayaran = Kategori::where('id', $id)->update([
             'nama' => $request->kategori,
             'brand' => $request->brand,
@@ -235,15 +262,16 @@ public function detail($id)
             'placeholder_1' => $request->placeholder_1,
             'placeholder_2' => $request->placeholder_2,
             'kode' => $request->kode,
-            'ket_layanan' => str_replace("\r\n","<br>",$request->ket_layanan),
-            'ket_id' => str_replace("\r\n","<br>",$request->ket_id),
-            'tipe' => $request->tipe,
+            'ket_layanan' => str_replace("\r\n", "<br>", $request->ket_layanan),
+            'ket_id' => str_replace("\r\n", "<br>", $request->ket_id),
+            'tipe_id' => $request->tipe_id,
+            'populer' => $request->populer,
             'status' => $request->status,
             'server_id' => $request->serverOption == 'ya' ? 1 : 0,
-            'bannerlayanan' => (!$request->file('bannerlayanan') ? $cek->bannerlayanan : '/assets/bannerlayanan/'.$filenamebn),
-            'petunjuk' => (!$request->file('petunjuk') ? $cek->petunjuk : '/assets/petunjuk/'.$filename)
+            'bannerlayanan' => (!$request->file('bannerlayanan') ? $cek->bannerlayanan : '/assets/bannerlayanan/' . $filenamebn),
+            'petunjuk' => (!$request->file('petunjuk') ? $cek->petunjuk : '/assets/petunjuk/' . $filename)
         ]);
-           
-        return back()->with('success', 'Berhasil update kategori');        
-    }        
+
+        return back()->with('success', 'Berhasil update kategori');
+    }
 }

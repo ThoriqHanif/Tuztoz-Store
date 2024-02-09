@@ -40,7 +40,7 @@ class OrderController extends Controller
     
      public function create(Kategori $kategori)
     {
-       $data = Kategori::where('kode', $kategori->kode)->select('nama', 'server_id', 'thumbnail', 'id', 'kode', 'tipe', 'petunjuk', 'bannerlayanan', 'ket_layanan', 'ket_id', 'placeholder_1', 'placeholder_2')->first();
+        $data = Kategori::where('kode', $kategori->kode)->select('nama', 'server_id', 'thumbnail', 'id', 'kode', 'tipe_id', 'petunjuk', 'bannerlayanan', 'ket_layanan', 'ket_id', 'placeholder_1', 'placeholder_2')->with('tipe')->first();
         $getSubCategory = subCategories::where('category_id', $data->id)->where('active', 1)->get();
 
         $normalSubCategory['id'] = 0;

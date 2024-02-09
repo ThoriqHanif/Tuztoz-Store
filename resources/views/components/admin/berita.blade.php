@@ -104,10 +104,9 @@
                     </div>
                 </div>
             </div>
-
+        </section>
     </div>
-    </div>
-    </div>
+    
     <script>
         $(document).ready(function() {
             $('#tableSlider').DataTable({});

@@ -84,8 +84,7 @@
 
             </div>
         </div>
-        </div>
-        </div>
+    </section>
         <script>
             $(document).ready(function() {
                 $('#tableGiftSkin').DataTable({});

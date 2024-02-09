@@ -59,6 +59,7 @@ use App\Http\Controllers\PaketLayananController;
 use App\Http\Controllers\sendReportController;
 use App\Http\Controllers\BxystoreController;
 use App\Http\Controllers\EvillController;
+use App\Http\Controllers\TipeController;
 
 Route::get('/send', [SendReportController::class, 'sendReport']);
 
@@ -211,6 +212,10 @@ Route::middleware(['auth', 'check.role'])->group(function () {
     Route::get('/subkategori', [\App\Http\Controllers\Admin\SubCategories::class, 'create'])->name('subkategori');
     Route::post('/subkategori', [\App\Http\Controllers\Admin\SubCategories::class, 'store'])->name('subkategori.post');
     Route::get('/subkategori/hapus/{id}', [\App\Http\Controllers\Admin\SubCategories::class, 'destroy']);
+
+    // TIPE 
+    Route::resource('tipes', TipeController::class);
+
     //Layanan
     Route::get('/layanan', [LayananController::class, 'create'])->name('layanan');
     Route::get('/ajax/getsubkat', [LayananController::class, 'getSubCategories'])->name('ajax.getsub');
@@ -271,6 +276,7 @@ Route::middleware(['auth', 'check.role'])->group(function () {
     Route::get('/promo', [Berita::class, 'create'])->name('promo');
     Route::post('/promo', [Berita::class, 'post'])->name('promo.post');
     Route::get('/promo/hapus/{id}', [Berita::class, 'delete'])->name('promo.delete');
+
 
 
 

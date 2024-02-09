@@ -26,7 +26,7 @@
     @endif
 
     <div class="row mt-5">
-        <div class="col-6">
+        <div class="col-7">
             <div class="card">
                 <div class="card-body">
                     <h4 class="mb-3 header-title mt-0">Tambah Pengguna</h4>
@@ -100,7 +100,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-5">
             <div class="card">
                 <div class="card-body">
                     <h4 class="mb-3 header-title mt-0">Kirim saldo</h4>
@@ -108,8 +108,8 @@
                         @csrf
 
                         <div class="mb-3 row">
-                            <label class="col-lg-2 col-form-label" for="example-fileinput">Username</label>
-                            <div class="col-lg-10">
+                            <label class="col-lg-4 col-form-label" for="example-fileinput">Username</label>
+                            <div class="col-lg-8">
                                 <input type="text" class="form-control @error('username') is-invalid @enderror"
                                     value="{{ old('username') }}" name="username">
                                 @error('username')
@@ -121,8 +121,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="" class="col-lg-2 col-form-label">Jumlah</label>
-                            <div class="col-lg-10">
+                            <label for="" class="col-lg-4 col-form-label">Jumlah</label>
+                            <div class="col-lg-8">
                                 <input type="number" class="form-control @error('balance') is-invalid @enderror"
                                     value="{{ old('balance') }}" name="balance">
                                 @error('balance')
@@ -194,8 +194,7 @@
                 </div> --}}
             </div>
         </div>
-        </div>
-        </div>
+    </section>
         <script>
             $(document).ready(function() {
                 $('#tableMember').DataTable({

@@ -131,14 +131,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($data as $d)
-                            <tr>
-                                <td>{{$d->id}}</td>
-                                <td>{{$d->nama_footer}}</td>
-                                <td>{{$d->url_footer}}</td>
-                                <td>{{$d->parent !== NULL ? 'No' : 'Yes'}}</td>
-                                <td><a class="btn btn-danger" href="{{ url('/footer/delete') }}/{{$d->id}}">Hapus</a></td>
-                            </tr>
+                            @foreach ($data as $d)
+                                <tr>
+                                    <td>{{ $d->id }}</td>
+                                    <td>{{ $d->nama_footer }}</td>
+                                    <td>{{ $d->url_footer }}</td>
+                                    <td>{{ $d->parent !== null ? 'No' : 'Yes' }}</td>
+                                    <td><a class="btn btn-danger"
+                                            href="{{ url('/footer/delete') }}/{{ $d->id }}">Hapus</a></td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -148,14 +149,12 @@
                 </div> --}}
             </div>
         </div>
-        </div>
-        </div>
-        <script>
-            $(document).ready(function() {
-                $('#tableFooter').DataTable({
+    </section>
+    <script>
+        $(document).ready(function() {
+            $('#tableFooter').DataTable({
 
-                });
             });
-
-        </script>
-    @endsection
+        });
+    </script>
+@endsection

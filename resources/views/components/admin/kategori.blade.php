@@ -127,7 +127,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label class="col-lg-2 col-form-label" for="example-fileinput">Membutuhkan Server ID?</label>
+                            <label class="col-lg-2 col-form-label" for="example-fileinput">Butuh Server ID?</label>
                             <div class="col-lg-10 mt-1">
                                 <input type="radio" id="customRadio1" name="serverOption" class="form-check-input"
                                     value="ya">
@@ -136,6 +136,38 @@
                                     value="tidak">
                                 <label class="form-check-label" for="customRadio1">Tidak</label>
                                 @error('serverOption')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-lg-2 col-form-label" for="example-fileinput">Tipe</label>
+                            <div class="col-lg-10">
+                                <select class="form-select" name="tipe_id" id="tipe_id">
+                                    <option value="" selected>Pilih Tipe</option>
+                                    @foreach ($tipes as $tipe)
+                                        <option value="{{ $tipe->id }}">{{ $tipe->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('tipe')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-lg-2 col-form-label" for="example-fileinput">Kategori Best Seller?</label>
+                            <div class="col-lg-10 mt-1">
+                                <input type="radio" id="customRadio1" name="populer" class="form-check-input"
+                                    value="1">
+                                <label class="form-check-label" for="customRadio1">Ya</label>
+                                <input type="radio" id="customRadio1" name="populer" class="form-check-input"
+                                    value="0">
+                                <label class="form-check-label" for="customRadio1">Tidak</label>
+                                @error('populer')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -164,25 +196,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="mb-3 row">
-                            <label class="col-lg-2 col-form-label" for="example-fileinput">Tipe</label>
-                            <div class="col-lg-10">
-                                <select class="form-select" name="tipe">
-                                    <option value="populer">Game</option>
-                                    <option value='akun_premium'>Akun Premium</option>
-                                    <!--<option value="gamelainnya">Game Lainnya</option>-->
-                                    <option value="dm_vilog">Via Login</option>
-                                    <option value="pulsa">Pulsa</option>
-                                    <option value="liveapp">Voucher</option>
-                                    <option value="sosmed">Sosmed</option>
-                                </select>
-                                @error('tipe')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
+                        
                         <div class="mb-3 row">
                             <label class="col-lg-2 col-form-label" for="example-fileinput">Petunjuk</label>
                             <div class="col-lg-10">
@@ -195,7 +209,7 @@
                             </div>
                         </div>
                         <div class="col-12 d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary me-1 mb-1">Buat Member</button>
+                            <button type="submit" class="btn btn-primary me-1 mb-1">Buat Kategori</button>
                             <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
                         </div>
                     </form>
@@ -228,6 +242,7 @@
                                 <th class="table-fit">Keterangan Layanan</th>
                                 <th class="table-fit">Sistem Target</th>
                                 <th>Tipe</th>
+                                <th>Populer</th>
                                 <th class="table-fit">Tanggal</th>
                                 <th class="table-fit">Status</th>
                                 <th class="table-fit">Aksi</th>
@@ -257,7 +272,8 @@
                                     <td class="table-fit">{{ $datas->brand }}</td>
                                     <td class="table-fit">{!! htmlspecialchars_decode($datas->ket_layanan) !!}</td>
                                     <td>{{ $datas->server_id }}</td>
-                                    <td>{{ $datas->tipe }}</td>
+                                    <td>{{ $datas->tipe->name }}</td>
+                                    <td>{{ $datas->populer }}</td>
                                     <td>{{ $datas->created_at }}</td>
                                     <td class="table-fit">
                                         <div class="btn-group-vertical">
@@ -274,13 +290,12 @@
 
                                         </div>
                                     </td>
-                                    
+
 
                                     <td class="table-fit">
-                                        <a class="btn btn-danger"
-                                            href="/kategori/hapus/{{ $datas->id }}">Hapus</a>
+                                        <a class="btn btn-danger" href="/kategori/hapus/{{ $datas->id }}">Hapus</a>
                                         <a href="javascript:;"
-                                        onclick="modal('{{ $datas->nama }}', '{{ route('kategori.detail', [$datas->id]) }}')"
+                                            onclick="modal('{{ $datas->nama }}', '{{ route('kategori.detail', [$datas->id]) }}')"
                                             class="btn btn-warning">Edit</a>
                                     </td>
                                     {{-- <td>
@@ -298,13 +313,10 @@
                         </tbody>
                     </table>
                 </div>
-                {{-- <div class="d-flex justify-content-center">
-                    {{ $users->links('vendor.pagination.simple-tailwind') }}
-                </div> --}}
+
             </div>
         </div>
-        </div>
-        </div>
+    </section>
         <script>
             $(document).ready(function() {
                 $('#tableKategori').DataTable({

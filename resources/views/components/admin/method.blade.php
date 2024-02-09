@@ -141,13 +141,13 @@
                                     <td><img width="100" src="{{ asset($datas->images) }}"></td>
                                     <td>{{ $datas->created_at }}</td>
                                     <td class="table-fit">
-                                            <a href="javascript:;"
-                                                onclick="modal('{{ $datas->nama }}', '{{ route('method.detail', [$datas->id]) }}')"
-                                                class="btn btn-sm btn-warning mb-3">Edit</a>
-                                            <br>
-                                            <a class="btn btn-sm btn-danger mt-2"
-                                                href="/method/hapus/{{ $datas->id }}">Hapus</a>
-                                       
+                                        <a href="javascript:;"
+                                            onclick="modal('{{ $datas->nama }}', '{{ route('method.detail', [$datas->id]) }}')"
+                                            class="btn btn-sm btn-warning mb-3">Edit</a>
+                                        <br>
+                                        <a class="btn btn-sm btn-danger mt-2"
+                                            href="/method/hapus/{{ $datas->id }}">Hapus</a>
+
                                     </td>
                                 </tr>
                             @endforeach
@@ -159,8 +159,7 @@
                 </div> --}}
             </div>
         </div>
-        </div>
-        </div>
+    </section>
         <script>
             $(document).ready(function() {
                 $('#tablePayment').DataTable({

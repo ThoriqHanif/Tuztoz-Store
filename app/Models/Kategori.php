@@ -13,4 +13,9 @@ class Kategori extends Model
     public function layanans(){
         return $this->hasMany(Layanan::class,'kategori_id');
     }
+    
+    public function tipe()
+    {
+        return $this->belongsTo(Tipe::class);
+    }
 }

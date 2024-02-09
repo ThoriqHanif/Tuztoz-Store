@@ -160,7 +160,7 @@
 
 
                 <li
-                    class="sidebar-item  has-sub {{ Request::is('kategori*') || Request::is('subkategori*') || Request::is('layanan*') || Request::is('voucher*') ? 'active' : '' }}">
+                    class="sidebar-item  has-sub {{ Request::is('kategori*') || Request::is('subkategori*') || Request::is('tipes*') || Request::is('layanan*') || Request::is('voucher*') ? 'active' : '' }}">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-grid-1x2-fill"></i>
                         <span>Produk</span>
@@ -175,6 +175,11 @@
 
                         <li class="submenu-item  {{ Request::is('subkategori*') ? 'active' : '' }}">
                             <a href="{{ url('subkategori') }}" class="submenu-link">Sub Kategori</a>
+
+                        </li>
+
+                        <li class="submenu-item  {{ Request::is('tipes*') ? 'active' : '' }}">
+                            <a href="{{ url('tipes') }}" class="submenu-link">Tipe</a>
 
                         </li>
 

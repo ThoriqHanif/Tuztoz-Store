@@ -148,8 +148,7 @@
                 </div> --}}
             </div>
         </div>
-        </div>
-        </div>
+    </section>
         <script>
             $(document).ready(function() {
                 $('#tableOrderManual').DataTable({

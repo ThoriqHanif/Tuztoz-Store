@@ -14,6 +14,7 @@
     </div>
     <script src="{{ asset('admin/assets/static/js/components/dark.js') }}"></script>
     <script src="{{ asset('admin/assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
     <script src="{{ asset('admin/assets/compiled/js/app.js') }}"></script>
@@ -46,6 +47,10 @@
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/v/bs5/dt-1.13.8/r-2.5.0/datatables.min.js"></script>
+
+    {{-- <link rel="stylesheet" href="{{ asset('admin/assets/extensions/sweetalert2/sweetalert2.min.css') }}">
+    <script src="{{ asset('admin/assets/extensions/sweetalert2/sweetalert2.min.js') }}"></script>>
+    <script src="{{ asset('admin/assets/static/js/pages/sweetalert2.js') }}"></script>> --}}
 </body>
 
 </html>
