@@ -215,7 +215,7 @@ class OrderController extends Controller
                 
             }
 
-            $dataKategori = Kategori::where('id', $dataLayanan->kategori_id)->select('kode','tipe')->first();
+            $dataKategori = Kategori::where('id', $dataLayanan->kategori_id)->select('kode','tipe_id')->first();
 
             $daftarGameValidasi = ['gift-skin-ml','8-ball-pool', 'arena-of-valor', 'apex-legends', 'call-of-duty', 'dragon-city', 'free-fire', 'higgs-domino', 'honkai-impact', 'lords-mobile', 'marvel-super-war', 'mobile-legend', 'mobile-legends', 'mobile-legends-adventure', 'point-blank', 'ragnarok-m', 'tom-and-jerry', 'top-eleven', 'valorant' ];
     
@@ -272,22 +272,20 @@ class OrderController extends Controller
             </div>
             <div class='mt-6 space-y-2'>
                 <div class='flex items-center gap-2'>
-                    <div class='w-4 border-t-2' style='border-color: var(--warna_5);'></div>
-                    <h4 class='shrink-0 pr-4 text-sm font-semibold'>Data Player</h4>
+                    <h1 class='shrink-0 pr-4 text-sm font-semibold' style='font-weight: bold; margin-bottom: 10px;'>Data Player</h1>
                 </div>
                 <div class='flex justify-between'>
-                    <h4 class='shrink-0 pr-4 text-sm'>USER ID & SERVER</h4>
+                    <h4 class='shrink-0 pr-4 text-sm'>User ID & Server</h4>
                     <h4 class='shrink-0 pr-4 text-sm font-bold'>$request->uid $request->zone</h4>
                 </div>
                 <div class='flex justify-between'>
-                    <h4 class='shrink-0 pr-4 text-sm uppercase'>username</h4>
+                    <h4 class='shrink-0 pr-4 text-sm uppercase'>Username</h4>
                     <h4 class='shrink-0 pr-4 text-sm font-bold' id='nick'>".urldecode($username)."</h4>
                 </div>
             </div>
             <div class='mt-6 space-y-2'>
                 <div class='flex items-center gap-2'>
-                    <div class='w-4 border-t-2' style='border-color: var(--warna_5);'></div>
-                    <h4 class='shrink-0 pr-4 text-sm font-semibold'>Ringkasan Pembelian</h4>
+                    <h1 class='shrink-0 pr-4 text-sm font-semibold' style='font-weight: bold; margin-bottom: 10px; margin-top: 20px;'>Ringkasan Pembelian</h1>
                 </div>
 				<div class='flex justify-between'>
                     <h4 class='shrink-0 pr-4 text-sm'>Item</h4>
@@ -305,7 +303,7 @@ class OrderController extends Controller
                     <h4 class='shrink-0 pr-4 text-sm'>Harga</h4>
                     <h4 class='shrink-0 pr-4 text-sm font-extrabold'>Rp " . number_format($dataLayanan->harga, 0, '.', ',') . "</h4>
                 </div>
-                <p class='text-sm' style='color: var(--warna_5);'><strong>Note: Harga di Atas Belum Termasuk Biaya Admin</strong></p>
+                <p class='text-sm' style='color: var(--warna_5); margin-top:10px;'><strong>Note: Harga di Atas Belum Termasuk Biaya Admin</strong></p>
             </div>
         </div>
 ";
@@ -378,9 +376,8 @@ class OrderController extends Controller
                 <p class='text-sm'>Jika Data Pesanan Kamu Sudah Benar Klik <strong>Beli Sekarang</strong></p>
             </div>
             <div class='mt-6 space-y-2'>
-                <div class='flex items-center gap-2'>
-                    <div class='w-4 border-t-2' style='border-color: var(--warna_5);'></div>
-                    <h4 class='shrink-0 pr-4 text-sm font-semibold'>Data Player</h4>
+                <div class='flex items-center'>
+                    <h2 class='shrink-0 pr-4 text-sm font-semibold' style='font-weight: bold;'>Data Player</h2>
                 </div>
                 <div class='flex justify-between'>
                     <h4 class='shrink-0 pr-4 text-sm'>EMAIL</h4>
@@ -429,9 +426,9 @@ class OrderController extends Controller
              
             }else{
                 $sendData = "
-                <p class='text-sm'>Jika Data Pesanan Kamu Sudah Benar Klik <strong>Beli Sekarang</strong></p>
+                <p class='text-sm ' >Jika Data Pesanan Kamu Sudah Benar Klik <strong>Beli Sekarang</strong></p>
             </div>
-            <div class='mt-6 space-y-2'>
+            <div class='mt-6 space-y-2' style='margin-top:20px;'>
                 <div class='flex items-center gap-2'>
                     <div class='w-4 border-t-2' style='border-color: var(--warna_5);'></div>
                     <h4 class='shrink-0 pr-4 text-sm font-semibold'>Data Player</h4>

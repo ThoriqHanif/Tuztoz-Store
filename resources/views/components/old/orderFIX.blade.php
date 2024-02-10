@@ -664,6 +664,7 @@
         }
 
         .rectangle li:nth-child(10) {
+            
             left: 85%;
             width: 150px;
             height: 270px;
@@ -1129,7 +1130,7 @@
                         </div>
 
                         <!--          <div class="row mt-3">
-             <!--                           <div class="col">-->
+                 <!--                           <div class="col">-->
                         <!--                               <div class="card rounded-lg  kbr-bg akumauweb-shadow " style="background: var(--warna_3) !important;">-->
                         <!--                                   <div class="card border-0 mb-0 shadow-form">-->
                         <!--                                       <div class="px-4 py-1">-->
@@ -1208,38 +1209,38 @@
 
                 <!-- INFORMASI -->
                 <!--  <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12 mx-auto ">
-                            <div class="mt-3 overflow-hidden rounded-lg">
-                                <div class="null bg-gradient-black">
-                                    <button
-                                        class="flex w-full justify-between rounded-lg px-4 py-3 text-left text-md font-semibold !border-b border-[#626274] rounded-[1rem]"
-                                        data-bs-toggle="collapse" data-bs-target="#meltihh" aria-expanded="false"
-                                        aria-controls="CollapseThreee">
-                                        <small>Cara Melakukan Topup Di {{ config('app.name') }}?</small>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                            stroke="currentColor" aria-hidden="true" class="rotate-180 transform h-5 w-5">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5">
-                                            </path>
-                                        </svg>
-                                    </button>
-                                    <div class="px-3 pt-3 pb-3 text-sm collapse" id="meltihh" class="collapse"
-                                        aria-labelledby="HeadingThreee" data-bs-parent="#Accordione">
-                                        <ol>
-                                            <li>
-                                               1. Masukkan User ID dan Zone ID.
-                                            </li>
-                                            <li>2. Pilih produk yang ingin dibeli.</li>
-                                            <li>3. Pilih metode pembayaran yang kamu inginkan,</li>
-                                            <li>4. Masukkan nomor Whatsapp, kemudian klik tombol <b>“Beli Sekarang”</b></li>
-                                            <li>5. Selesaikan Pembayaran</li>
-                                        </ol>
+                        <div class="row">
+                            <div class="col-lg-12 mx-auto ">
+                                <div class="mt-3 overflow-hidden rounded-lg">
+                                    <div class="null bg-gradient-black">
+                                        <button
+                                            class="flex w-full justify-between rounded-lg px-4 py-3 text-left text-md font-semibold !border-b border-[#626274] rounded-[1rem]"
+                                            data-bs-toggle="collapse" data-bs-target="#meltihh" aria-expanded="false"
+                                            aria-controls="CollapseThreee">
+                                            <small>Cara Melakukan Topup Di {{ config('app.name') }}?</small>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                                stroke="currentColor" aria-hidden="true" class="rotate-180 transform h-5 w-5">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5">
+                                                </path>
+                                            </svg>
+                                        </button>
+                                        <div class="px-3 pt-3 pb-3 text-sm collapse" id="meltihh" class="collapse"
+                                            aria-labelledby="HeadingThreee" data-bs-parent="#Accordione">
+                                            <ol>
+                                                <li>
+                                                   1. Masukkan User ID dan Zone ID.
+                                                </li>
+                                                <li>2. Pilih produk yang ingin dibeli.</li>
+                                                <li>3. Pilih metode pembayaran yang kamu inginkan,</li>
+                                                <li>4. Masukkan nomor Whatsapp, kemudian klik tombol <b>“Beli Sekarang”</b></li>
+                                                <li>5. Selesaikan Pembayaran</li>
+                                            </ol>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div> -->
+                    </div> -->
 
                 <div class="col-lg-8 mt-2 mb-2 ">
                     <div class="row">
@@ -1282,10 +1283,8 @@
                                                     <div class="grid gap-2 grid-cols-2 sm:grid-cols-2 lg:grid-cols-2">
                                                         <div class="w-full">
                                                             <div class="relative rounded-md text-black shadow-sm">
-                                                                <input type="text"
-                                                                id="zone"
-                                                                value=""
-                                                                fdprocessedid="81xg1"
+                                                                <input type="text" id="zone" value=""
+                                                                    fdprocessedid="81xg1"
                                                                     class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-[#2D2EAD] focus:ring-2 focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem]"
                                                                     name="ID ML"
                                                                     placeholder="{{ $kategori->placeholder_1 }}"
@@ -1300,7 +1299,7 @@
                                                                     name="zone"
                                                                     placeholder="{{ $kategori->placeholder_2 }}"
                                                                     type="text" id="zone" value=""
-                                                                    fdprocessedid="81xg1"  />
+                                                                    fdprocessedid="81xg1" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2112,13 +2111,13 @@
                                                         <div class="col">
                                                             <div class="area-list-payment-method">
                                                                 <!--  <div class="flex p-4 mt-6 mb-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800" role="alert">
-                                          <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                             <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
-                                              </svg>
-                                               <span class="sr-only">Info</span>
-                                              <div> Untuk pembayaran E-Wallet sementara yang tersedia adalah<br>- OVO & DANA.
-                    </div>
-                  </div> -->
+                                                                    <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                                                                        </svg>
+                                                                        <span class="sr-only">Info</span>
+                                                                        <div> Untuk pembayaran E-Wallet sementara yang tersedia adalah<br>- OVO & DANA.
+                                                                    </div>
+                                                                </div> -->
                                                                 <div class="child-box payment-drawwer shadow">
                                                                     <div class="header short-payment-support-info-head"
                                                                         onclick="openPaymentDrawer(this)"
@@ -2733,29 +2732,29 @@
 
 
                             <!--<div class="sticky inset-x-0 bottom-0 z-10 -mx-4 !mt-0 w-screen bg-murky-800 md:static md:w-auto d-md-none" style="background-color:#272730;">
-              <div class="relative">
+                  <div class="relative">
+                    <button
+                            style="box-shadow: 0 .5rem 1rem rgba(255,255,255,.152)!important; background: rgb(184 15 15); color: rgb(255, 255, 255)"
+                            class="btn-primary mt-4 inline-flex items-center justify-center rounded-md bg-primary-500 px-4 py-2 text-sm font-medium text-000000 duration-300 hover:bg-primary-400 disabled:cursor-not-allowed disabled:opacity-75 btn-order relative flex w-full gap-2 overflow-hidden"
+                            id="btn-order" type="button">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="h-5 w-5">
+                        <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                              >
+                        </path>
+                      </svg>
+                      Konfirmasi TopUp
+                    </button>
+                  </div>
+                </div>
                 <button
                         style="box-shadow: 0 .5rem 1rem rgba(255,255,255,.152)!important; background: rgb(184 15 15); color: rgb(255, 255, 255)"
-                        class="btn-primary mt-4 inline-flex items-center justify-center rounded-md bg-primary-500 px-4 py-2 text-sm font-medium text-000000 duration-300 hover:bg-primary-400 disabled:cursor-not-allowed disabled:opacity-75 btn-order relative flex w-full gap-2 overflow-hidden"
+                        class="btn-primary d-none d-lg-block mt-4 inline-flex items-center justify-center rounded-md bg-primary-500 px-4 py-2 text-sm font-medium text-000000 duration-300 hover:bg-primary-400 disabled:cursor-not-allowed disabled:opacity-75 btn-order relative flex w-full gap-2 overflow-hidden"
                         id="btn-order" type="button">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="h-5 w-5">
-                    <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                          >
-                    </path>
-                  </svg>
                   Konfirmasi TopUp
-                </button>
-              </div>
-            </div>
-            <button
-                    style="box-shadow: 0 .5rem 1rem rgba(255,255,255,.152)!important; background: rgb(184 15 15); color: rgb(255, 255, 255)"
-                    class="btn-primary d-none d-lg-block mt-4 inline-flex items-center justify-center rounded-md bg-primary-500 px-4 py-2 text-sm font-medium text-000000 duration-300 hover:bg-primary-400 disabled:cursor-not-allowed disabled:opacity-75 btn-order relative flex w-full gap-2 overflow-hidden"
-                    id="btn-order" type="button">
-              Konfirmasi TopUp
-            </button>-->
+                </button>-->
 
 
                             <section class="relative mb-2 bg-transparent px-0 py-4 shadow-2xl lg:min-h-[350px]">

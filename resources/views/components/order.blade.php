@@ -131,10 +131,12 @@
                                         @foreach ($nominal as $nom)
                                             @if ($nom->sub_category_id == $subkat['id'])
                                                 <div class="col-md-4 col-6">
-                                                    <input type="radio" name="product" id="{{ $nom->id }}"
-                                                        value="{{ $nom->id }}" data-type="diamond" class="nom-radio"
+                                                    <input type="radio" name="nominal" id="nominal-{{ $nom->id }}"
+                                                        value="{{ $nom->id }}" data-type="diamond"
+                                                        onchange="select_product('{{ $nom->id }}', '{{ $nom->layanan }}', '{{ $nom->harga }}');"
+                                                        class="nom-radio"
                                                         {{ Request::get('fs') == $nom->id ? 'checked' : '' }} />
-                                                    <label for="{{ $nom->id }}" class="containerChoice">
+                                                    <label for="nominal-{{ $nom->id }}" class="containerChoice">
                                                         <div class="containerIcon" hidden>
                                                             <i class="bi bi-check-lg"></i>
                                                         </div>
@@ -183,7 +185,7 @@
                                                 <div class="floating-label-content">
                                                     <input type="number" class="form-control games-input floating-input"
                                                         name="ID ML" type="text" id="user_id" value=""
-                                                        fdprocessedid="81xg1" placeholder=""/>
+                                                        fdprocessedid="81xg1" placeholder="" />
                                                     <label class="floating-label"
                                                         for="ID ML">{{ $kategori->placeholder_1 }}</label>
                                                 </div>
@@ -208,7 +210,7 @@
                                                 <div class="floating-label-content">
                                                     <input type="number" class="form-control games-input floating-input"
                                                         name="ID ML" type="text" id="user_id" value=""
-                                                        fdprocessedid="81xg1" />
+                                                        fdprocessedid="81xg1" placeholder="" />
                                                     <label class="floating-label"
                                                         for="ID ML">{{ $kategori->placeholder_1 }}</label>
                                                 </div>
@@ -551,7 +553,7 @@
                                                 <div class="floating-label-content">
                                                     <input type="number" class="form-control games-input floating-input"
                                                         name="ID ML" type="text" id="user_id" value=""
-                                                        fdprocessedid="81xg1" />
+                                                        fdprocessedid="81xg1" placeholder="" />
                                                     <label class="floating-label"
                                                         for="ID ML">{{ $kategori->placeholder_1 }}</label>
                                                 </div>
@@ -598,7 +600,7 @@
                                                 <div class="floating-label-content">
                                                     <input type="number" class="form-control games-input floating-input"
                                                         name="ID ML" type="text" id="user_id" value=""
-                                                        fdprocessedid="81xg1" />
+                                                        fdprocessedid="81xg1" placeholder="" />
                                                     <label class="floating-label"
                                                         for="ID ML">{{ $kategori->placeholder_1 }}</label>
                                                 </div>
@@ -627,7 +629,7 @@
                                                 <div class="floating-label-content">
                                                     <input type="number" class="form-control games-input floating-input"
                                                         name="ID ML" type="text" id="user_id" value=""
-                                                        fdprocessedid="81xg1" />
+                                                        fdprocessedid="81xg1" placeholder="" />
                                                     <label class="floating-label"
                                                         for="ID ML">{{ $kategori->placeholder_1 }}</label>
                                                 </div>
@@ -655,7 +657,7 @@
                                                 <div class="floating-label-content">
                                                     <input type="number" class="form-control games-input floating-input"
                                                         name="ID ML" type="text" id="user_id" value=""
-                                                        fdprocessedid="81xg1" />
+                                                        fdprocessedid="81xg1" placeholder="" />
                                                     <label class="floating-label"
                                                         for="ID ML">{{ $kategori->placeholder_1 }}</label>
                                                 </div>
@@ -684,7 +686,7 @@
                                                 <div class="floating-label-content">
                                                     <input type="number" class="form-control games-input floating-input"
                                                         name="ID ML" type="text" id="user_id" value=""
-                                                        fdprocessedid="81xg1" />
+                                                        fdprocessedid="81xg1" placeholder="" />
                                                     <label class="floating-label"
                                                         for="ID ML">{{ $kategori->placeholder_1 }}</label>
                                                 </div>
@@ -718,7 +720,7 @@
                                                 <div class="floating-label-content">
                                                     <input type="number" class="form-control games-input floating-input"
                                                         name="ID ML" type="text" id="user_id" value=""
-                                                        fdprocessedid="81xg1" />
+                                                        fdprocessedid="81xg1" placeholder="" />
                                                     <label class="floating-label"
                                                         for="ID ML">{{ $kategori->placeholder_1 }}</label>
                                                 </div>
@@ -742,7 +744,16 @@
 
                                                 <div class="note"></div>
                                             </div>
-                                        @elseif(in_array($kategori->tipe->name, ['populer', 'akun_premium', 'game', 'voucher', 'pulsa', 'e-money', 'pln', 'liveapp']))
+                                        @elseif(in_array($kategori->tipe->name, [
+                                                'populer',
+                                                'akun_premium',
+                                                'game',
+                                                'voucher',
+                                                'pulsa',
+                                                'e-money',
+                                                'pln',
+                                                'liveapp',
+                                            ]))
                                             <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
 
                                                 <div class="title-card text-left">Masukkan Data Akun</div>
@@ -851,7 +862,7 @@
                                                 <div class="floating-label-content">
                                                     <input type="number" class="form-control games-input floating-input"
                                                         name="userId" type="text" id="user_id" value=""
-                                                        fdprocessedid="8qd1hx" />
+                                                        fdprocessedid="8qd1hx" placeholder="" />
                                                     <label class="floating-label"
                                                         for="userId">{{ $kategori->placeholder_1 }}</label>
                                                 </div>
@@ -917,23 +928,31 @@
                                                     @foreach ($pay_method as $p)
                                                         @if ($p->tipe == 'e-walet')
                                                             <div class="col-sm-12">
-                                                                <input type="radio" name="method" class="pay-radio"
-                                                                    id="{{ $p->code }}" value="{{ $p->code }}"
-                                                                    onchange="select_method('12', 'QRIS');" />
-                                                                <label for="method-12" class="choicePay">
+                                                                <input type="radio" name="pembayaran" class="pay-radio"
+                                                                    id="method-{{ $p->id }}"
+                                                                    value="{{ $p->code }}"
+                                                                    onchange="select_method('{{ $p->id }}', '{{ $p->name }}');" />
+                                                                <label for="method-{{ $p->id }}"
+                                                                    class="choicePay">
                                                                     <div class="containers">
                                                                         <div class="icon">
                                                                             <i class="bi bi-check-lg"></i>
                                                                         </div>
                                                                         <div class="text">
                                                                             <div class="name">{{ $p->name }}</div>
-                                                                            <div class="price" id="method-12price">
+                                                                            <div class="price GOPAY"
+                                                                                id="method-{{ $p->id }}price">
+                                                                                {{ $p->price }}
                                                                             </div>
                                                                         </div>
+                                                                        {{-- <div class="text-dark">
+                                                                            <small>{{ $p->keterangan }}</small>
+                                                                        </div> --}}
                                                                     </div>
                                                                     <img src="{{ $p->images }}" width="60"
                                                                         alt="" />
                                                                 </label>
+
                                                             </div>
                                                         @endif
                                                     @endforeach
@@ -955,17 +974,21 @@
                                                     @foreach ($pay_method as $p)
                                                         @if ($p->tipe == 'virtual-account')
                                                             <div class="col-sm-12">
-                                                                <input type="radio" name="method" class="pay-radio"
-                                                                    id="method-11"
-                                                                    onchange="select_method('11', 'BRI');" />
-                                                                <label for="method-11" class="choicePay">
+                                                                <input type="radio" name="pembayaran" class="pay-radio"
+                                                                    id="method-{{ $p->id }}"
+                                                                    value="{{ $p->code }}"
+                                                                    onchange="select_method('{{ $p->id }}', '{{ $p->name }}');" />
+                                                                <label for="method-{{ $p->id }}"
+                                                                    class="choicePay">
                                                                     <div class="containers">
                                                                         <div class="icon">
                                                                             <i class="bi bi-check-lg"></i>
                                                                         </div>
                                                                         <div class="text">
                                                                             <div class="name">{{ $p->name }}</div>
-                                                                            <div class="price" id="method-11price">
+                                                                            <div class="price GOPAY"
+                                                                                id="method-{{ $p->id }}price">
+                                                                                {{ $p->price }}
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -994,17 +1017,20 @@
                                                     @foreach ($pay_method as $p)
                                                         @if ($p->tipe == 'convenience-store')
                                                             <div class="col-sm-12">
-                                                                <input type="radio" name="method" class="pay-radio"
-                                                                    id="method-4"
-                                                                    onchange="select_method('4', 'Alfamart');" />
-                                                                <label for="method-4" class="choicePay">
+                                                                <input type="radio" name="pembayaran" class="pay-radio"
+                                                                    id="method-{{ $p->id }}"
+                                                                    onchange="select_method('{{ $p->id }}', '{{ $p->name }}');" />
+                                                                <label for="method-{{ $p->id }}"
+                                                                    class="choicePay">
                                                                     <div class="containers">
                                                                         <div class="icon">
                                                                             <i class="bi bi-check-lg"></i>
                                                                         </div>
                                                                         <div class="text">
                                                                             <div class="name">{{ $p->name }}</div>
-                                                                            <div class="price" id="method-4price">
+                                                                            <div class="price GOPAY"
+                                                                                id="method-{{ $p->id }}price">
+                                                                                {{ $p->price }}
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1031,16 +1057,20 @@
                                                 <div class="accordionContent">
                                                     <div class="row">
                                                         <div class="col-sm-12">
-                                                            <input type="radio" name="method" class="pay-radio"
-                                                                id="method-1" onchange="select_method('1', 'Saldo Akun');" />
-                                                            <label for="method-1" class="choicePay">
+                                                            <input type="radio" name="pembayaran" class="pay-radio"
+                                                                id="SALDO" value="SALDO"
+                                                                onchange="select_method('{{ $p->id }}', '{{ $p->name }}');" />
+                                                            <label for="SALDO" class="choicePay">
                                                                 <div class="containers">
                                                                     <div class="icon">
                                                                         <i class="bi bi-check-lg"></i>
                                                                     </div>
                                                                     <div class="text">
                                                                         <div class="name">Saldo Akun</div>
-                                                                        <div class="price" id="method-1price"></div>
+                                                                        <div class="price GOPAY"
+                                                                            id="method-{{ $p->id }}price">
+                                                                            {{ $p->price }}
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                                 <img width="60"
@@ -1064,16 +1094,20 @@
                                                 <div class="accordionContent">
                                                     <div class="row">
                                                         <div class="col-sm-12">
-                                                            <input type="radio" name="method" class="pay-radio"
-                                                                id="method-1" onchange="select_method('1', 'Saldo Akun');" />
-                                                            <label for="method-1" class="choicePay">
+                                                            <input type="radio" name="pembayaran" class="pay-radio"
+                                                                id="SALDO" value="SALDO"
+                                                                onchange="select_method('SALDO', 'SALDO')" />
+                                                            <label for="SALDO" class="choicePay">
                                                                 <div class="containers">
                                                                     <div class="icon">
                                                                         <i class="bi bi-check-lg"></i>
                                                                     </div>
                                                                     <div class="text">
                                                                         <div class="name">Saldo Akun</div>
-                                                                        <div class="price" id="method-1price"></div>
+                                                                        <div class="price GOPAY"
+                                                                            id="method-{{ $p->id }}price">
+                                                                            {{ $p->price }}
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                                 <img width="60"
@@ -1091,7 +1125,7 @@
                                 <div class="cards mb-4 d-flex flex-column gap-3" id="section-method">
                                     <div class="title-card text-left">Detail Kontak</div>
                                     <div class="floating-label-content">
-                                        <input type="number" class="form-control floating-input" name="wa"
+                                        <input type="number" class="form-control floating-input" name="nomor"
                                             id="nomor" placeholder=" " value="" name="nomor" />
                                         <label class="floating-label" for="nomor">No. Whatsapp</label>
                                         <div class="note" style="margin-top: 10px">*Status transaksi akan dikirim via
@@ -1229,16 +1263,21 @@
         </a>
 
         <script>
-            setInterval(function() {
-                $("#toolbarContainer").remove();
-            }, 500);
+            < script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" >
+        </script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-            function salin(text, label_text) {
+        setInterval(function() {
+        $("#toolbarContainer").remove();
+        }, 500);
 
-                navigator.clipboard.writeText(text);
+        function salin(text, label_text) {
 
-                toastr.success(label_text);
-            }
+        navigator.clipboard.writeText(text);
+
+        toastr.success(label_text);
+        }
         </script>
 
 
@@ -1251,30 +1290,35 @@
                     scrollTop: $("#section-method").offset().top
                 }, 400);
 
-                $(".product").removeClass('active');
-                $("#product-" + id).addClass('active');
+                $(".nom-radio").removeClass('active');
+                $("#nominal" + id).addClass('active');
 
-                $("input[name=product]").val(id);
-                $("#product1").text(name);
-                $("#product").text(name);
+                $("input[name=nominal]").val(id);
+                $("#nominal1").text(name);
+                $("#nominal").text(name);
                 $("#price1").text(price);
                 $("#price").text(price);
 
                 $.ajax({
-                    url: 'https://vanvanstore.com/id/price/' + id,
-                    dataType: 'JSON',
-                    success: function(result) {
-                        console.log(result)
-                        for (let price in result) {
-                            $("#method-" + result[price].id + "price").text(result[price].price);
-                        }
+                    url: "<?php echo route('ajax.price'); ?>",
+                    dataType: "json",
+                    type: "POST",
+                    data: {
+                        "_token": "<?php echo csrf_token(); ?>",
+                        "nominal": id // Menggunakan id sebagai nominal dalam pengiriman data
+                    },
+                    success: function(res) {
+                        changeHarga(res.harga);
                     }
                 });
+
+
+
             }
 
             function select_method(id, name) {
 
-                var product = $("input[name=product]").val();
+                var product = $("input[name=nominal]:checked").val();
                 console.log(product);
 
                 if (!product) {
@@ -1286,191 +1330,582 @@
 
                     $("input[name=method]").val(id);
                     $("#metode_bayar").text(name);
-                    $("#total_bayar").text($("#method-" + id + "price").text());
+                    var harga = $("#method-" + id + "price").text();
+                    $("#total_bayar").text(harga);
+                    // $("#total_bayar").text($("#method-" + id + "price").text());
                 }
             }
 
-            $("#check").on("click", function() {
-                var voucher = $("#voucher").val();
-                var service = $("input[name='nominal']:checked").val();
-                $.ajax({
-                    url: "<?php echo route('check.voucher'); ?>",
-                    dataType: "JSON",
-                    type: "POST",
-                    data: {
-                        "_token": "<?php echo csrf_token(); ?>",
-                        "voucher": voucher,
-                        "service": service
-                    },
-                    beforeSend: function() {
-                        Swal.fire({
-                            icon: "info",
-                            title: "Mohon Tunggu",
-                            background: 'var(--warna_4)',
-                            color: '#fff',
-                            showConfirmButton: false,
-                            allowOutsideClick: false,
-                        });
-                    },
-                    success: function(res) {
-                        Swal.fire({
-                            icon: "info",
-                            title: res.message,
-                            background: 'var(--warna_4)',
-                            color: '#fff',
-                            showConfirmButton: true,
-                            allowOutsideClick: true,
-                        });
-
-                        if (res.harga) {
-                            changeHarga(res.harga);
-                        }
-                    },
-                    error: function(e) {
-                        Swal.fire({
-                            title: 'Oops...',
-                            text: "Voucher tidak ditemukan",
-                            icon: 'error',
-                            background: 'var(--warna_4)',
-                            color: '#fff'
-                        });
-                    }
-                })
-            });
-
-
             function cekVoucher() {
                 var voucher = $("input[name=voucher]").val();
+                var service = $("input[name='nominal']:checked").val();
+
 
                 if (voucher == '' || voucher == ' ') {
                     toastr.warning('Kode voucher harus diisi');
                 } else {
                     $.ajax({
-                        url: 'https://vanvanstore.com/sistem/voucher',
-                        data: 'voucher=' + voucher,
-                        type: 'POST',
-                        dataType: 'JSON',
-                        success: function(result) {
-                            if (result.status == 1) {
-                                var found = false;
-                                for (var i = 0; i < result.data.length; i++) {
-                                    if (result.data[i].voucher === voucher) {
-                                        found = true;
-                                        break;
-                                    }
-                                }
+                        url: "<?php echo route('check.voucher'); ?>",
+                        dataType: "JSON",
+                        type: "POST",
+                        data: {
+                            "_token": "<?php echo csrf_token(); ?>",
+                            "voucher": voucher,
+                            "service": service,
+                        },
 
-                                if (found) {
-                                    toastr.success('Kode Promo Tersedia');
-                                } else {
-                                    toastr.error('Kode Promo Tidak Tersedia');
+                        success: function(res) {
+                            console.log(res);
+                            Swal.close(); // Menutup SweetAlert setelah permintaan berhasil
+                            if (res.status == 1) {
+                                toastr.success('Kode Promo Tersedia');
+                                if (res.harga) {
+                                    changeHarga(res.harga);
                                 }
                             } else {
-                                toastr.error('Terjadi kesalahan pada server');
+                                toastr.error('Kode Promo Tidak Tersedia');
                             }
                         },
                         error: function() {
-                            toastr.error('Terjadi kesalahan pada server');
+                            toastr.error('Kode Promo Tidak Tersedia');
                         }
                     });
                 }
             }
 
             function order_confirm() {
-
                 $("#nickname").addClass('d-none');
-
-                var product = $("input[name=product]").val();
-                var method = $("input[name=method]").val();
-                var wa = $("input[name=wa]").val();
+                var uid = $("#user_id").val();
+                var zone = $("#zone").val();
+                var email_joki = $("#email_joki").val();
+                var password_joki = $("#password_joki").val();
+                var loginvia_joki = $("#loginvia_joki").val();
+                var nickname_joki = $("#nickname_joki").val();
+                var request_joki = $("#request_joki").val();
+                var catatan_joki = $("#catatan_joki").val();
+                var email_vilog = $("#email_vilog").val();
+                var password_vilog = $("#password_vilog").val();
+                var loginvia_vilog = $("#loginvia_vilog").val();
+                var ktg_tipe = $("#ktg_tipe").val();
+                var service = $("input[name='nominal']:checked").val();
+                var pembayaran = $("input[name='pembayaran']:checked").val();
+                var nomor = $("input[name='nomor']").val();
+                var voucher = $("#voucher").val();
 
                 var target = $('.games-input').map(function() {
                     return this.value;
                 }).get().join(',');
 
-                if (!product) {
-                    toastr.warning('Nominal produk belum di pilih');
+                if (!service) {
+                    toastr.warning('Nominal produk belum dipilih');
                 } else if (!target || target == ' ' || target == '' || target == ',') {
                     toastr.warning('Tujuan masih kosong');
-                } else if (!method) {
-                    toastr.warning('Silahkan pilih metode pembayaran');
-                } else if (!wa) {
+                } else if (!pembayaran) {
+                    toastr.warning('Silakan pilih metode pembayaran');
+                } else if (!nomor) {
                     toastr.error('No. Whatsapp belum diisi');
-                } else if (wa.length < 10) {
+                } else if (nomor.length < 10 || nomor.length > 14) {
                     toastr.warning('No. Whatsapp tidak sesuai');
-                } else if (wa.length > 14) {
-                    toastr.warning('No. Whatsapp tidak sesuai');
-                } else if (wa.substr(0, 2) != '08') {
-                    toastr.warning('No. Whatsapp harus diawali dengan 08');
                 } else {
-                    $("#btn-confirm").text('Loading...').attr('disabled', 'disabled');
-                    $("#tr-product td").text($("#product-" + product + " h6").text());
-                    $("#tr-method td").text($("#method-" + method + " span").text());
-                    $("#tr-total td").text($("#method-" + method + " h6").text());
-                    $("#id_player").text(target.replace(/,/g, ' - '));
-
-                    $("#btn-order").attr('disabled', 'disabled').text('Loading...');
                     $.ajax({
-                        url: 'https://vanvanstore.com/id/check/mobile-legends',
-                        type: 'POST',
-                        data: 'target=' + target,
-                        dataType: 'JSON',
-                        error: function() {
-                            toastr.error('Refresh halaman');
+                        url: "<?php echo route('ajax.confirm-data'); ?>",
+                        dataType: "JSON",
+                        type: "POST",
+                        data: {
+                            '_token': '<?php echo csrf_token(); ?>',
+                            'uid': uid,
+                            'zone': zone,
+                            'email_joki': email_joki,
+                            'password_joki': password_joki,
+                            'loginvia_joki': loginvia_joki,
+                            'nickname_joki': nickname_joki,
+                            'request_joki': request_joki,
+                            'catatan_joki': catatan_joki,
+                            'email_vilog': email_vilog,
+                            'password_vilog': password_vilog,
+                            'loginvia_vilog': loginvia_vilog,
+                            'ktg_tipe': ktg_tipe,
+                            'service': service,
+                            'payment_method': pembayaran,
+                            'nomor': nomor,
+                            'voucher': voucher
                         },
-                        success: function(result) {
-                            console.log(result)
-                            if (result.result.status == '200') {
-                                if (result.error_msg) {
-                                    toastr.error(result.error_msg);
-                                } else if (result.nickname) {
-                                    $("#nickname").removeClass('d-none');
-                                    $("#nickname").text(result.nickname);
-                                    $("#id_player").text(result.userid);
-
-                                    $("input[name=nickname]").val(result.nickname);
-
-                                    modal_confirm.show();
-                                } else {
-                                    toastr.error(result.error_msg);
-                                }
+                        beforeSend: function() {
+                            Swal.fire({
+                                title: 'Mohon Tunggu!',
+                                html: 'Sedang memproses data...',
+                                allowOutsideClick: false,
+                                showConfirmButton: false,
+                                willOpen: () => {
+                                    Swal.showLoading();
+                                },
+                            });
+                        },
+                        success: function(res) {
+                            Swal.close(); // Menutup SweetAlert setelah permintaan berhasil
+                            if (res.status == true) {
+                                Swal.fire({
+                                    title: 'Detail Pesanan',
+                                    html: `${res.data}`,
+                                    showCancelButton: true,
+                                    confirmButtonText: 'Beli Sekarang',
+                                    cancelButtonText: 'Batal',
+                                    customClass: {
+                                        title: 'text-lg font-bold leading-6',
+                                        htmlContainer: 'swal-text',
+                                        confirmButton: 'swal2-cancel btn btn-primary mt-3 d-inline-flex justify-content-center align-items-center px-4 py-2 sm-mt-0 sm-w-auto sm-text-sm btn-block text-000000 w-100 swal2-styled',
+                                        cancelButton: 'btn btn-secondary mt-2 d-inline-flex justify-content-center align-items-center px-4 py-2 sm-mt-0 sm-w-auto sm-text-sm btn-block text-000000 w-100'
+                                    }
+                                }).then(resp => {
+                                    if (resp.isConfirmed) {
+                                        var nickname = $("#nick").text();
+                                        var nohp = $("input[name='nomor']").val();
+                                        $.ajax({
+                                            url: "<?php echo route('order'); ?>",
+                                            dataType: "JSON",
+                                            type: "POST",
+                                            data: {
+                                                '_token': '<?php echo csrf_token(); ?>',
+                                                'nickname': nickname,
+                                                'uid': uid,
+                                                'zone': zone,
+                                                'email_joki': email_joki,
+                                                'password_joki': password_joki,
+                                                'loginvia_joki': loginvia_joki,
+                                                'nickname_joki': nickname_joki,
+                                                'request_joki': request_joki,
+                                                'catatan_joki': catatan_joki,
+                                                'email_vilog': email_vilog,
+                                                'password_vilog': password_vilog,
+                                                'loginvia_vilog': loginvia_vilog,
+                                                'ktg_tipe': ktg_tipe,
+                                                'service': service,
+                                                'payment_method': pembayaran,
+                                                'nomor': nohp,
+                                                'voucher': voucher
+                                            },
+                                            beforeSend: function() {
+                                                let timerInterval;
+                                                Swal.fire({
+                                                    title: 'Tunggu Sebentar',
+                                                    timerProgressBar: false,
+                                                    didOpen: () => {
+                                                        Swal.showLoading()
+                                                        const b = Swal
+                                                            .getHtmlContainer()
+                                                            .querySelector('b')
+                                                        if (b) {
+                                                            timerInterval =
+                                                                setInterval(() => {
+                                                                    b.textContent =
+                                                                        Swal
+                                                                        .getTimerLeft();
+                                                                }, 100);
+                                                        }
+                                                    },
+                                                    willClose: () => {
+                                                        clearInterval(timerInterval)
+                                                    }
+                                                }).then((result) => {
+                                                    if (result.dismiss === Swal
+                                                        .DismissReason.timer) {
+                                                        console.log(
+                                                            'I was closed by the timer'
+                                                        );
+                                                    }
+                                                });
+                                            },
+                                            success: function(resOrder) {
+                                                if (resOrder.status) {
+                                                    Swal.fire({
+                                                        title: 'Berhasil memesan',
+                                                        text: `Order ID : ${resOrder.order_id}`,
+                                                        icon: 'success',
+                                                        showConfirmButton: false,
+                                                        allowOutsideClick: false,
+                                                    });
+                                                    window.location =
+                                                        `/pembelian/invoice/${resOrder.order_id}`;
+                                                } else {
+                                                    Swal.fire({
+                                                        title: 'Gagal...',
+                                                        text: `${resOrder.data}`,
+                                                        icon: 'error',
+                                                    });
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
+                            } else if (res.status == false) {
+                                Swal.fire({
+                                    title: 'Oops...',
+                                    text: res.data,
+                                    icon: 'error',
+                                });
                             } else {
-                                toastr.error(result.error_msg);
+                                Swal.fire({
+                                    title: 'Oops...',
+                                    text: 'User ID tidak ditemukan.',
+                                    icon: 'error',
+                                });
                             }
-                            $("#btn-confirm").text('Konfirmasi Top Up').removeAttr('disabled');
-                            $("#btn-order").removeAttr('disabled').text('Konfirmasi');
+                        },
+                        error: function(e) {
+                            Swal.close(); // Menutup SweetAlert setelah permintaan berhasil
+                            if (e.status == 422) {
+                                Swal.fire({
+                                    title: 'Oops...',
+                                    text: 'Pastikan anda sudah mengisi semua data yang diperlukan.',
+                                    icon: 'error',
+                                });
+                            }
                         }
                     });
                 }
             }
 
-            function order_close() {
-                $("#btn-order").removeAttr('disabled').text('Konfirmasi');
-                modal_detail.hide();
-            }
 
-            function order_process() {
-                var product = $("input[name=product]").val();
-                var method = $("input[name=method]").val();
-                var wa = $("input[name=wa]").val();
+            // function order_confirm() {
 
-                var target = $('.games-input').map(function() {
-                    return this.value;
-                }).get().join(',');
+            //     $("#nickname").addClass('d-none');
+            //     var uid = $("#user_id").val();
+            //     var zone = $("#zone").val();
+            //     var email_joki = $("#email_joki").val();
+            //     var password_joki = $("#password_joki").val();
+            //     var loginvia_joki = $("#loginvia_joki").val();
+            //     var nickname_joki = $("#nickname_joki").val();
+            //     var request_joki = $("#request_joki").val();
+            //     var catatan_joki = $("#catatan_joki").val();
+            //     var email_vilog = $("#email_vilog").val();
+            //     var password_vilog = $("#password_vilog").val();
+            //     var loginvia_vilog = $("#loginvia_vilog").val();
+            //     var ktg_tipe = $("#ktg_tipe").val();
+            //     var service = $("input[name='nominal']:checked").val();
+            //     var pembayaran = $("input[name='pembayaran']:checked").val();
+            //     var nomor = $("input[name='wa']").val();
+            //     var voucher = $("#voucher").val();
 
-                if (product && target || target != ' ' || target != '' || target != ',' && method && wa && wa.length < 10 && wa
-                    .length > 14 && wa.substr(0, 2) != '08') {
-                    $("#btn-order-process").attr('disabled', 'disabled').text('Loading...');
 
-                    setTimeout(function() {
-                        $("#form-order").submit();
-                    }, 1200);
-                }
-            }
+            //     var target = $('.games-input').map(function() {
+            //         return this.value;
+            //     }).get().join(',');
 
-            function order_cancel() {
-                $('#modal-confirm').modal('hide');
-            }
+            //     if (!service) {
+            //         toastr.warning('Nominal produk belum di pilih');
+            //     } else if (!target || target == ' ' || target == '' || target == ',') {
+            //         toastr.warning('Tujuan masih kosong');
+            //     } else if (!pembayaran) {
+            //         toastr.warning('Silahkan pilih metode pembayaran');
+            //     } else if (!nomor) {
+            //         toastr.error('No. Whatsapp belum diisi');
+            //     } else if (nomor.length < 10) {
+            //         toastr.warning('No. Whatsapp tidak sesuai');
+            //     } else if (nomor.length > 14) {
+            //         toastr.warning('No. Whatsapp tidak sesuai');
+
+            //     } else {
+            //         $.ajax({
+            //             url: "<?php echo route('ajax.confirm-data'); ?>",
+            //             dataType: "JSON",
+            //             type: "POST",
+            //             data: {
+            //                 '_token': '<?php echo csrf_token(); ?>',
+            //                 'uid': uid,
+            //                 'zone': zone,
+            //                 'email_joki': email_joki,
+            //                 'password_joki': password_joki,
+            //                 'loginvia_joki': loginvia_joki,
+            //                 'nickname_joki': nickname_joki,
+            //                 'request_joki': request_joki,
+            //                 'catatan_joki': catatan_joki,
+            //                 'email_vilog': email_vilog,
+            //                 'password_vilog': password_vilog,
+            //                 'loginvia_vilog': loginvia_vilog,
+            //                 'ktg_tipe': ktg_tipe,
+            //                 'service': service,
+            //                 'payment_method': pembayaran,
+            //                 'nomor': nomor,
+            //                 'voucher': voucher
+            //             },
+            //             beforeSend: function() {
+            //                 Swal.fire({
+            //                     title: 'Mohon Tunggu!',
+            //                     html: 'Sedang memproses data...',
+            //                     allowOutsideClick: false,
+            //                     showConfirmButton: false,
+            //                     willOpen: () => {
+            //                         Swal.showLoading();
+            //                     },
+            //                 });
+            //             }
+            //             success: function(res) {
+            //                 console.log(result)
+            //                 Swal.close(); // Menutup SweetAlert setelah permintaan berhasil
+            //                 if (result.status == true) {
+            //                     Swal.fire({
+
+            //                         title: 'Detail Pesanan',
+            //                         html: `${res.data}`,
+            //                         showCancelButton: true,
+            //                         confirmButtonText: 'Beli Sekarang',
+            //                         cancelButtonText: 'Batal',
+            //                         customClass: {
+            //                             title: 'text-lg font-bold leading-6',
+            //                             htmlContainer: 'swal-text',
+            //                             confirmButton: 'swal2-cancel btn btn-secondary mt-3 d-inline-flex justify-content-center align-items-center px-4 py-2 sm-mt-0 sm-w-auto sm-text-sm btn-block text-000000 w-100 swal2-styled',
+            //                             cancelButton: 'btn btn-secondary mt-3 d-inline-flex justify-content-center align-items-center px-4 py-2 sm-mt-0 sm-w-auto sm-text-sm btn-block text-000000 w-100'
+            //                         }
+
+
+            //                     }).then(resp => {
+            //                         if (resp.isConfirmed) {
+            //                             var nickname = $("#nick").text();
+            //                             var nohp = $("input[name='nomor']").val();
+            //                             $.ajax({
+            //                                 url: "<?php echo route('order'); ?>",
+            //                                 dataType: "JSON",
+            //                                 type: "POST",
+            //                                 data: {
+            //                                     '_token': '<?php echo csrf_token(); ?>',
+            //                                     'nickname': nickname,
+            //                                     'uid': uid,
+            //                                     'zone': zone,
+            //                                     'email_joki': email_joki,
+            //                                     'password_joki': password_joki,
+            //                                     'loginvia_joki': loginvia_joki,
+            //                                     'nickname_joki': nickname_joki,
+            //                                     'request_joki': request_joki,
+            //                                     'catatan_joki': catatan_joki,
+            //                                     'email_vilog': email_vilog,
+            //                                     'password_vilog': password_vilog,
+            //                                     'loginvia_vilog': loginvia_vilog,
+            //                                     'ktg_tipe': ktg_tipe,
+            //                                     'service': service,
+            //                                     'payment_method': pembayaran,
+            //                                     'nomor': nohp,
+            //                                     'voucher': voucher
+
+            //                                 },
+            //                                 beforeSend: function() {
+            //                                     let timerInterval
+            //                                     Swal.fire({
+            //                                         title: 'Tunggu Sebentar',
+            //                                         timerProgressBar: false,
+            //                                         didOpen: () => {
+            //                                             Swal.showLoading()
+            //                                             const b = Swal
+            //                                                 .getHtmlContainer()
+            //                                                 .querySelector('b')
+            //                                             timerInterval =
+            //                                                 setInterval(
+            //                                                     () => {
+            //                                                         b.textContent =
+            //                                                             Swal
+            //                                                             .getTimerLeft()
+            //                                                     }, 100)
+            //                                         },
+            //                                         willClose: () => {
+            //                                             clearInterval
+            //                                                 (
+            //                                                     timerInterval
+            //                                                 )
+            //                                         }
+            //                                     }).then((result) => {
+            //                                         /* Read more about handling dismissals below */
+            //                                         if (result
+            //                                             .dismiss ===
+            //                                             Swal
+            //                                             .DismissReason
+            //                                             .timer) {
+            //                                             console.log(
+            //                                                 'I was closed by the timer'
+            //                                             )
+            //                                         }
+            //                                     })
+            //                                 },
+            //                                 success: function(resOrder) {
+            //                                     if (resOrder.status) {
+            //                                         Swal.fire({
+            //                                             title: 'Berhasil memesan',
+            //                                             text: `Order ID : ${resOrder.order_id}`,
+            //                                             icon: 'success',
+            //                                             showConfirmButton: false,
+            //                                             allowOutsideClick: false,
+            //                                         });
+            //                                         window.location =
+            //                                             `/pembelian/invoice/${resOrder.order_id}`;
+            //                                     } else {
+            //                                         Swal.fire({
+            //                                             title: 'Gagal...',
+            //                                             text: `${resOrder.data}`,
+            //                                             icon: 'error',
+            //                                         });
+            //                                     }
+            //                                 }
+            //                             })
+            //                         }
+            //                     })
+            //                 } else if (res.status == false) {
+            //                     Swal.fire({
+            //                         title: 'Oops...',
+            //                         text: res.data,
+            //                         icon: 'error',
+            //                     });
+            //                 } else {
+            //                     Swal.fire({
+            //                         title: 'Oops...',
+            //                         text: 'User ID tidak ditemukan.',
+            //                         icon: 'error',
+            //                     });
+            //                 }
+            //             },
+            //             error: function(e) {
+            //                 if (e.status == 422) {
+            //                     Swal.fire({
+            //                         title: 'Oops...',
+            //                         text: 'Pastikan anda sudah mengisi semua data yang diperlukan.',
+            //                         icon: 'error',
+            //                     });
+            //                 }
+            //             }
+            //         })
+
+            //     }
+            // }
+
+            // function order_confirm() {
+
+            //     $("#nickname").addClass('d-none');
+            //     var uid = $("#user_id").val();
+            //     var zone = $("#zone").val();
+            //     var email_joki = $("#email_joki").val();
+            //     var password_joki = $("#password_joki").val();
+            //     var loginvia_joki = $("#loginvia_joki").val();
+            //     var nickname_joki = $("#nickname_joki").val();
+            //     var request_joki = $("#request_joki").val();
+            //     var catatan_joki = $("#catatan_joki").val();
+            //     var email_vilog = $("#email_vilog").val();
+            //     var password_vilog = $("#password_vilog").val();
+            //     var loginvia_vilog = $("#loginvia_vilog").val();
+            //     var ktg_tipe = $("#ktg_tipe").val();
+            //     var service = $("input[name='nominal']:checked").val();
+            //     var pembayaran = $("input[name='pembayaran']:checked").val();
+            //     var nomor = $("input[name='wa']").val();
+            //     var voucher = $("#voucher").val();
+
+
+            //     var target = $('.games-input').map(function() {
+            //         return this.value;
+            //     }).get().join(',');
+
+            //     if (!service) {
+            //         toastr.warning('Nominal produk belum di pilih');
+            //     } else if (!target || target == ' ' || target == '' || target == ',') {
+            //         toastr.warning('Tujuan masih kosong');
+            //     } else if (!pembayaran) {
+            //         toastr.warning('Silahkan pilih metode pembayaran');
+            //     } else if (!nomor) {
+            //         toastr.error('No. Whatsapp belum diisi');
+            //     } else if (nomor.length < 10) {
+            //         toastr.warning('No. Whatsapp tidak sesuai');
+            //     } else if (nomor.length > 14) {
+            //         toastr.warning('No. Whatsapp tidak sesuai');
+
+            //     } else {
+            //         // $("#btn-confirm").text('Loading...').attr('disabled', 'disabled');
+            //         // $("#tr-product td").text($("#product-" + product + " h6").text());
+            //         // $("#tr-method td").text($("#method-" + method + " span").text());
+            //         // $("#tr-total td").text($("#method-" + method + " h6").text());
+            //         // $("#id_player").text(target.replace(/,/g, ' - '));
+
+            //         // $("#btn-order").attr('disabled', 'disabled').text('Loading...');
+
+            //         Swal.fire({
+            //             title: 'Mohon Tunggu!',
+            //             html: 'Sedang memproses data...',
+            //             allowOutsideClick: false,
+            //             showConfirmButton: false,
+            //             willOpen: () => {
+            //                 Swal.showLoading();
+            //             },
+            //         });
+            //         $.ajax({
+            //             url: "<?php echo route('ajax.confirm-data'); ?>",
+            //             dataType: "JSON",
+            //             type: "POST",
+            //             data: {
+            //                 '_token': '<?php echo csrf_token(); ?>',
+            //                 'uid': uid,
+            //                 'zone': zone,
+            //                 'email_joki': email_joki,
+            //                 'password_joki': password_joki,
+            //                 'loginvia_joki': loginvia_joki,
+            //                 'nickname_joki': nickname_joki,
+            //                 'request_joki': request_joki,
+            //                 'catatan_joki': catatan_joki,
+            //                 'email_vilog': email_vilog,
+            //                 'password_vilog': password_vilog,
+            //                 'loginvia_vilog': loginvia_vilog,
+            //                 'ktg_tipe': ktg_tipe,
+            //                 'service': service,
+            //                 'payment_method': pembayaran,
+            //                 'nomor': nomor,
+            //                 'voucher': voucher
+            //             },
+            //             success: function(result) {
+            //                 console.log(result)
+            //                 if (result.result.status == '200') {
+            //                     if (result.error_msg) {
+            //                         toastr.error(result.error_msg);
+            //                     } else if (result.nickname) {
+            //                         $("#nickname").removeClass('d-none');
+            //                         $("#nickname").text(result.nickname);
+            //                         $("#id_player").text(result.userid);
+
+            //                         $("input[name=nickname]").val(result.nickname);
+
+            //                         modal_confirm.show();
+            //                     } else {
+            //                         toastr.error(result.error_msg);
+            //                     }
+            //                 } else {
+            //                     toastr.error(result.error_msg);
+            //                 }
+            //                 $("#btn-confirm").text('Konfirmasi Top Up').removeAttr('disabled');
+            //                 $("#btn-order").removeAttr('disabled').text('Konfirmasi');
+            //             }
+            //         });
+            //     }
+            // }
+
+            // function order_close() {
+            //     $("#btn-order").removeAttr('disabled').text('Konfirmasi');
+            //     modal_detail.hide();
+            // }
+
+            // function order_process() {
+            //     var product = $("input[name=product]").val();
+            //     var method = $("input[name=method]").val();
+            //     var wa = $("input[name=wa]").val();
+
+            //     var target = $('.games-input').map(function() {
+            //         return this.value;
+            //     }).get().join(',');
+
+            //     if (product && target || target != ' ' || target != '' || target != ',' && method && wa && wa.length < 10 && wa
+            //         .length > 14 && wa.substr(0, 2) != '08') {
+            //         $("#btn-order-process").attr('disabled', 'disabled').text('Loading...');
+
+            //         setTimeout(function() {
+            //             $("#form-order").submit();
+            //         }, 1200);
+            //     }
+            // }
+
+            // function order_cancel() {
+            //     $('#modal-confirm').modal('hide');
+            // }
 
             function changeHarga(harga) {
                 $(".SALDO").html(harga);

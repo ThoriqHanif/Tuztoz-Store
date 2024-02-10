@@ -15,6 +15,7 @@ use App\Http\Controllers\GamePoint;
 use App\Http\Controllers\BangjeffController;
 use App\Http\Controllers\MengtopupController;
 use App\Http\Controllers\AlpharamzController;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 
@@ -27,7 +28,7 @@ class DuitkuController extends Controller
     {
         $this->key = ENV("DUITKU_KEY");
         $this->merchant = ENV("DUITKU_MERCHANT");
-        $this->api = \DB::table('setting_webs')->where('id',1)->first();
+        $this->api = DB::table('setting_webs')->where('id',1)->first();
     }
 
     public function request($amount, $method, $refid,  $phone, $email)
