@@ -44,11 +44,12 @@ class getService extends Command
         
         $digiFlazz = new digiFlazzController;
         $res = $digiFlazz->harga();
+        // info($res);
         
     
         foreach(Kategori::get() as $kategori){
             foreach($res['data'] as $data){
-                if(Str::upper($data['brand']) == Str::upper($kategori->brand)){
+                if($data['brand'] == ($kategori->brand)){
                     if($data['category'] == "Games"){
                         
                         $cekgame = Layanan::where('provider_id',$data['buyer_sku_code'])->first();

@@ -211,7 +211,7 @@
                 <li class="sidebar-title mt-5">Logout</li>
 
                 <li class="sidebar-item ">
-                    <a href="{{ url('home') }}" class='sidebar-link'>
+                    <a href="{{ route('home') }}" class='sidebar-link'>
                         <i class="bi bi-box-arrow-right"></i> <span>Kembali ke Website</span>
                     </a>
 

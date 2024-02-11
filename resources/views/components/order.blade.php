@@ -92,7 +92,7 @@
         </div>
 
         <section>
-            <input type="hidden" id="ktg_tipe" value="{{ $kategori->tipe }}">
+            <input type="hidden" id="ktg_tipe" value="{{ $kategori->tipe->name }}">
 
             <div class="container">
                 <div class="desc mb-3">
@@ -1058,8 +1058,8 @@
                                                     <div class="row">
                                                         <div class="col-sm-12">
                                                             <input type="radio" name="pembayaran" class="pay-radio"
-                                                                id="SALDO" value="SALDO"
-                                                                onchange="select_method('{{ $p->id }}', '{{ $p->name }}');" />
+                                                                id="SALDO" value="SALDO" onclick="mustLogin(event)"
+                                                                 />
                                                             <label for="SALDO" class="choicePay">
                                                                 <div class="containers">
                                                                     <div class="icon">
@@ -1262,22 +1262,21 @@
             <i class="bi bi-arrow-up"></i>
         </a>
 
-        <script>
-            < script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" >
-        </script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            setInterval(function() {
+                $("#toolbarContainer").remove();
+            }, 500);
 
-        setInterval(function() {
-        $("#toolbarContainer").remove();
-        }, 500);
+            function salin(text, label_text) {
 
-        function salin(text, label_text) {
+                navigator.clipboard.writeText(text);
 
-        navigator.clipboard.writeText(text);
-
-        toastr.success(label_text);
-        }
+                toastr.success(label_text);
+            }
         </script>
 
 
@@ -1315,6 +1314,12 @@
 
 
             }
+
+            function mustLogin(event) {
+                event.preventDefault(); // Mencegah perilaku default dari event klik
+                toastr.warning('Metode ini dapat digunakan jika pengguna telah login');
+            }
+
 
             function select_method(id, name) {
 
