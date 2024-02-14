@@ -284,7 +284,7 @@
                 </h5>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
+                {{-- <div class="table-responsive"> --}}
                     <table class="table table-striped" id="tableLayanan">
                         <thead>
                             <tr>
@@ -375,7 +375,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                </div>
+                {{-- </div> --}}
                 {{-- <div class="d-flex justify-content-center">
                     {{ $users->links('vendor.pagination.simple-tailwind') }}
                 </div> --}}
@@ -385,7 +385,7 @@
         <script>
             $(document).ready(function() {
                 $('#tableLayanan').DataTable({
-
+                    responsive: true,
                 });
             });
 

@@ -178,6 +178,8 @@
                             <label class="col-lg-2 col-form-label" for="example-fileinput">Thumbnail</label>
                             <div class="col-lg-10">
                                 <input type="file" class="form-control" name="thumbnail">
+                            <p class="text-danger mt-2">Gunakan Ukuran 512 x 652 pixel (Lebar x Tinggi) untuk thumbnail</p>
+
                                 @error('thumbnail')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -189,6 +191,8 @@
                             <label class="col-lg-2 col-form-label" for="example-fileinput">Banner Layanan</label>
                             <div class="col-lg-10">
                                 <input type="file" class="form-control" name="bannerlayanan">
+                                <p class="text-danger mt-2">Disarankan Banner Layanan menggunakan ukuran 1180 x 275 pixel (Lebar x Tinggi)</p>
+
                                 @error('bannerlayanan')
                                     <div class="invalid-feedback">
                                         {{ $message }}

@@ -74,13 +74,18 @@
                 <i class="bi bi-receipt-cutoff"></i>
                 <div class="text">Lacak Pesanan</div>
             </a>
-            <a href="{{ route('login') }}" class="containers ">
+            {{-- <a href="{{ route('login') }}" class="containers ">
                 <i class="bi bi-person-fill-lock"></i>
                 <div class="text">Login</div>
-            </a>
+            </a> --}}
             @if (Auth::check())
                 <a href="{{ url('account') }}" class="containers ">
-                    <i class="bi bi-person-fill-lock"></i>
+                    <i class="bi bi-person-fill"></i>
+                    <div class="text">Account</div>
+                </a>
+
+                <a href="{{ url('dashboard') }}" class="containers ">
+                    <i class="bi bi-app-indicator"></i>
                     <div class="text">Dashboard</div>
                 </a>
             @else
@@ -153,7 +158,7 @@
                             <div class="title-head">Riwayat Isi Saldo</div>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
+                            {{-- <div class="table-responsive"> --}}
                                 <table class="table" id="riwayatDeposit">
                                     <thead>
                                         <tr class="text-dark">
@@ -200,7 +205,7 @@
                                     </tbody>
 
                                 </table>
-                            </div>
+                            {{-- </div> --}}
                         </div>
 
                     </div>
@@ -213,7 +218,8 @@
         <script>
             $(document).ready(function() {
                 $('#riwayatDeposit').DataTable({
-                    "dom": '<"row"<"col text-dark"l><"col text-dark"f>><"row"<"col text-dark"rt>><"row justify-content-between"<"col text-dark"i><"col-auto text-dark"p>>',
+                    responsive:true,
+                    "dom": '<"row"<"col text-dark mb-2"l><"col text-dark mb-2"f>><"row"<"col text-dark"rt>><"row justify-content-between"<"col text-dark mt-2"i><"col-auto text-dark mt-2"p>>',
                     "language": {
                         "emptyTable": "<span class='text-dark'>No data available in table</span>"
                     }

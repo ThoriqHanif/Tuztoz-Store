@@ -120,7 +120,7 @@ color:white;
         <span class="sr-only">Info
         </span>
         <div>
-          <b>DOKUMENTASI API / H2H</b><br>Gratis upgrade Platinum untuk yang menggunakan <b>API / H2H</b> di Jstoregame.
+          <b>DOKUMENTASI API / H2H</b><br>Gratis upgrade Platinum untuk yang menggunakan <b>API / H2H</b> di Tuztoz Indonesia.
         </div>
       </div>
                      <div class="card-body ">

@@ -77,13 +77,18 @@
                 <i class="bi bi-receipt-cutoff"></i>
                 <div class="text">Lacak Pesanan</div>
             </a>
-            <a href="{{ route('login') }}" class="containers ">
+            {{-- <a href="{{ route('login') }}" class="containers ">
                 <i class="bi bi-person-fill-lock"></i>
                 <div class="text">Login</div>
-            </a>
+            </a> --}}
             @if (Auth::check())
                 <a href="{{ url('account') }}" class="containers ">
-                    <i class="bi bi-person-fill-lock"></i>
+                    <i class="bi bi-person-fill"></i>
+                    <div class="text">Account</div>
+                </a>
+
+                <a href="{{ url('dashboard') }}" class="containers ">
+                    <i class="bi bi-app-indicator"></i>
                     <div class="text">Dashboard</div>
                 </a>
             @else

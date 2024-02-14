@@ -74,13 +74,18 @@
                 <i class="bi bi-receipt-cutoff"></i>
                 <div class="text">Lacak Pesanan</div>
             </a>
-            <a href="{{ route('login') }}" class="containers ">
+            {{-- <a href="{{ route('login') }}" class="containers ">
                 <i class="bi bi-person-fill-lock"></i>
                 <div class="text">Login</div>
-            </a>
+            </a> --}}
             @if (Auth::check())
                 <a href="{{ url('account') }}" class="containers ">
-                    <i class="bi bi-person-fill-lock"></i>
+                    <i class="bi bi-person-fill"></i>
+                    <div class="text">Account</div>
+                </a>
+
+                <a href="{{ url('dashboard') }}" class="containers ">
+                    <i class="bi bi-app-indicator"></i>
                     <div class="text">Dashboard</div>
                 </a>
             @else
@@ -110,7 +115,6 @@
                         class="logo-ml">
                 </div> --}}
                 </div>
-
                 <form action="" method="POST" id="form-order">
 
                     {{-- <input type="hidden" name="product">
@@ -119,51 +123,94 @@
 
                     <div class="containerNominal">
                         <div class="row reverse">
-
                             <div class="col-lg-8">
+
                                 <div class="cards py-3 mb-4">
-                                    <div class="title-card text-left mb-3">Pilih Nominal</div>
+                                    <div class="title-card text-left">{{ $kategori->nama }}<span class="ms-2"><i
+                                                class="bi bi-patch-check-fill"></i></span></div>
 
-                                    <div class="row">
-                                        @foreach ($sub as $subkat)
-                                            <div class="desc mb-3 mt-3">⚡ {{ $subkat['name'] }}</div>
-                                        @endforeach
-                                        @foreach ($nominal as $nom)
-                                            @if ($nom->sub_category_id == $subkat['id'])
-                                                <div class="col-md-4 col-6">
-                                                    <input type="radio" name="nominal" id="nominal-{{ $nom->id }}"
-                                                        value="{{ $nom->id }}" data-type="diamond"
-                                                        onchange="select_product('{{ $nom->id }}', '{{ $nom->layanan }}', '{{ $nom->harga }}');"
-                                                        class="nom-radio"
-                                                        {{ Request::get('fs') == $nom->id ? 'checked' : '' }} />
-                                                    <label for="nominal-{{ $nom->id }}" class="containerChoice">
-                                                        <div class="containerIcon" hidden>
-                                                            <i class="bi bi-check-lg"></i>
-                                                        </div>
-                                                        <div class="mx-auto">
-                                                            <img src="{{ $nom->product_logo }}" width="30"
-                                                                alt="" class="justify-center mx-auto mb-2" />
-                                                            <div class="text">
-                                                                <div class="desc">{{ $nom->layanan }}</div>
-                                                                @if ($nom->is_flash_sale == 1 && $nom->expired_flash_sale >= date('Y-m-d'))
-                                                                    <div class="count flash-sale"> Rp
-                                                                        {{ number_format($nom->harga_flash_sale) }} </div>
-                                                                    <div class="count reguler"> Rp
-                                                                        {{ number_format($nom->harga) }} </div>
-                                                                @else
-                                                                    <div class="count sale"
-                                                                        style="color: #FD812D; font-weight: bold"> Rp
-                                                                        {{ number_format($nom->harga) }} </div>
-                                                                @endif
-                                                            </div>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                            @endif
-                                        @endforeach
 
+                                    <div class="text" style="color: var(--black-text)">
+
+
+                                        <p>{!! $kategori->ket_layanan !!}</p>
+                                        <p>Download dan mainkan {{ $kategori->nama }} sekarang!<br>
+                                            <a href="" rel="noopener" target="_blank">
+                                                <img class="mt-3"
+                                                    src="{{ asset('assets/icons/appstore.png') }}"
+                                                    width="120" alt="Download on the App Store"></a>
+                                            <a href="" rel="noopener" target="_blank">
+                                                <img class="mt-3"
+                                                    src="{{ asset('assets/icons/playstore.png') }}"
+                                                    width="120" alt="Download on Google Play"></a>
+                                        </p>
                                     </div>
 
+                                </div>
+
+                                <div class="cards py-3 mb-4">
+                                    <div class="title-card text-left mb-3">Pilih Nominal</div>
+                                    @if ($nominal->isEmpty())
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="row justify-content-center notfound">
+                                                    <div class="col-12 col-md-6">
+                                                        <div class="d-flex flex-column gap-3">
+                                                            <img src="{{ asset('assets/icons/maintenance.svg') }}"
+                                                                class="mx-auto" alt="">
+                                                            <span class="head">Oops.!</span>
+                                                            <span class="title text-center">Produk segera kami
+                                                                siapkan</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="row">
+                                            @foreach ($sub as $subkat)
+                                                <div class="desc mb-3 mt-3">⚡ {{ $subkat['name'] }}</div>
+                                            @endforeach
+                                            @foreach ($nominal as $nom)
+                                                @if ($nom->sub_category_id == $subkat['id'])
+                                                    <div class="col-md-4 col-6">
+                                                        <input type="radio" name="nominal"
+                                                            id="nominal-{{ $nom->id }}" value="{{ $nom->id }}"
+                                                            data-type="diamond"
+                                                            onchange="select_product('{{ $nom->id }}', '{{ $nom->layanan }}', '{{ $nom->harga }}');"
+                                                            class="nom-radio"
+                                                            {{ Request::get('fs') == $nom->id ? 'checked' : '' }} />
+                                                        <label for="nominal-{{ $nom->id }}" class="containerChoice">
+                                                            <div class="containerIcon" hidden>
+                                                                <i class="bi bi-check-lg"></i>
+                                                            </div>
+                                                            <div class="mx-auto">
+                                                                <img src="{{ $nom->product_logo }}" width="30"
+                                                                    alt="" class="justify-center mx-auto mb-2" />
+                                                                <div class="text">
+                                                                    <div class="desc">{{ $nom->layanan }}</div>
+                                                                    @if ($nom->is_flash_sale == 1 && $nom->expired_flash_sale >= date('Y-m-d'))
+                                                                        <div class="count disc"
+                                                                            style="color: #FD812D; font-weight: bold"> Rp
+                                                                            {{ number_format($nom->harga_flash_sale) }}
+                                                                        </div>
+                                                                        <div class="count reguler"> Rp
+                                                                            <s>{{ number_format($nom->harga) }}</s>
+                                                                        </div>
+                                                                    @else
+                                                                        <div class="count sale"
+                                                                            style="color: #FD812D; font-weight: bold"> Rp
+                                                                            {{ number_format($nom->harga) }} </div>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                @endif
+                                            @endforeach
+
+                                        </div>
+                                    @endif
 
                                 </div>
                             </div>
@@ -501,16 +548,17 @@
 
                                                 <div class="floating-label-content">
                                                     <select
-                                                        class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
+                                                        class="form-control floating-select games-input block w-full rounded-full border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
                                                         name="zoneId" id="zone" placeholder="Pilih Server"
                                                         fdprocessedid="n3x76">
-                                                        <option value="">Pilih Server</option>
-                                                        <option value="os_usa">America</option>
-                                                        <option value="os_euro">Europa</option>
-                                                        <option value="asia">Asia</option>
-                                                        <option value="os_cht">TW_HK_MO</option>
+                                                        <option value="">&nbsp;&nbsp;&nbsp; Pilih Server</option>
+                                                        <option value="os_usa">&nbsp;&nbsp;&nbsp; America</option>
+                                                        <option value="os_euro">&nbsp;&nbsp;&nbsp; Europa</option>
+                                                        <option value="asia">&nbsp;&nbsp;&nbsp; Asia</option>
+                                                        <option value="os_cht">&nbsp;&nbsp;&nbsp; TW_HK_MO</option>
                                                     </select>
                                                 </div>
+
 
 
                                                 <div class="note"></div>
@@ -787,7 +835,8 @@
                                                 <div class="floating-label-content">
                                                     <input class="form-control games-input floating-input" type="text"
                                                         id="request_joki" name="request_joki" />
-                                                    <label class="floating-label" for="request_joki">Request Hero</label>
+                                                    <label class="floating-label" for="request_joki">Request
+                                                        Hero</label>
                                                 </div>
                                                 <div class="floating-label-content">
                                                     <input class="form-control games-input floating-input" type="text"
@@ -815,7 +864,8 @@
                                                         <option value="facebook">
                                                             Facebook</option>
                                                     </select>
-                                                    <label class="floating-label" for="loginvia_joki">Login Via</label>
+                                                    <label class="floating-label" for="loginvia_joki">Login
+                                                        Via</label>
                                                 </div>
 
                                                 <div class="note"></div>
@@ -849,7 +899,8 @@
                                                         <option value="facebook">
                                                             Facebook</option>
                                                     </select>
-                                                    <label class="floating-label" for="loginvia_vilog">Login Via</label>
+                                                    <label class="floating-label" for="loginvia_vilog">Login
+                                                        Via</label>
                                                 </div>
 
                                                 <div class="note"></div>
@@ -939,7 +990,8 @@
                                                                             <i class="bi bi-check-lg"></i>
                                                                         </div>
                                                                         <div class="text">
-                                                                            <div class="name">{{ $p->name }}</div>
+                                                                            <div class="name">{{ $p->name }}
+                                                                            </div>
                                                                             <div class="price GOPAY"
                                                                                 id="method-{{ $p->id }}price">
                                                                                 {{ $p->price }}
@@ -985,7 +1037,8 @@
                                                                             <i class="bi bi-check-lg"></i>
                                                                         </div>
                                                                         <div class="text">
-                                                                            <div class="name">{{ $p->name }}</div>
+                                                                            <div class="name">{{ $p->name }}
+                                                                            </div>
                                                                             <div class="price GOPAY"
                                                                                 id="method-{{ $p->id }}price">
                                                                                 {{ $p->price }}
@@ -1027,7 +1080,8 @@
                                                                             <i class="bi bi-check-lg"></i>
                                                                         </div>
                                                                         <div class="text">
-                                                                            <div class="name">{{ $p->name }}</div>
+                                                                            <div class="name">{{ $p->name }}
+                                                                            </div>
                                                                             <div class="price GOPAY"
                                                                                 id="method-{{ $p->id }}price">
                                                                                 {{ $p->price }}
@@ -1058,8 +1112,7 @@
                                                     <div class="row">
                                                         <div class="col-sm-12">
                                                             <input type="radio" name="pembayaran" class="pay-radio"
-                                                                id="SALDO" value="SALDO" onclick="mustLogin(event)"
-                                                                 />
+                                                                id="SALDO" value="SALDO" onclick="mustLogin(event)" />
                                                             <label for="SALDO" class="choicePay">
                                                                 <div class="containers">
                                                                     <div class="icon">
@@ -1075,7 +1128,8 @@
                                                                 </div>
                                                                 <img width="60"
                                                                     src="{{ !$config ? '' : $config->logo_header }}" />
-                                                                {{ ENV('APP_NAME') }} PAY
+                                                                <div class="text-dark">TozPay</div>
+
                                                             </label>
                                                         </div>
                                                     </div>
@@ -1112,7 +1166,8 @@
                                                                 </div>
                                                                 <img width="60"
                                                                     src="{{ !$config ? '' : $config->logo_header }}" />
-                                                                {{ ENV('APP_NAME') }} PAY
+                                                                <div class="text-dark">TozPay</div>
+
                                                             </label>
                                                         </div>
                                                     </div>
@@ -1128,7 +1183,8 @@
                                         <input type="number" class="form-control floating-input" name="nomor"
                                             id="nomor" placeholder=" " value="" name="nomor" />
                                         <label class="floating-label" for="nomor">No. Whatsapp</label>
-                                        <div class="note" style="margin-top: 10px">*Status transaksi akan dikirim via
+                                        <div class="note" style="margin-top: 10px">*Status transaksi akan dikirim
+                                            via
                                             whatsapp</div>
                                     </div>
                                     <div>

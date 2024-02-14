@@ -9,6 +9,7 @@ use App\Models\Seting;
 use App\Models\Pembelian;
 use App\Models\Rating;
 use App\Models\Tipe;
+use App\Models\User;
 
 class indexController extends Controller
 {
@@ -17,7 +18,17 @@ class indexController extends Controller
 
         $kategori = Kategori::where('status', 'active')->with('tipe')->get();
         $tipes = Tipe::all()->pluck('name'); 
-
+        $jumlahKategori = Kategori::all()->count();
+        $jumlahUser = User::all()->count();
+        $jumlahGame = Kategori::whereHas('tipe', function($query) {
+            $query->where('name', 'Game')
+            ->orWhere('name', 'game')
+            ->orWhere('name', 'games')
+            ->orWhere('name', 'Games');
+        })->get()->count();
+        $jumlahTransaksi = Pembelian::all()->count();
+        $rating = Rating::all();
+        
         $kategoriByTipe = [];
         foreach ($tipes as $tipe) {
             $kategoriByTipe[$tipe] = $kategori->filter(function ($kategori) use ($tipe) {
@@ -33,6 +44,11 @@ class indexController extends Controller
             'logofooter' => Berita::where('tipe', 'logofooter')->latest()->first(),
             'popup' => Berita::where('tipe', 'popup')->latest()->first(),
             'tipes' => Tipe::all(),
+            'jumlahKategori' => $jumlahKategori,
+            'jumlahUser' => $jumlahUser,
+            'jumlahGame' => $jumlahGame,
+            'jumlahTransaksi' => $jumlahTransaksi,
+            'rating' => $rating
 
         ]);
     }

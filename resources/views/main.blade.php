@@ -511,8 +511,8 @@
         font-size: 16px;
         z-index: 99999;
     }
-    }
-
+    
+    
     .fa-chevron-up {
         margin-top: -2px;
     }
@@ -774,6 +774,8 @@
     .content-body {
         padding: 0 15px;
         padding-top: 9px;
+        max-width: 100%; /* Membatasi lebar maksimum elemen hingga lebar layar */
+    margin: 0 auto; 
     }
 
 
@@ -9581,14 +9583,9 @@
     }
 </style>
 
-<body class=" text-white flex-column min-vh-100 "
-    style="color:#ffffff;scroll-behavior:auto !important;background:var(--warna_1);">
-    <!-- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KX5ZSG5" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> -->
+<body class="text-white flex-column min-vh-100" style="color:#ffffff;scroll-behavior:auto !important;background:var(--warna_1);">
 
     @yield('content')
-
-
-
 
     <script>
         const zoomakumauweb = document.querySelector('.zoom-akumauweb');

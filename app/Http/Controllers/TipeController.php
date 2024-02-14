@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTipeRequest;
-use App\Http\Requests\TipeStoreRequest;
-use App\Http\Requests\TipeUpdateRequest;
 use App\Http\Requests\UpdateTipeRequest;
 use App\Models\Tipe;
 use Illuminate\Http\Request;

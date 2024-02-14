@@ -61,29 +61,56 @@
     {{-- DATATATABLES --}}
     <script>
         $(document).ready(function() {
-            $('#tableTipes').DataTable({
-                ajax: {
-                    url: "{{ route('tipes.index') }}"
-                },
-                columns: [{
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex',
-                        orderable: false,
-                        searchable: false,
-                        class: 'table-fit'
+            // $('#tableTipes').DataTable({
+            //     ajax: {
+            //         url: "{{ route('tipes.index') }}"
+            //     },
+            //     columns: [{
+            //             data: 'DT_RowIndex',
+            //             name: 'DT_RowIndex',
+            //             orderable: false,
+            //             searchable: false,
+            //             class: 'table-fit'
 
+            //         },
+            //         {
+            //             data: 'name',
+            //             name: 'name'
+            //         },
+            //         {
+            //             data: 'action',
+            //             name: 'action',
+            //             class: 'table-fit'
+            //         },
+            //     ]
+            // });
+
+                var tableTipes = $('#tableTipes').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    // responsive: true,
+                    ajax: {
+                        url: "{{ route('tipes.index') }}"
                     },
-                    {
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        class: 'table-fit'
-                    },
-                ]
-            });
+                    columns: [{
+                            data: 'DT_RowIndex',
+                            name: 'DT_RowIndex',
+                            orderable: false,
+                            searchable: false,
+                            class: 'table-fit',
+                        },
+                        {
+                            data: 'name',
+                            name: 'name'
+                        },
+                        {
+                            data: 'action',
+                            name: 'action',
+                            class: 'table-fit'
+                        },
+                    ]
+                });
+
         });
     </script>
 

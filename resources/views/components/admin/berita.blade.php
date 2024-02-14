@@ -38,11 +38,7 @@
                             <div class="mb-3 row">
                                 <label class="col-lg-2 col-form-label">Deskripsi <span class="text-danger">*</span></label>
                                 <div class="col-lg-10">
-                                    <section class="section">
-                                        <div id="full">
-
-                                        </div>
-                                    </section>
+                                    <textarea name="deskripsi" id="deskripsi" class="form-control"></textarea>
                                 </div>
                             </div>
                             <div class="mb-3 row">
@@ -80,6 +76,7 @@
                                     <th>No</th>
                                     <th>Gambar</th>
                                     <th>Tipe</th>
+                                    <th>Deskripsi</th>
                                     <th>Tanggal</th>
                                     <th>Aksi</th>
 
@@ -93,6 +90,7 @@
                                         <td><img width="150"src="{{ asset($data->path) }}" alt="{{ $data->name }}">
                                         </td>
                                         <td>{{ $data->tipe }}</td>
+                                        <td>{{ $data->deskripsi }}</td>
                                         <td>{{ $data->created_at }}</td>
                                         <td><a class="btn btn-danger" href="/berita/hapus/{{ $data->id }}">Hapus</a>
                                         </td>

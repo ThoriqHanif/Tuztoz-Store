@@ -74,9 +74,18 @@
                 <i class="bi bi-receipt-cutoff"></i>
                 <div class="text">Lacak Pesanan</div>
             </a>
+            {{-- <a href="{{ route('login') }}" class="containers ">
+                <i class="bi bi-person-fill-lock"></i>
+                <div class="text">Login</div>
+            </a> --}}
             @if (Auth::check())
                 <a href="{{ url('account') }}" class="containers ">
-                    <i class="bi bi-person-fill-lock"></i>
+                    <i class="bi bi-person-fill"></i>
+                    <div class="text">Account</div>
+                </a>
+
+                <a href="{{ url('dashboard') }}" class="containers ">
+                    <i class="bi bi-app-indicator"></i>
                     <div class="text">Dashboard</div>
                 </a>
             @else
@@ -96,55 +105,61 @@
                         </div>
                         <div class="tab-content mt-0">
                             {{-- <div class="tab-pane fade show active" id="games-50" role="tabpanel"> --}}
-                                <div class="table-responsive">
-                                    <table class="table text-dark" 
-                                        style="font-size: 14px !important; margin-top: 0px; text-align: center" id="tablePrice">
-                                        <thead>
+                            <div class="table-responsive">
+                                <table class="table text-dark"
+                                    style="font-size: 14px !important; margin-top: 0px; text-align: center" id="tablePrice">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center">&nbsp&nbsp&nbsp&nbsp PID</th>
+                                            <th style="text-align: center">&nbsp&nbsp&nbsp&nbsp Produk</th>
+                                            <th style="text-align: center">&nbsp&nbsp&nbsp&nbsp Item</th>
+                                            <th style="text-align: center">&nbsp&nbsp&nbsp&nbsp Harga</th>
+                                            <th style="text-align: center">&nbsp&nbsp&nbsp&nbsp Akun Gold</th>
+                                            <th style="text-align: center">&nbsp&nbsp&nbsp&nbsp Akun Platinum</th>
+                                            <th style="text-align: center">&nbsp&nbsp&nbsp&nbsp Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($datas as $data)
+                                            @php
+                                                if ($data->status == 'available') {
+                                                    $label_pesanan = 'success';
+                                                } else {
+                                                    $label_pesanan = 'danger';
+                                                }
+                                            @endphp
                                             <tr>
-                                                <th style="text-align: center">&nbsp&nbsp&nbsp&nbsp PID</th>
-                                                <th style="text-align: center">&nbsp&nbsp&nbsp&nbsp Produk</th>
-                                                <th style="text-align: center">&nbsp&nbsp&nbsp&nbsp Item</th>
-                                                <th style="text-align: center">&nbsp&nbsp&nbsp&nbsp Harga</th>
-                                                <th style="text-align: center">&nbsp&nbsp&nbsp&nbsp Akun Gold</th>
-                                                <th style="text-align: center">&nbsp&nbsp&nbsp&nbsp Akun Platinum</th>
-                                                <th style="text-align: center">&nbsp&nbsp&nbsp&nbsp Status</th>
+                                                <th scope="row">{{ $data->id }}</th>
+                                                <td>{{ $data->nama_kategori }}</td>
+                                                <td>{{ $data->layanan }}</td>
+                                                <td>Rp. {{ number_format($data->harga, 0, ',', '.') }}</td>
+                                                <td>Rp. {{ number_format($data->harga_gold, 0, ',', '.') }}</td>
+                                                <td>Rp. {{ number_format($data->harga_platinum, 0, ',', '.') }}</td>
+                                                <td>
+                                                    <span
+                                                        class="badge bg-{{ $label_pesanan }} text-capitalize">{{ $data->status }}</span>
+                                                </td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($datas as $data)
-                                                @php
-                                                    if ($data->status == 'available') {
-                                                        $label_pesanan = 'success';
-                                                    } else {
-                                                        $label_pesanan = 'danger';
-                                                    }
-                                                @endphp
-                                                <tr>
-                                                    <th scope="row">{{ $data->id }}</th>
-                                                    <td>{{ $data->nama_kategori }}</td>
-                                                    <td>{{ $data->layanan }}</td>
-                                                    <td>Rp. {{ number_format($data->harga, 0, ',', '.') }}</td>
-                                                    <td>Rp. {{ number_format($data->harga_gold, 0, ',', '.') }}</td>
-                                                    <td>Rp. {{ number_format($data->harga_platinum, 0, ',', '.') }}</td>
-                                                    <td>
-                                                        <span
-                                                            class="badge bg-{{ $label_pesanan }} text-capitalize">{{ $data->status }}</span>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                             {{-- </div> --}}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        {{-- @include('../footer') --}}
         <script>
             $(document).ready(function() {
-                $('#tablePrice').DataTable();
+                $('#tablePrice').DataTable({
+                    "dom": '<"row"<"col text-dark"l><"col text-dark"f>><"row"<"col text-dark"rt>><"row justify-content-between"<"col text-dark"i><"col-auto text-dark"p>>',
+                    "language": {
+                        "emptyTable": "<span class='text-dark'>No data available in table</span>"
+                    },
+                    responsive: true,
+
+                });
             });
         </script>
     @endsection
