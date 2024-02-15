@@ -874,6 +874,11 @@ body {
   border: 1px solid hsla(0, 0%, 100%, 0.12);
 }
 
+[data-theme="dark"] .floating-label-content .floating-select {
+  color: var(--black);
+  border: 1px solid hsla(0, 0%, 100%, 0.12);
+}
+
 [data-theme="dark"] .ket-data {
   color: var(--black);
 }

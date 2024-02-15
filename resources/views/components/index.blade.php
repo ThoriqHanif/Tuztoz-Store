@@ -7,8 +7,9 @@
         <nav class="navbar active">
             <div class="container">
                 <div class="navLeft">
-                    <img src="{{ asset('assets/logo/20240123_060438.png') }}"
-                        onclick="window.location.href={{ route('home') }}" alt="">
+                    <a href="{{ route('home') }}">
+                        <img src="{{ asset('assets/logo/20240123_060438.png') }}" alt="">
+                    </a>
                     <div class="logoName">Tuztoz</div>
                 </div>
                 <div class="navRight">
@@ -106,8 +107,7 @@
                         <span class="text-xs ml-2 mr-3 w-full">Akses lebih cepat dengan aplikasi Tuztoz di Playstore.
                         </span>
                     </div>
-                    <a href=""
-                        class="btn btn-primary rounded-md text-sm px-6 py-2 mr-3">
+                    <a href="" class="btn btn-primary rounded-md text-sm px-6 py-2 mr-3">
                         Install
                     </a>
                     <i onclick="closeInstall()" class="bi bi-x-lg desc"></i>
@@ -269,7 +269,7 @@
                     <ul class="nav navTabs sticky-tabs" id="myTab" role="tablist">
                         @foreach ($tipes as $tipe)
                             <li class="nav-item" role="presentation">
-                                <button class="btn btn-outline-secondary rounded-pill btn-tipe px-4 py-2 text-sm "
+                                <button class=" btn-tipe px-5 text-capitalize py-2 text-sm btnNavTabs"
                                     id="{{ $tipe->name }}-tab" data-bs-toggle="pill"
                                     data-bs-target="#{{ $tipe->name }}" type="button" role="tab"
                                     aria-controls="{{ $tipe->name }}" aria-selected="true">
@@ -280,7 +280,7 @@
                         @endforeach
                     </ul>
 
-                   
+
 
                     <div class="tab-content" id="myTabContent">
                         @foreach ($kategoriByTipe as $tipe => $kategori)
@@ -311,15 +311,15 @@
                 </div>
             </div>
 
-            /* <div class="subContent">
+            <div class="subContent">
                 <!-- CTA -->
-               
+
                 <div class="containerNews" id="faqs">
                     <div class="container">
                         <div class="head mb-3">
 
-                            <div class="title2">Tuztoz Indonesia <img
-                                    src="{{ asset('assets/icons/clink.png') }}" alt=""></div>
+                            <div class="title2">Tuztoz Indonesia <img src="{{ asset('assets/icons/clink.png') }}"
+                                    alt=""></div>
                             <div class="title4 text-dark mt-4" style="text-align: center;">
                                 "{{ !$config ? '' : $config->deskripsi_web }}"</div>
                         </div>
@@ -413,8 +413,7 @@
                     <div class="modal-home-content py-5">
                         <div class="row">
                             <div class="col-md-12">
-                                <img src="" alt=""
-                                    width="100%" style="border-radius: 10px;">
+                                <img src="" alt="" width="100%" style="border-radius: 10px;">
                                 <button type="button" class="btnYellowPrimary mt-2 w-100" onclick="modal_hide()"
                                     data-dismiss="modal">Tutup</button>
                             </div>

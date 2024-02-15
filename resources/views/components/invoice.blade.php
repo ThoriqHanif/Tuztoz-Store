@@ -109,8 +109,8 @@
                                     <form action="{{ url('/cari') }}" method="post">
                                         @csrf
                                         <div class="floating-label-content">
-                                            <input type="text" class="form-control floating-input" 
-                                                value="" id="id" name="id" placeholder=" ">
+                                            <input type="text" class="form-control floating-input" value=""
+                                                id="id" name="id" placeholder=" ">
                                             <label class="floating-label" for="id">Order ID</label>
                                             <button class="btnYellowPrimary py-3" type="submit">Cari</button>
                                         </div>
@@ -135,6 +135,46 @@
                                                 onclick="salin('{{ $data->id_pembelian }}', 'Order ID berhasil disalin');"></i>
                                         </div>
                                     </div>
+
+                                    @if ($data->tipe_transaksi == 'joki')
+                                        <div class="containers">
+                                            <div class="title">Email</div>
+                                            <div class="desc">{{ $data->email_joki }}</div>
+                                        </div>
+                                        <div class="containers">
+                                            <div class="title">Password</div>
+                                            <div class="desc">{{ $data->password_joki }}</div>
+                                        </div>
+                                        <div class="containers">
+                                            <div class="title">Login Via</div>
+                                            <div class="desc">{{ $data->loginvia_joki }}</div>
+                                        </div>
+                                        <div class="containers">
+                                            <div class="title">Nickname</div>
+                                            <div class="desc">{{ $data->nickname_joki }}</div>
+                                        </div>
+                                        <div class="containers">
+                                            <div class="title">Request</div>
+                                            <div class="desc">{{ $data->request_joki }}</div>
+                                        </div>
+                                        <div class="containers">
+                                            <div class="title">Catatan</div>
+                                            <div class="desc">{{ $data->catatan_joki }}</div>
+                                        </div>
+                                    @elseif ($data->tipe_transaksi == 'dm_vilog')
+                                        <div class="containers">
+                                            <div class="title">Email</div>
+                                            <div class="desc">{{ $data->email_vilog }}</div>
+                                        </div>
+                                        <div class="containers">
+                                            <div class="title">Password</div>
+                                            <div class="desc">{{ $data->password_vilog }}</div>
+                                        </div>
+                                        <div class="containers">
+                                            <div class="title">Login Via</div>
+                                            <div class="desc">{{ $data->loginvia_vilog }}</div>
+                                        </div>
+                                    @endif
                                     <div class="containers">
                                         <div class="title">Produk</div>
                                         <div class="desc text-end">{{ $data->layanan }}</div>
@@ -273,7 +313,13 @@
                                         {{-- </div> --}}
                                     @elseif ($data->status_pembelian == 'Success')
                                         <div class="gameNm">Tuztoz Indonesia</div>
-                                        <div class="diamond">{{ $data->layanan }}</div>
+                                        @if ($data->tipe_transaksi == 'joki')
+                                            <div class="diamond mt-2">JOKI</div>
+                                        @elseif ($data->tipe_transaksi == 'dm_vilog')
+                                            <div class="diamond mt-2">DM VILOG</div>
+                                        @else
+                                            <div class="diamod mt-2">{{ $data->layanan }}</div>
+                                        @endif
                                         <div class="price mt-2">
                                             <span class="text-success">Rp
                                                 {{ number_format($data->harga_pembayaran, 0, ',', '.') }},-</span>
@@ -287,7 +333,13 @@
                                         </div>
                                     @elseif ($data->status_pembelian == 'Pending')
                                         <div class="gameNm">Tuztoz Indonesia</div>
-                                        <div class="diamond">{{ $data->layanan }}</div>
+                                        @if ($data->tipe_transaksi == 'joki')
+                                            <div class="diamond mt-2">JOKI</div>
+                                        @elseif ($data->tipe_transaksi == 'dm_vilog')
+                                            <div class="diamond mt-2">DM VILOG</div>
+                                        @else
+                                            <div class="diamod mt-2">{{ $data->layanan }}</div>
+                                        @endif
                                         <div class="price mt-2">
                                             <span class="text-success">Rp
                                                 {{ number_format($data->harga_pembayaran, 0, ',', '.') }},-</span>
@@ -301,7 +353,13 @@
                                         </div>
                                     @elseif ($data->status_pembelian == 'Batal')
                                         <div class="gameNm">Tuztoz Indonesia</div>
-                                        <div class="diamond">{{ $data->layanan }}</div>
+                                        @if ($data->tipe_transaksi == 'joki')
+                                            <div class="diamond mt-2">JOKI</div>
+                                        @elseif ($data->tipe_transaksi == 'dm_vilog')
+                                            <div class="diamond mt-2">DM VILOG</div>
+                                        @else
+                                            <div class="diamod mt-2">{{ $data->layanan }}</div>
+                                        @endif
                                         <div class="price mt-2">
                                             <span class="text-success">Rp
                                                 {{ number_format($data->harga_pembayaran, 0, ',', '.') }},-</span>
@@ -315,7 +373,13 @@
                                         </div>
                                     @elseif ($data->status_pembelian == 'EXPIRED')
                                         <div class="gameNm">Tuztoz Indonesia</div>
-                                        <div class="diamond">{{ $data->layanan }}</div>
+                                        @if ($data->tipe_transaksi == 'joki')
+                                            <div class="diamond mt-2">JOKI</div>
+                                        @elseif ($data->tipe_transaksi == 'dm_vilog')
+                                            <div class="diamond mt-2">DM VILOG</div>
+                                        @else
+                                            <div class="diamod mt-2">{{ $data->layanan }}</div>
+                                        @endif
                                         <div class="price mt-2">
                                             <span class="text-success">Rp
                                                 {{ number_format($data->harga_pembayaran, 0, ',', '.') }},-</span>
@@ -329,7 +393,13 @@
                                         </div>
                                     @elseif ($data->status_pembelian == 'Lunas')
                                         <div class="gameNm">Tuztoz Indonesia</div>
-                                        <div class="diamond">{{ $data->layanan }}</div>
+                                        @if ($data->tipe_transaksi == 'joki')
+                                            <div class="diamond mt-2">JOKI</div>
+                                        @elseif ($data->tipe_transaksi == 'dm_vilog')
+                                            <div class="diamond mt-2">DM VILOG</div>
+                                        @else
+                                            <div class="diamod mt-2">{{ $data->layanan }}</div>
+                                        @endif
                                         <div class="price mt-2">
                                             <span class="text-success">Rp
                                                 {{ number_format($data->harga_pembayaran, 0, ',', '.') }},-</span>
@@ -343,7 +413,13 @@
                                         </div>
                                     @elseif ($data->status_pembelian == 'PAID')
                                         <div class="gameNm">Tuztoz Indonesia</div>
-                                        <div class="diamond">{{ $data->layanan }}</div>
+                                        @if ($data->tipe_transaksi == 'joki')
+                                            <div class="diamond mt-2">JOKI</div>
+                                        @elseif ($data->tipe_transaksi == 'dm_vilog')
+                                            <div class="diamond mt-2">DM VILOG</div>
+                                        @else
+                                            <div class="diamod mt-2">{{ $data->layanan }}</div>
+                                        @endif
                                         <div class="price mt-2">
                                             <span class="text-success">Rp
                                                 {{ number_format($data->harga_pembayaran, 0, ',', '.') }},-</span>
@@ -472,14 +548,18 @@
                             </div>
                         </div>
 
-                        {{-- <div class="row justify-content-center mt-3">
+                        <div class="row justify-content-center mt-3">
                             <div class="col-lg-8">
                                 <div class="notes">
                                     <div class="text">Note :</div>
-                                    <div class="text2">Terimakasih telah melakukan transaksi di Tuztoz Indonesia</div>
+                                    <div class="text2 text-sm">Jika Kamu Mengalami Kendala Pembayaran Atau Adanya Keluhan Terkait Pembayaran Anda Dapat
+                                        Menghubungi Kami Melalui&nbsp;
+                                        <a href="{{ !$config ? '' : $config->url_wa }}" target="_blank" rel="noreferrer" class="text-success">WhatsApp</a>
+                                    
+                                    </div>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
 
                         <!-- Modal Rate -->
                         <div class="modal fade" id="rate">
@@ -487,8 +567,8 @@
                                 <div class="modal-content pt-5 pb-4" style="border-radius:20px">
                                     <form action="" method="POST">
                                         <div class="containerRate">
-                                            <img src="{{ asset('assets/logo/20230610_035655.png') }}"
-                                                alt="" class="logo">
+                                            <img src="{{ asset('assets/logo/20230610_035655.png') }}" alt=""
+                                                class="logo">
                                             <div class="title">Kirim Ulasan Anda</div>
                                             <div class="emoji">
                                                 <input type="hidden" name="star" class="emoji-radio">
@@ -552,30 +632,30 @@
                                         </thead>
                                         <tbody class="text-dark">
                                             @foreach ($pembelians as $pembelian)
-                                            @php
-                                                $label_pesanan = '';
-                                                if ($pembelian->status == 'Batal') {
-                                                    $label_pesanan = 'warning';
-                                                } elseif ($pembelian->status == 'Pending') {
-                                                    $label_pesanan = 'info';
-                                                } elseif ($pembelian->status == 'Success') {
-                                                    $label_pesanan = 'success';
-                                                } else {
-                                                    $label_pesanan = 'danger';
-                                                }
-                                            @endphp
-                                            <tr>
-                                                <td>{{ $pembelian->created_at }}</td>
-                                                <td>{{ substr($pembelian->order_id, 0, 12) }}****</td>
-                                                <td>{{ $pembelian->layanan }}</td>
-                                                <td>{{ $pembelian->harga }}</td>
-                                                <td><span
-                                                        class="text-{{ $label_pesanan }}">{{ $pembelian->status }}</span>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                                @php
+                                                    $label_pesanan = '';
+                                                    if ($pembelian->status == 'Batal') {
+                                                        $label_pesanan = 'warning';
+                                                    } elseif ($pembelian->status == 'Pending') {
+                                                        $label_pesanan = 'info';
+                                                    } elseif ($pembelian->status == 'Success') {
+                                                        $label_pesanan = 'success';
+                                                    } else {
+                                                        $label_pesanan = 'danger';
+                                                    }
+                                                @endphp
+                                                <tr>
+                                                    <td>{{ $pembelian->created_at }}</td>
+                                                    <td>{{ substr($pembelian->order_id, 0, 12) }}****</td>
+                                                    <td>{{ $pembelian->layanan }}</td>
+                                                    <td>{{ $pembelian->harga }}</td>
+                                                    <td><span
+                                                            class="text-{{ $label_pesanan }}">{{ $pembelian->status }}</span>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
-                                        
+
                                     </table>
                                 </div>
                             </div>
@@ -626,7 +706,7 @@
                                     <a href="{{ route('aboutus') }}" class="text-footer">About Us</a>
                                     <a href="{{ url('daftar-harga') }}" class="text-footer">Daftar Harga</a>
                                     <a href="{{ route('cari') }}" class="text-footer">Lacak Pesanan</a>
-        
+
                                     <a href="{{ url('page/term') }}">Syarat & Ketentuan</a>
                                     <a href="{{ url('contact-us') }}">Hubungi Kami</a>
                                 </div>
@@ -642,11 +722,11 @@
             setInterval(function() {
                 $("#toolbarContainer").remove();
             }, 500);
-      
+
             function salin(text, label_text) {
-      
+
                 navigator.clipboard.writeText(text);
-      
+
                 toastr.success(label_text);
             }
         </script>
@@ -680,7 +760,7 @@
 
             }
 
-            
+
 
             var timer;
             var compareDate;

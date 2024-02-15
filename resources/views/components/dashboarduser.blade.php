@@ -6,8 +6,10 @@
         <nav class="navbar active">
             <div class="container">
                 <div class="navLeft">
-                    <img src="{{ asset('assets/logo/20240123_060438.png') }}"
-                        onclick="window.location.href={{ route('home') }}" alt="">
+                    <a href="{{ route('home') }}">
+                        <img src="{{ asset('assets/logo/20240123_060438.png') }}"
+                             alt="">
+                        </a>
                     <div class="logoName">Tuztoz</div>
                 </div>
                 <div class="navRight">

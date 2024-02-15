@@ -6,8 +6,9 @@
         <nav class="navbar active">
             <div class="container">
                 <div class="navLeft">
-                    <img src="{{ asset('assets/logo/20240123_060438.png') }}"
-                        onclick="window.location.href={{ route('home') }}" alt="">
+                    <a href="{{ route('home') }}">
+                        <img src="{{ asset('assets/logo/20240123_060438.png') }}" alt="">
+                    </a>
                     <div class="logoName">Tuztoz</div>
                 </div>
                 <div class="navRight">
@@ -102,8 +103,8 @@
             <div class="containerHead">
                 <img src="{{ asset('assets/logo/logo-user.png') }}" alt="" class="user">
                 <div class="identity">
-                    <div class="name">Hi, {{ Auth()->user()->name }} <img
-                            src="{{ asset('assets/icons/greet.svg') }}" alt=""></div>
+                    <div class="name">Hi, {{ Auth()->user()->name }} <img src="{{ asset('assets/icons/greet.svg') }}"
+                            alt=""></div>
                     <div class="desc">{{ Auth()->user()->role }} - Sejak
                         {{ \Carbon\Carbon::parse(Auth()->user()->created_at)->format('j F Y') }}
                     </div>
@@ -155,23 +156,23 @@
             </div>
             <div class="mt-10">
                 @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            @if (session('success'))
-                <div class="alert alert-success">
-                    <ul>
-                        <li>{{ session('success') }}</li>
-                    </ul>
-                </div>
-            @endif
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        <ul>
+                            <li>{{ session('success') }}</li>
+                        </ul>
+                    </div>
+                @endif
             </div>
-            
+
             <div class="cards shadow mt-3">
                 <form id="editProfile" action="{{ url('/user/edit/profile') }}" method="POST">
                     @csrf
@@ -272,7 +273,7 @@
                     }
                 });
             </script>
-        
 
-            
+
+
         @endsection

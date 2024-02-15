@@ -6,8 +6,10 @@
         <nav class="navbar active">
             <div class="container">
                 <div class="navLeft">
+                    <a href="{{ route('home') }}">
                     <img src="{{ asset('assets/logo/20240123_060438.png') }}"
-                        onclick="window.location.href={{ route('home') }}" alt="">
+                         alt="">
+                    </a>
                     <div class="logoName">Tuztoz</div>
                 </div>
                 <div class="navRight">
@@ -159,7 +161,7 @@
                                                             <img src="{{ asset('assets/icons/maintenance.svg') }}"
                                                                 class="mx-auto" alt="">
                                                             <span class="head">Oops.!</span>
-                                                            <span class="title text-center">Produk segera kami
+                                                            <span class="title text-center">Produk akan segera kami
                                                                 siapkan</span>
                                                         </div>
                                                     </div>
@@ -265,7 +267,7 @@
 
                                                 <div class="floating-label-content">
                                                     <select
-                                                        class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
+                                                        class="form-control floating-select games-input block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
                                                         name="zoneId" id="zone" placeholder="Pilih Server"
                                                         fdprocessedid="n3x76">
                                                         <option value="">Pilih Server</option>
@@ -305,7 +307,7 @@
 
                                                 <div class="floating-label-content">
                                                     <select
-                                                        class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
+                                                        class="form-control floating-select games-input block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
                                                         name="zoneId" id="zone" placeholder="Pilih Server"
                                                         fdprocessedid="n3x76">
                                                         <option value="">Pilih Server</option>
@@ -548,7 +550,7 @@
 
                                                 <div class="floating-label-content">
                                                     <select
-                                                        class="form-control floating-select games-input block w-full rounded-full border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
+                                                        class="form-control floating-select games-input block w-full rounded-full  sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
                                                         name="zoneId" id="zone" placeholder="Pilih Server"
                                                         fdprocessedid="n3x76">
                                                         <option value="">&nbsp;&nbsp;&nbsp; Pilih Server</option>
@@ -579,7 +581,7 @@
 
                                                 <div class="floating-label-content">
                                                     <select
-                                                        class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
+                                                        class="form-control floating-select games-input block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
                                                         name="zoneId" id="zone" placeholder="Pilih Server"
                                                         fdprocessedid="n3x76">
                                                         <option value="">Pilih Server</option>
@@ -609,7 +611,7 @@
 
                                                 <div class="floating-label-content">
                                                     <select
-                                                        class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
+                                                        class="form-control floating-select games-input block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
                                                         name="zoneId" id="zone" placeholder="Pilih Server"
                                                         fdprocessedid="n3x76">
                                                         <option value="-">List Server</option>
@@ -656,7 +658,7 @@
 
                                                 <div class="floating-label-content">
                                                     <select
-                                                        class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
+                                                        class="form-control floating-select games-input block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
                                                         name="zoneId" id="zone" placeholder="Pilih Server"
                                                         fdprocessedid="n3x76">
                                                         <option value="">Pilih Server</option>
@@ -685,7 +687,7 @@
 
                                                 <div class="floating-label-content">
                                                     <select
-                                                        class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
+                                                        class="form-control floating-select games-input block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
                                                         name="zoneId" id="zone" placeholder="Pilih Server"
                                                         fdprocessedid="n3x76">
                                                         <option value="">Pilih Tipe</option>
@@ -713,7 +715,7 @@
 
                                                 <div class="floating-label-content">
                                                     <select
-                                                        class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
+                                                        class="form-control floating-select games-input block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
                                                         name="zoneId" id="zone" placeholder="Pilih Server"
                                                         fdprocessedid="n3x76">
                                                         <option value="">Pilih Server
@@ -742,7 +744,7 @@
 
                                                 <div class="floating-label-content">
                                                     <select
-                                                        class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
+                                                        class="form-control floating-select games-input block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
                                                         name="zoneId" id="zone" placeholder="Pilih Server"
                                                         fdprocessedid="n3x76">
                                                         <option value="">Pilih Server
@@ -776,7 +778,7 @@
 
                                                 <div class="floating-label-content">
                                                     <select
-                                                        class="block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
+                                                        class="form-control floating-select games-input block w-full rounded-full border-gray-300 text-sm shadow-sm sm:text-sm focus:outline-none focus:border-indigo-700 focus:ring focus:ring-[#2D2EAD] py-[0.5rem] px-[0.75rem] appearance-none"
                                                         name="zoneId" id="zone" placeholder="Pilih Server"
                                                         fdprocessedid="n3x76">
                                                         <option value="">Pilih OS
@@ -887,7 +889,7 @@
                                                 </div>
                                                 <div class="floating-label-content">
                                                     <select id="loginvia_vilog" name="loginvia_vilog"
-                                                        class="form-select">
+                                                        class="form-select form-control floating-select games-input">
                                                         <option value="">
                                                             Login Via</option>
                                                         <option value="moonton">

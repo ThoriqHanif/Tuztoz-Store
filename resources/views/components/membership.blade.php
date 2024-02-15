@@ -4,13 +4,13 @@
 
 @section('content')
 
-
     <body>
         <nav class="navbar active">
             <div class="container">
                 <div class="navLeft">
-                    <img src="{{ asset('assets/logo/20240123_060438.png') }}"
-                        onclick="window.location.href={{ route('home') }}" alt="">
+                    <a href="{{ route('home') }}">
+                        <img src="{{ asset('assets/logo/20240123_060438.png') }}" alt="">
+                    </a>
                     <div class="logoName">Tuztoz</div>
                 </div>
                 <div class="navRight">
@@ -191,7 +191,7 @@
                             @csrf
 
 
-                        
+
 
                             <div class="accordion mb-2">
                                 <div class="accordionHeadPay">
@@ -210,13 +210,14 @@
                                                     id="method-11" onclick="select_method('BRI');"> --}}
                                                 <label for="method-11" class="choicePay">
                                                     <div class="containers">
-                                                        
+
                                                         <div class="text">
                                                             <div class="name">Platinum</div>
                                                         </div>
                                                     </div>
-                                                    <span class="text-dark">Rp {{ number_format(!$config ? '' : $config->harga_platinum, 0, ',', '.') }}</span>
-                                    
+                                                    <span class="text-dark">Rp
+                                                        {{ number_format(!$config ? '' : $config->harga_platinum, 0, ',', '.') }}</span>
+
                                                 </label>
                                             </div>
                                             <div class="col-sm-6">
@@ -224,12 +225,13 @@
                                                     id="method-9" onclick="select_method('BCA');"> --}}
                                                 <label for="method-9" class="choicePay">
                                                     <div class="containers">
-                                                        
+
                                                         <div class="text">
                                                             <div class="name">Gold</div>
                                                         </div>
                                                     </div>
-                                                   <span class="text-dark">Rp {{ number_format(!$config ? '' : $config->harga_gold, 0, ',', '.') }}</span>
+                                                    <span class="text-dark">Rp
+                                                        {{ number_format(!$config ? '' : $config->harga_gold, 0, ',', '.') }}</span>
                                                 </label>
                                             </div>
                                         </div>
@@ -238,12 +240,13 @@
                             </div>
 
 
-                            <a href="{{ !$config ? '' : $config->url_wa }}" type="button" class="btnYellowPrimary w-100 my-3"><i class="bi bi-whatsapp" style="margin-right: 10px"></i> Beli Membership</a>
+                            <a href="{{ !$config ? '' : $config->url_wa }}" type="button"
+                                class="btnYellowPrimary w-100 my-3"><i class="bi bi-whatsapp"
+                                    style="margin-right: 10px"></i> Beli Membership</a>
                         </form>
                     </div>
                 </div>
             </div>
 
         </section>
-
-@endsection
+    @endsection
